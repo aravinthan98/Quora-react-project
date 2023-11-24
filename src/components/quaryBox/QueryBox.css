@@ -1,0 +1,60 @@
+.queryBox {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border: 1px solid lightgray;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.queryBox:hover {
+  border: 1x solid gray;
+}
+.queryBox .queryBox-top-section {
+  display: flex;
+}
+.queryBox .queryBox-top-section .queryBox_info {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+.queryBox .queryBox-top-section .queryBox_info h5 {
+  color: rgb(82, 82, 82);
+  font-weight: 300;
+  margin-left: 10px;
+}
+.queryBox .queryBox-top-section .queryBox_quora {
+  border-radius: 24px;
+  border: 1px solid gainsboro;
+  display: flex;
+  width: 100%;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  background-color: #f6f6f6;
+}
+.queryBox .queryBox-top-section .queryBox_quora p {
+  color: gray;
+  font-size: 1.1rem;
+  margin: 0 10px;
+  padding: 5px 0;
+}
+.queryBox .queryBox_footer {
+  display: flex;
+  width: 100%;
+  color: #3e3e3e;
+}
+.queryBox .queryBox_footer .flexrow {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 7px 10px;
+  border-radius: 22px;
+}
+.queryBox .queryBox_footer .flexrow:hover {
+  background-color: rgb(242, 242, 242);
+}
+
+.btn-text {
+  margin-left: 5px;
+}/*# sourceMappingURL=QueryBox.css.map */

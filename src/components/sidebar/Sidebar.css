@@ -1,0 +1,44 @@
+.sibebarMenu {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.sidebar {
+  height: 100%;
+  margin-left: 115px;
+  margin-right: 10px;
+  position: sticky;
+  top: 50px;
+}
+
+.MuiButtonBase-root {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+.MuiButtonBase-root:hover {
+  background-color: rgb(231, 230, 230);
+  border-radius: 5px;
+}
+.MuiButtonBase-root .MuiSvgIcon-root {
+  color: gray;
+}
+.MuiButtonBase-root p {
+  font-size: 0.8rem;
+  color: gray;
+  margin: 0;
+  padding-left: 5px;
+  text-transform: capitalize;
+}
+
+@media only screen and (max-width: 992px) {
+  .sidebar {
+    margin-left: 0px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .sidebar {
+    display: none;
+  }
+}/*# sourceMappingURL=Sidebar.css.map */

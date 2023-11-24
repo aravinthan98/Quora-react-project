@@ -1,0 +1,12 @@
+.following-page-sec{
+    box-sizing: initial;
+   
+
+    padding-top: 16px;
+    align-items: stretch;
+    display: flex;
+    gap: 30px;
+    .following-page-content{
+        width: 50%;
+    }
+}
