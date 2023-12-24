@@ -37,7 +37,7 @@ function CreatePostModel({onClickModel,value}){
           .then(response => response.text())
           .then((result) =>{ 
             onClickModel()
-            console.log(result)})
+            })
           .catch(error => console.log('error', error));
       };
 

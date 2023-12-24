@@ -27,10 +27,8 @@ function UserProfilePost({postData}){
     const[author,setAuthor]=useState([])
     const{darkMode}=useSelector((state)=>state.mode)
 
-
     const handleChats=()=>{       
-            setCommentBoxClicked(!commentBoxClicked);
-         
+        setCommentBoxClicked(!commentBoxClicked);        
     }
 
     const handleVoteClick=(id,token)=>{
@@ -51,7 +49,6 @@ function UserProfilePost({postData}){
             localStorage.setItem('likesIds', JSON.stringify(newIdArray));  
             setVoteArray(newIdArray);
             setClickedBtn('');
-            console.log("votearray",newIdArray) 
             FetchVote(id,token,"DELETE");
             setLikeCount(prev=>prev-1);           
         }    

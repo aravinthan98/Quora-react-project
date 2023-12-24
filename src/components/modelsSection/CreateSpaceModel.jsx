@@ -31,7 +31,7 @@ function CreateSpaceModel({onModelClick,value}){
     .then(response => response.json())
     .then((result) => {
       onModelClick()
-      console.log(result)})
+      })
     .catch(error => console.log('error', error));
     }
     return(

@@ -13,9 +13,6 @@ import { useSelector } from "react-redux";
 const QueryBox = () => {
   const{profile}=useCurrentContext();
   const [openModal, setOpenModal] = useState(false);
-  const [postTitle, setPostTitle] = useState("");
-  const[postContent,setPostContent]=useState("");
-  const[modelTab,setModelTab]=useState('question')
   const{darkMode}=useSelector((state)=>state.mode)
   const handleOpenModel=()=>{
     setOpenModal(!openModal);

@@ -39,9 +39,8 @@ var requestOptions = {
 
 fetch(`https://academics.newtonschool.co/api/v1/quora/comment/${id}`, requestOptions)
   .then((response) => response.json())
-  .then((result) => {
-    
-    console.log(result)})
+  .then((result) => {  
+    })
   .catch(error => console.log('error', error));
 
   setReplyComment('')
@@ -62,7 +61,7 @@ var requestOptions = {
 fetch(`https://academics.newtonschool.co/api/v1/quora/post/${id}/comments`, requestOptions)
   .then((response) => response.json())
   .then((result) =>{
-    console.log("result",result)
+    
     setComments(result.data);
   })
   .catch(error => console.log('error', error));
@@ -82,7 +81,6 @@ function fetchVote(id,token,method){
       .then(response => response.json())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
-
      
     } 
 const handleVoteClick=(id,token)=>{
@@ -98,10 +96,8 @@ const handleVoteClick=(id,token)=>{
         const newIdArray=voteArray.filter((item)=>item!==id)   
         setVoteArray(newIdArray);
         setClickedBtn('');
-        fetchVote(id,token,"DELETE");
-        
-    }
-    
+        fetchVote(id,token,"DELETE");       
+    }  
 }
 const handleDownVoteClick=(id,token)=>{
     const idCheck = voteArray.includes(id);
@@ -110,22 +106,17 @@ const handleDownVoteClick=(id,token)=>{
         const newIdArray=voteArray.filter((item)=>item!==id)   
         setVoteArray(newIdArray);
         setClickedBtn('downvote')
-        fetchVote(id,token,"DELETE");
-   
+        fetchVote(id,token,"DELETE");  
     }
     else{
         if(clickedBtn==="downvote"){
             setClickedBtn('');
         }
-        else{
-            
-            setClickedBtn('downvote')
-           
+        else{           
+            setClickedBtn('downvote')          
         }
-    }
-    
+    }  
 }
-
     const getposts=(id)=>{
         var myHeaders = new Headers();
         myHeaders.append("projectID", "f104bi07c490");
@@ -141,7 +132,7 @@ const handleDownVoteClick=(id,token)=>{
         .then(response => response.json())
         .then((result) =>{ 
             setPosts(result.data);
-            console.log(result)})
+            })
         .catch(error => console.log('error', error));
     }
     const handleProfile=(item)=>{
@@ -161,12 +152,11 @@ const handleDownVoteClick=(id,token)=>{
     return(
         <div>
             <div>
-
                 <div> 
                     <div>
-                        {
-                            posts&& posts.map((item)=>(
-                                <div className="flex flex-col px-3 pt-3 bg-white rounded border border-solid border-gray-200" key={item._id}>
+                    {
+                        posts&& posts.map((item)=>(
+                            <div className="flex flex-col px-3 pt-3 bg-white rounded border border-solid border-gray-200" key={item._id}>
                                 <div className="box-border flex">
                                     <div className="box-border flex mb-2">
                                         <img src={selectedSpace.image} className="w-9 h-9 rounded-full mr-2" onClick={()=>handleProfile(item)} />
@@ -210,41 +200,41 @@ const handleDownVoteClick=(id,token)=>{
                                         </div>
                                     </div>                               
                                 </div>
-                                        <div className={commentBoxClicked?"block":"hidden" }>
-                                            <div className="mycommentbox-section">
-                                                <div className="mycommentsBox_info">
-                                                    <Avatar
-                                                    src={profile.image?profile.image:""}/>
-                                            
-                                                </div>
-                                                <input type="text" className="mycomments_typesection" placeholder="Add a comment..." value={replyComment} onChange={(e)=>setReplyComment(e.target.value)} />
-                                                    
-                                                <button className="mycomments_addbtn"onClick={()=>postReplyComment(item._id)}>Add comment</button>
-                                            </div>
-                                            {
-                                                comments&&comments.map((item)=>(
-                                                    <div className="postcomment_question" key={item._id}>
-                                                    <h4></h4>
-                                                    <p>{item.content}</p>  
-                                                    <div className="postcomment_footerAction">
-                                                        <div className="upvote" onClick={()=>handleVoteClick(item._id,profile.token)}>
-                                                            <RxThickArrowUp className="post_footer-btns" />
-                                                        
-                                                        </div>
-                                                        <div className="downvote" onClick={()=>handleDownVoteClick(item._id,profile.token)}>
-                                                            <RxThickArrowDown  className="post_footer-btns"/>
-                                                        </div>
-
-                                                    </div>  
-
-                                                    </div>
-                                                ))
-                                            }
-                                        
+                                <div className={commentBoxClicked?"block":"hidden" }>
+                                    <div className="mycommentbox-section">
+                                        <div className="mycommentsBox_info">
+                                            <Avatar
+                                            src={profile.image?profile.image:""}/>
+                                    
                                         </div>
+                                        <input type="text" className="mycomments_typesection" placeholder="Add a comment..." value={replyComment} onChange={(e)=>setReplyComment(e.target.value)} />
+                                            
+                                        <button className="mycomments_addbtn"onClick={()=>postReplyComment(item._id)}>Add comment</button>
                                     </div>
-                            ))
-                        }
+                                    {
+                                        comments&&comments.map((item)=>(
+                                            <div className="postcomment_question" key={item._id}>
+                                            <h4></h4>
+                                            <p>{item.content}</p>  
+                                            <div className="postcomment_footerAction">
+                                                <div className="upvote" onClick={()=>handleVoteClick(item._id,profile.token)}>
+                                                    <RxThickArrowUp className="post_footer-btns" />
+                                                
+                                                </div>
+                                                <div className="downvote" onClick={()=>handleDownVoteClick(item._id,profile.token)}>
+                                                    <RxThickArrowDown  className="post_footer-btns"/>
+                                                </div>
+
+                                            </div>  
+
+                                            </div>
+                                        ))
+                                    }
+                                
+                                </div>
+                            </div>
+                        ))
+                    }
 
                     </div>
                 </div>

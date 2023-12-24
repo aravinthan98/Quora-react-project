@@ -41,7 +41,7 @@ const Login = () => {
       .then((result) =>{
         if(result.status=="success"){
             setLogin(true);
-            console.log(result);
+           
             setProfile({
               ...profile,
           userName: `${result.data.name}`,
@@ -57,8 +57,6 @@ const Login = () => {
           };
   
             localStorage.setItem('userLogin', JSON.stringify(myObject));
-            console.log("result.token",result.token)
-            console.log("result",result)
             return navigate('/')
         }
         else{

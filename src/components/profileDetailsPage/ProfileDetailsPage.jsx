@@ -24,12 +24,10 @@ function ProfileDetailsPage(){
              setFollowState('Following');
              FollowUser(state,profile.token);
         }
-        else{
-             
+        else{            
              setFollowState('Follow')          
              UnFollowUser(state,profile.token);
-        }
-        
+        }       
      }
     function getUserDetails(id){
         var myHeaders = new Headers();

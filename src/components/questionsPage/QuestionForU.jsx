@@ -21,8 +21,7 @@ function QuestionsForU(){
         throw new Error('Network response was not ok');
       }
 
-      const jsonData = await response.json();
-      console.log("jsonData",jsonData);
+      const jsonData = await response.json();    
       setPost(jsonData.data);
     } catch (error) {
       console.error('Error:', error);
@@ -31,7 +30,7 @@ function QuestionsForU(){
 
   useEffect(() => {
     fetchData();
-    console.log("token",profile.token)
+    
   }, []);
     return(
         <div className="flex lg:gap-8 gap-1 transition-all duration-500 ease-in-out">

@@ -39,8 +39,7 @@ function ChannelDetailPage(){
           id:item._id
         }))
         setChannelPost(newObjArr);
-        console.log("newObjArr",newObjArr)
-        console.log("channelpost",result.data)
+    
       } )
       .catch(error => console.log('error', error));
       
@@ -60,15 +59,13 @@ function ChannelDetailPage(){
       .then(response => response.json())
       .then((result) =>{
         setChannelDetails(result.data);
-        console.log("channelDetail",result)
         fetchChannelPost(id); 
         
       } )
       .catch(error => console.log('error', error));      
   }
   
-    useEffect(()=>{
-      console.log("stateId",state);   
+    useEffect(()=>{   
         fetchChannelDetail(state)                        
     },[])
     return(

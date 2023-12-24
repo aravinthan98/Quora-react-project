@@ -20,7 +20,6 @@ function DiscoverSpaces(){
       });
    
       setPost(response.data.data);
-      console.log()
     } catch (error) {
       console.error('Error fetching data:', error);
     } 
@@ -36,7 +35,6 @@ function DiscoverSpaces(){
         image:`${item.image}`
 
       })
-    ('')
     }
 
     return(

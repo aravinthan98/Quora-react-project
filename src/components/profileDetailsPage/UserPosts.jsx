@@ -6,7 +6,6 @@ function UserPosts({id}){
     const{profile}=useCurrentContext()
     const[posts,setPosts]=useState([]);
   
-
 const getposts=(id)=>{
     var myHeaders = new Headers();
     myHeaders.append("projectID", "f104bi07c490");
@@ -20,8 +19,7 @@ const getposts=(id)=>{
 
     fetch(`https://academics.newtonschool.co/api/v1/quora/user/${id}/posts?limit=10`, requestOptions)
     .then(response => response.json())
-    .then((result) =>{ 
-        console.log("resultuser",result)
+    .then((result) =>{        
         const newObjArr= result.data.slice(0,10).map((item)=>({
             author_id:item.author,
             title:item.title,

@@ -24,7 +24,6 @@ function SearchSuggestion({onClickModel,value,input}){
             });
          
             setQuestionResults(response.data.data);
-            console.log("question",response)
           } catch (error) {
             console.error('Error fetching data:', error);
           }  
@@ -37,7 +36,6 @@ function SearchSuggestion({onClickModel,value,input}){
             });
           
             setAnswerResults(response.data.data);
-            console.log("answer",response)
           } catch (error) {
             console.error('Error fetching data:', error);
           }
@@ -48,8 +46,7 @@ function SearchSuggestion({onClickModel,value,input}){
               }
             });
             
-            setSpaceResults(response.data.data);
-            console.log("channel",response)
+            setSpaceResults(response.data.data);            
           } catch (error) {
             console.error('Error fetching data:', error);
           }  

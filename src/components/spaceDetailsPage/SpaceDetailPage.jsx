@@ -24,12 +24,10 @@ function SpaceDetailPage(){
              setFollowState('Following');
              FollowUser(state,profile.token);
         }
-        else{
-             
+        else{          
              setFollowState('Follow')          
              UnFollowUser(state,profile.token);
-        }
-        
+        }    
      }
      function getUserDetails(id){
         var myHeaders = new Headers();
@@ -45,10 +43,7 @@ function SpaceDetailPage(){
         fetch(`https://academics.newtonschool.co/api/v1/quora/channel/${id}`, requestOptions)
         .then(response => response.json())
         .then((result) =>{
-
             setChannel(result.data);
-            console.log("result",result);
-           
         } )
         .catch(error => console.log('error', error));
     }
@@ -78,12 +73,11 @@ function SpaceDetailPage(){
                 id:item._id
               }))
             setPosts(newObjArr);
-            console.log(result)})
+            })
         .catch(error => console.log('error', error));
     }
     useEffect(()=>{   
         getUserDetails(state);
-        console.log("state",state) 
         setTimeout(()=>{
             getposts(state)
         })     

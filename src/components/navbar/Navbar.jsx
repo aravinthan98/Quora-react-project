@@ -27,10 +27,7 @@ import LanguageSection from "../modelsSection/LanguageSection";
   const[menuClicked,setMenuClicked]=useState('Home')
   const[langClicked,setLangClicked]=useState(false)
   const{darkMode}=useSelector((state)=>state.mode)
-
   const navigate=useNavigate();
-  console.log("token",profile.token);
-  console.log("name",profile.userName);
   
   const handleSearchClicked=()=>{
     setSearchClicked(false);

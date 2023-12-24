@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
-import { PiUserSquare } from "react-icons/pi";
 import { MdBusinessCenter } from "react-icons/md";
 import { LuGraduationCap } from "react-icons/lu";
 import { SlLocationPin } from "react-icons/sl";
 import { useState } from "react";
-import { FollowUser } from "../../utilities/FollowUser";
-import { UnFollowUser } from "../../utilities/UnfollowUser";
 import ProfilePost from "./ProfilePosts";
 import { useCurrentContext } from "../../context/currentContext";
 import { useSelector } from "react-redux";
@@ -71,11 +68,20 @@ function MyProfile(){
                         <div className=" box-border mb-4">
                             <div className={`px-0 py-2 box-border font-medium  border-b border-solid border-zinc-300 ${darkMode?"text-zinc-300":"text-zinc-800"}`}>Credentials & Highlights</div>
                             <div className={`${darkMode?"text-neutral-300":"text-zinc-800"}`}>
-                                <div className="flex  box-border py-1 px-0 items-start"><div className={`mr-1 box-border flex justify-center items-center h-6 w-6 rounded-full text-sm ${darkMode?"bg-zinc-800":"bg-zinc-200 "}`} ><MdBusinessCenter className={darkMode?"text-zinc-300":"text-zinc-800"} /></div><div > {details.designation?details.designation:""} at {details.companyName?details.companyName:""}</div></div>
-                                <div className="flex  box-border py-1 px-0 items-start"><div className={`mr-1 box-border flex justify-center items-center h-6 w-6 rounded-full text-sm ${darkMode?"bg-zinc-800":"bg-zinc-200 "}`}><LuGraduationCap className={darkMode?"text-zinc-300":"text-zinc-800"} /></div>
-                                <div > Studied {details.degree?details.degree:"not found"}
-                                </div></div>
-                                <div className="flex  box-border py-1 px-0 items-start"><div className={`mr-1 box-border flex justify-center items-center h-6 w-6 rounded-full text-sm ${darkMode?"bg-zinc-800":"bg-zinc-200 "}`}><SlLocationPin className={darkMode?"text-zinc-300":"text-zinc-800"} />
+                                <div className="flex  box-border py-1 px-0 items-start">
+                                    <div className={`mr-1 box-border flex justify-center items-center h-6 w-6 rounded-full text-sm ${darkMode?"bg-zinc-800":"bg-zinc-200 "}`} ><MdBusinessCenter className={darkMode?"text-zinc-300":"text-zinc-800"} />
+                                    </div>
+                                    <div > {details.designation?details.designation:""} at {details.companyName?details.companyName:""}
+                                    </div>
+                                </div>
+                                <div className="flex  box-border py-1 px-0 items-start">
+                                    <div className={`mr-1 box-border flex justify-center items-center h-6 w-6 rounded-full text-sm ${darkMode?"bg-zinc-800":"bg-zinc-200 "}`}><LuGraduationCap className={darkMode?"text-zinc-300":"text-zinc-800"} />
+                                    </div>
+                                    <div > Studied {details.degree?details.degree:"not found"}
+                                    </div>
+                                </div>
+                                <div className="flex  box-border py-1 px-0 items-start">
+                                    <div className={`mr-1 box-border flex justify-center items-center h-6 w-6 rounded-full text-sm ${darkMode?"bg-zinc-800":"bg-zinc-200 "}`}><SlLocationPin className={darkMode?"text-zinc-300":"text-zinc-800"} />
                                 </div>
 
                                 <div >

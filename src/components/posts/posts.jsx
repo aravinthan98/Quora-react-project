@@ -16,7 +16,6 @@ import { useSelector } from "react-redux";
 
 function Post({postData}){
     const{darkMode}=useSelector((state)=>state.mode)
-    const navigate=useNavigate();
     const{profile,selectedProfile,setSelectedProfile,voteArray,setVoteArray,selectedQuestion,setSelectedQuestion}=useCurrentContext();
     const[commentCount,setCommentCount]=useState(postData.commentCount);
     const[commentBoxClicked,setCommentBoxClicked]=useState(false);
@@ -26,11 +25,8 @@ function Post({postData}){
     const[dotClick,setDotClick]=useState(false);
     const[author,setAuthor]=useState([])
 
-
-
     const handleChats=()=>{       
-            setCommentBoxClicked(!commentBoxClicked);
-         
+        setCommentBoxClicked(!commentBoxClicked);        
     }
     const handleFollow=(id)=>{
        if(followState==='Follow'){
@@ -62,7 +58,6 @@ function Post({postData}){
             localStorage.setItem('likesIds', JSON.stringify(newIdArray));  
             setVoteArray(newIdArray);
             setClickedBtn('');
-            console.log("votearray",newIdArray) 
             FetchVote(id,token,"DELETE");
             setLikeCount(prev=>prev-1);           
         }    
@@ -128,7 +123,7 @@ function Post({postData}){
         .then(response => response.json())
         .then((result) =>{
             setAuthor(result.data);
-            console.log(result)
+           
         } )
         .catch(error => console.log('error', error));
     }

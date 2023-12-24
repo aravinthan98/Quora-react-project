@@ -79,8 +79,6 @@ function SearchResultsPage(){
     }
 
     useEffect(()=>{
-        console.log("searchVal",searchVal);
-    
        if(searchVal){
             fetchQuestionData(searchVal);
        }

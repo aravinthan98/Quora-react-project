@@ -51,7 +51,6 @@ function QuestionDetailPage(){
                 id:result.data._id
             }
             setPost(newObjArr);
-            console.log(result)
         })
         .catch(error => console.log('error', error));
     }

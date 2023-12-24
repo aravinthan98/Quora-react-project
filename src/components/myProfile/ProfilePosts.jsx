@@ -21,7 +21,7 @@ const getposts=()=>{
     fetch(`https://academics.newtonschool.co/api/v1/quora/user/${profile.id}/posts?limit=10`, requestOptions)
     .then(response => response.json())
     .then((result) =>{ 
-        console.log(result)
+        
         const newObjArr= result.data.slice(0,10).map((item)=>({
             author_id:item.author,
             author_name:selectedProfile.profileName,
