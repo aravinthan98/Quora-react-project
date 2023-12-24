@@ -5,6 +5,7 @@ import { Outlet } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import MobileQuestionPageNav from './mobileQuestionpageNav';
 
+
 function QuestionPage(){
     const{darkMode}=useSelector((state)=>state.mode);
     return(
