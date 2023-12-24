@@ -3,7 +3,8 @@ import QuestionPageLeftSection from './QuestionPageLeftSection';
 import React from 'react';
 import { Outlet } from "react-router-dom";
 import { useSelector } from 'react-redux';
-import MobileQuestionPageNav from './mobileQuestionpageNav';
+import MobileQuestionNav from '../MobileNavbar/MobileQuestionNav';
+
 
 
 function QuestionPage(){
@@ -13,7 +14,7 @@ function QuestionPage(){
             <div className="flex lg:flex-row flex-col pt-2 lg:pt-7 lg:w-10/12 lg:mx-auto w-full gap-1">
                 <QuestionPageLeftSection/>
                <div className='lg:hidden block h-12 '>
-                <MobileQuestionPageNav/>
+                <MobileQuestionNav/>
                 </div>
                 <div className="lg:ml-48 ml-1">
                     <Outlet/>

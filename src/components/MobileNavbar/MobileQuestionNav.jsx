@@ -2,7 +2,7 @@ import React from "react";
 import { useCurrentContext } from "../../context/currentContext";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-function MobileQuestionPageNav(){
+function MobileQuestionNav(){
     const{questionTabSelected,setQuestionTabSelected}=useCurrentContext();
     const{darkMode}=useSelector((state)=>state.mode)
  
@@ -31,4 +31,4 @@ function MobileQuestionPageNav(){
         </div>
     )
 }
-export default MobileQuestionPageNav;
+export default MobileQuestionNav;
