@@ -1,7 +1,6 @@
 
 import QuestionPageLeftSection from './QuestionPageLeftSection';
-
-import { useState } from 'react';
+import React from 'react';
 import { Outlet } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import MobileQuestionPageNav from './mobileQuestionpageNav';
