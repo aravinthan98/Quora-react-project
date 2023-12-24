@@ -1,5 +1,5 @@
 .channel_detail-page{
-    background-color: #fff;
+    
     .channel-detail-top_section{
         position: relative;
         height: 350px;
@@ -29,13 +29,10 @@
         .channel-logo{  
             position: absolute;         
             top: 0;
-            width: 1072px;
+           
             img{
-                object-fit: cover; 
-                width: 100%;
+                object-fit: cover;              
                 height: 207px;
-                margin-left: 11.5%;
-                margin-right: 11.5%;
                 border-bottom-left-radius: 10px;
                 border-bottom-right-radius: 10px;
             }       
@@ -43,22 +40,21 @@
         .channel-profile-sec{
             position: absolute;
             box-sizing: initial;
-            width: 1072px;
-            left: 9%;
             padding-top: 0px;
             align-items: stretch;
-            padding-left: 24px;
-            padding-right: 24px;
-            bottom: 0;
+            bottom: 35px;
             padding-bottom: 15px;
             img{
                 border-radius: 33%;
+                width: 120px;
             }
             h1{
                 color: white;
+                font-size: 27px;
             }
             p{
-                color: #fff;
+                color: #f1f0f0;
+                padding: 0;
             }
         }
         
@@ -66,17 +62,12 @@
     }
     
     .channel-detail-bottom-section{
-        box-sizing: initial;
-        width: 1072px;
-        margin-left: auto;
-        margin-right: auto;
+        box-sizing: initial;       
         padding-top: 0px;
-        align-items: stretch;
-        padding-left: 24px;
-        padding-right: 24px;
-       
+        align-items: stretch;     
         .channel-detail-navbar-section{
-            display: flex;
+        
+           
             .channel-detail-tab{
                 padding: 14px 12px;
                 cursor: pointer;
@@ -84,15 +75,9 @@
             .channel-tab-selected{
                 padding: 14px 12px;
                 cursor: pointer;
-                border-bottom: 2px solid black;
+                border-bottom: 2px solid blue;
             }
         }
     }
-    .channel-post-section{
-        width: 50%;
-    
-    }
-    .chennal-nosection{
-        display: none;
-    }
+   
 }

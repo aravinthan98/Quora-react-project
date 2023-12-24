@@ -9,7 +9,8 @@ const CurrentProvider = ({ children }) => {
     const[profile,setProfile]=useState({
         userName:"",
         image:"",
-        token:""
+        token:"",
+        id:"",
       })
     const[searchVal,setSearchVal]=useState('');
     const[selectedChannel,setSelectedChannel]=useState({
@@ -18,10 +19,23 @@ const CurrentProvider = ({ children }) => {
       image:""
     });
     const[selectedProfile,setSelectedProfile]=useState({
-      channelName:"",
+      profileName:"",
       id:"",
       image:""
     });
+    const[selectedSpace,setSelectedSpace]=useState({
+      spaceName:"",
+      id:"",
+      image:""
+    });
+    const[voteArray,setVoteArray]=useState([]);
+    const[selectedQuestion,setSelectedQuestion]=useState({
+      title:"",
+      id:"",
+      commentCount:""
+
+    });
+    const[relatedQuestion,setRelatedQuestion]=useState([]);
       useEffect(()=>{
         const userlog=JSON.parse(localStorage.getItem('userLogin'));
         if(userlog!==null){
@@ -29,14 +43,16 @@ const CurrentProvider = ({ children }) => {
             ...profile,
             userName:`${userlog.userName}`,
             image:"",
-            token:`${userlog.token}`
+            token:`${userlog.token}`,
+            id:`${userlog.id}`
           })
           setLogin(true);
         }
       },[])
     return (
         <CurrentContext.Provider value={{questionTabSelected,setQuestionTabSelected,noteTabSelected,setNoteTabSelected,profile,setProfile,
-        login,setLogin,searchVal,setSearchVal,selectedChannel,setSelectedChannel,selectedProfile,setSelectedProfile}}>
+        login,setLogin,searchVal,setSearchVal,selectedChannel,setSelectedChannel,selectedProfile,setSelectedProfile,selectedSpace,setSelectedSpace,
+        voteArray,setVoteArray,selectedQuestion,setSelectedQuestion,relatedQuestion,setRelatedQuestion}}>
             {children}
         </CurrentContext.Provider>
     );

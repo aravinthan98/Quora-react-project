@@ -7,17 +7,16 @@ import SearchResultAllPeople from "./SearchResultAllPeople";
 import SearchResultAllType from "./SearchResultAlltype";
 import axios from "axios";
 import { useCurrentContext } from "../../context/currentContext";
-
-
+import { useSelector } from "react-redux";
 
 function SearchResultsPage(){
     const{searchVal}=useCurrentContext();
-    const[noteTabSelected,setNoteTabSelected]=useState('')
+    const[noteTabSelected,setNoteTabSelected]=useState('alltype')
     const[questionResults,setQuestionResults]=useState([]);
     const[answerResults,setAnswerResults]=useState([]);
     const[spaceResults,setSpaceResults]=useState([]);
     const[allPeopleResults,setAllPeopleResults]=useState([]);
-
+    const{darkMode}=useSelector((state)=>state.mode)
 
   
     
@@ -41,8 +40,17 @@ function SearchResultsPage(){
                 'projectID': 'f104bi07c490'
               }
             });
-          
-            setAnswerResults(response.data.data);
+            const newObjArr= response.data.data.map((item)=>({
+              author_id:item.author._id,
+              author_name:item.author.name,
+              author_image:item.author.profileImage,
+              title:item.title,
+              content:item.content,
+              likeCount:item.likeCount,
+              commentCount:item.commentCount,
+              id:item._id
+            }));
+            setAnswerResults(newObjArr);
           } catch (error) {
             console.error('Error fetching data:', error);
           }
@@ -96,23 +104,24 @@ function SearchResultsPage(){
             space={spaceResults} channel={allPeopleResults}/>
     }
     return(
-        <div className="search_result-page">
+    
+      <div className={`search_result-page ${darkMode?"bg-neutral-900 text-zinc-300":"bg-gray-100"}`}>
         <div className="search_result-page-container">
-            <div className="result-page-sidenav">           
-                <div className="question-lefttitle">By types</div>
-                <div className={noteTabSelected==="alltype"?"selected-q-tab":"q-left-flex"} onClick={()=>setNoteTabSelected('alltype')}>All types</div>            
-                <div className={noteTabSelected==="Question"?"selected-q-tab":"q-left-flex"} onClick={()=>setNoteTabSelected('Question')}>Questions</div>
-                <div className={noteTabSelected==="Answer"?"selected-q-tab":"q-left-flex"} onClick={()=>setNoteTabSelected('Answer')}>Answer</div>              
-                <div className={noteTabSelected==="spaces"?"selected-q-tab":"q-left-flex"} onClick={()=>setNoteTabSelected('spaces')}>Spaces</div>              
-                <div className="question-lefttitle">By author</div>                
-               <div className={noteTabSelected==="Author"?"selected-q-tab":"q-left-flex"} onClick={()=>setNoteTabSelected('Author')}>All people</div>     
+            <div className="result-page-sidenav lg:w-40 lg:block hidden">           
+                <div className={`question-lefttitle border-b border-solid ${darkMode?"border-zinc-600":"border-zinc-300"}`}>By types</div>
+                <div className={noteTabSelected==="alltype"?`selected-q-tab ${darkMode?" text-red-600":"text-red-700"}`:`q-left-flex ${darkMode?"text-zinc-400":"text-zinc-700"}`} onClick={()=>setNoteTabSelected('alltype')}>All types</div>            
+                <div className={noteTabSelected==="Question"?`selected-q-tab ${darkMode?" text-red-600":"text-red-700"}`:`q-left-flex ${darkMode?"text-zinc-400":"text-zinc-700"}`} onClick={()=>setNoteTabSelected('Question')}>Questions</div>
+                <div className={noteTabSelected==="Answer"?`selected-q-tab ${darkMode?" text-red-600":"text-red-700"}`:`q-left-flex ${darkMode?"text-zinc-400":"text-zinc-700"}`} onClick={()=>setNoteTabSelected('Answer')}>Answer</div>              
+                <div className={noteTabSelected==="spaces"?`selected-q-tab ${darkMode?" text-red-600":"text-red-700"}`:`q-left-flex ${darkMode?"text-zinc-400":"text-zinc-700"}`} onClick={()=>setNoteTabSelected('spaces')}>Spaces</div>              
+                <div className={`question-lefttitle border-b border-solid ${darkMode?"border-zinc-600":"border-zinc-300"}`}>By author</div>                
+               <div className={noteTabSelected==="Author"?`selected-q-tab ${darkMode?" text-red-600":"text-red-700"}`:`q-left-flex ${darkMode?"text-zinc-400":"text-zinc-700"}`} onClick={()=>setNoteTabSelected('Author')}>All people</div>     
             </div>
-            <div className="search_result-page-content">
+            <div className="lg:w-1/2 lg:ml-80 ml-0 w-full">
                 {resultComponent}
             </div>
         </div>
-
     </div>
+ 
     )
 }
 export default SearchResultsPage;

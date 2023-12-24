@@ -1,135 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Avatar } from "@mui/material";
-import {RxThickArrowUp} from 'react-icons/rx';
-import {RxThickArrowDown} from 'react-icons/rx';
-import {BsChat} from 'react-icons/bs';
-import {RiLoopLeftLine} from 'react-icons/ri';
-import {BsThreeDots} from 'react-icons/bs';
 import { useCurrentContext } from "../../context/currentContext";
-import { BiSolidUpvote } from "react-icons/bi";
-import { BiSolidDownvote } from "react-icons/bi";
 import './ChannelDetailPage.scss';
+import Post from "../posts/posts";
+import commingsoon1 from "../../assets/pngitem.png";
+import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 function ChannelDetailPage(){
+  const{darkMode}=useSelector((state)=>state.mode)
+  const{selectedChannel,setSelectedChannel,profile}=useCurrentContext();
+  const[channelDetails,setChannelDetails]=useState([]);
+  const[channelPosts,setChannelPost]=useState([]);
+  const[channelTab,setChannelTab]=useState('channel-post');
+  const{state}=useLocation();
 
-    const{selectedChannel,setSelectedChannel,profile}=useCurrentContext();
-    const[channelDetails,setChannelDetails]=useState([]);
-    const[channelPosts,setChannelPost]=useState([]);
-
-    const[comments,setComments]=useState([]);
-    const[commentBoxClicked,setCommentBoxClicked]=useState(false);
-    const[replyComment,setReplyComment]=useState('');
-    const[voteArray,setVoteArray]=useState([]);
-    const[clickedBtn,setClickedBtn]=useState('');
-    const[channelTab,setChannelTab]=useState('channel-post');
-
-
-const postReplyComment=(id)=>{
-    var myHeaders = new Headers();
-myHeaders.append("projectID", "f104bi07c490");
-myHeaders.append("Content-Type", "application/json");
-myHeaders.append("Authorization", `Bearer ${profile.token}`);
-
-var raw = JSON.stringify({
-  "content": `${replyComment}`
-});
-
-var requestOptions = {
-  method: 'POST',
-  headers: myHeaders,
-  body: raw,
-  redirect: 'follow'
-};
-
-fetch(`https://academics.newtonschool.co/api/v1/quora/comment/${id}`, requestOptions)
-  .then((response) => response.json())
-  .then((result) => {
-    
-    console.log(result)})
-  .catch(error => console.log('error', error));
-
-  setReplyComment('')
-}
-const handleComments=(id)=>{
-    setCommentBoxClicked(!commentBoxClicked);
-    var myHeaders = new Headers();
-myHeaders.append("projectID", "f104bi07c490");
-myHeaders.append("Authorization", `Bearer ${profile.token}`);
-
-
-
-var requestOptions = {
-  method: 'GET',
-  headers: myHeaders,
-
-  redirect: 'follow'
-};
-
-fetch(`https://academics.newtonschool.co/api/v1/quora/post/${id}/comments`, requestOptions)
-  .then((response) => response.json())
-  .then((result) =>{
-    console.log("result",result)
-    setComments(result.data);
-  })
-  .catch(error => console.log('error', error));
-}
-function fetchVote(id,token,method){
-    var myHeaders = new Headers();
-    myHeaders.append("projectID", "f104bi07c490");
-    myHeaders.append("Authorization", `Bearer ${token}`);
-    
-    var requestOptions = {
-      method: `${method}`,
-      headers: myHeaders,
-      redirect: 'follow'
-    };
-    
-    fetch(`https://academics.newtonschool.co/api/v1/quora/like/${id}`, requestOptions)
-      .then(response => response.json())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
-
-     
-    } 
-const handleVoteClick=(id,token)=>{
-    const idCheck = voteArray.includes(id);
-    
-    if (!idCheck) {   
-        const newIdArray=[...voteArray,id]    
-        setVoteArray(newIdArray);
-        fetchVote(id,token,"POST");  
-        setClickedBtn('upvote')     
-    }
-    else{
-        const newIdArray=voteArray.filter((item)=>item!==id)   
-        setVoteArray(newIdArray);
-        setClickedBtn('');
-        fetchVote(id,token,"DELETE");
-        
-    }
-    
-}
-const handleDownVoteClick=(id,token)=>{
-    const idCheck = voteArray.includes(id);
-    
-    if (idCheck) {
-        const newIdArray=voteArray.filter((item)=>item!==id)   
-        setVoteArray(newIdArray);
-        setClickedBtn('downvote')
-        fetchVote(id,token,"DELETE");
-   
-    }
-    else{
-        if(clickedBtn==="downvote"){
-            setClickedBtn('');
-        }
-        else{
-            
-            setClickedBtn('downvote')
-           
-        }
-    }
-    
-}
   const fetchChannelPost=(id)=>{
     var myHeaders = new Headers();
     myHeaders.append("projectID", "f104bi07c490");
@@ -144,8 +27,20 @@ const handleDownVoteClick=(id,token)=>{
     fetch(`https://academics.newtonschool.co/api/v1/quora/channel/${id}/posts?limit=10`, requestOptions)
       .then(response => response.json())
       .then((result) =>{
-        setChannelPost(result.data);
-        console.log(result)
+        const newObjArr= result.data.slice(0,10).map((item)=>({
+          author_id:item.author,
+          author_name:selectedChannel.channelName,
+          author_image:selectedChannel.image,
+          title:item.title,
+          content:item.content,
+          post_image:`${item.images?item.images[0]:""}`,
+          likeCount:'',
+          commentCount:'',
+          id:item._id
+        }))
+        setChannelPost(newObjArr);
+        console.log("newObjArr",newObjArr)
+        console.log("channelpost",result.data)
       } )
       .catch(error => console.log('error', error));
       
@@ -165,128 +60,50 @@ const handleDownVoteClick=(id,token)=>{
       .then(response => response.json())
       .then((result) =>{
         setChannelDetails(result.data);
+        console.log("channelDetail",result)
         fetchChannelPost(id); 
-        console.log(result)
+        
       } )
-      .catch(error => console.log('error', error));
-      
+      .catch(error => console.log('error', error));      
   }
   
     useEffect(()=>{
-      console.log('selectedId',selectedChannel)
-        if(selectedChannel){
-        console.log('selectedId',selectedChannel)
-        fetchChannelDetail(selectedChannel.id)
-                  
-        }
-    },[selectedChannel])
+      console.log("stateId",state);   
+        fetchChannelDetail(state)                        
+    },[])
     return(
-        <div className="channel_detail-page">
-          <div className="channel-detail-top_section">
+        <div className={`channel_detail-page h-full lg:mt-2 mt-24 w-full ${darkMode?"bg-neutral-900":"bg-gray-100"}`}>
+          <div className="channel-detail-top_section w-full">
             <div className="blur-section">
               {channelDetails.length!==0&&
-              <img src={channelDetails.owner.profileImage}/>
+              <img src={channelDetails.owner.profileImage?channelDetails.owner.profileImage:"https://qsf.cf2.quoracdn.net/-4-ans_frontend_assets.images.tribes.defaults.space_banner_yellow.png-26-0cad087b263ce130.png"}/>
               }   
               <div className="blur-content"></div>
             </div>
-            <div className="channel-logo">
+            <div className="channel-logo lg:w-98 w-full">
               {channelDetails.length!==0&&
-              <img src={channelDetails.owner.profileImage}/>
+              <img src={channelDetails.owner.profileImage?channelDetails.owner.profileImage:"https://qsf.cf2.quoracdn.net/-4-ans_frontend_assets.images.tribes.defaults.space_banner_yellow.png-26-0cad087b263ce130.png"} className="lg:ml-32 ml-0 w-full"/>
               }       
             </div>
-            <div className="channel-profile-sec">
-                <img src={channelDetails.image}/>
-                <h1>{channelDetails.name}</h1>
+            <div className="channel-profile-sec lg:w-98 lg:px-6 lg:left-32 left-0 px-2 ">
+                <img src={channelDetails.image?channelDetails.image:"https://qsf.cf2.quoracdn.net/-4-ans_frontend_assets.images.tribes.defaults.space_icon_yellow.png-26-fe83a11d61dd4889.png"}/>
+                <h1 className=" font-bold">{channelDetails.name}</h1>
                 <p>{channelDetails.description}</p>
             </div>
           </div>
            
-          <div className="channel-detail-bottom-section">
-            <div className="channel-detail-navbar-section">
-              <div className={channelTab==="channel-about"?"channel-tab-selected":"channel-detail-tab"} onClick={()=>setChannelTab("channel-about")}>About</div>
+          <div className="channel-detail-bottom-section lg:w-98 lg:mx-auto lg:px-6 mx-0 px-0 w-full">
+            <div className={`channel-detail-navbar-section lg:w-3/4 w-full flex ${darkMode?"text-gray-300 border-b border-solid border-neutral-700":"text-gray-800 border-b border-solid border-neutral-300"}`}>          
               <div className={channelTab==="channel-post"?"channel-tab-selected":"channel-detail-tab"} onClick={()=>setChannelTab("channel-post")}>Post</div>
-              <div className={channelTab==="channel-question"?"channel-tab-selected":"channel-detail-tab"} onClick={()=>setChannelTab("channel-question")}>Question</div>
             </div>
-            <div className={channelTab==="channel-post"?"channel-post-section":"chennal-nosection"}>
-            {channelPosts&&channelPosts.map((item)=>(
-                 <div className="post" key={item._id}>
-                 {/* <div className="post_info">
-                 <Avatar src={item.images.length!==0?item.images[0]:""} />
-                 <h4>{postData.author.name}</h4>
-                 </div> */}
-                 <div className="post_body">
-                     <div className="post_question">
-                        <h4>{item.title}</h4>
-                        {/* <img src={item.images?item.images[0]:""}/>                         */}
-                         <p>{item.content}</p>               
-                     </div>
-                     <div className="post_footer">
-                         <div className="post_footerActions">
-                             <div className="post_footerAction">
-                                 <div className="upvote" id={clickedBtn==="upvote"?"upvoted":"noupvote"}onClick={()=>handleVoteClick(item._id,profile.token)}>
-                                    {clickedBtn==="upvote"?(<BiSolidUpvote className="post_footer-up_btns" />):(<RxThickArrowUp className="post_footer-btns" />)} 
-                                     <small>Upvote</small>
-                                 </div>
-                                 <div className="downvote" onClick={()=>handleDownVoteClick(item._id,profile.token)}>
-                                 {clickedBtn==="downvote"?(<BiSolidDownvote className="post_footer-down_btns"/>):(<RxThickArrowDown  className="post_footer-btns"/>)}
-                                 </div>
-                             </div>
-                             <div className="comment text-3xl" onClick={()=>handleComments(item._id)}>
-                                 <BsChat />
-                                 {/* <small>{postData.commentCount}</small> */}
-                             </div>
-                             <div className="share">
-                                 <RiLoopLeftLine />
-                                 {/* <small>69</small> */}
-                                
-                             </div>
-                             <div className="post_more">
-                                 <BsThreeDots/>
-                             </div>
-                         </div>
-                     </div>
-                 
-                 </div>
-                 <div className={commentBoxClicked?"comments-section":"comments-section-hide" }>
-                     <div className="mycommentbox-section">
-                         <div className="mycommentsBox_info">
-                             <Avatar
-                             src={profile.image?profile.image:""}/>
-                     
-                         </div>
-                         <input type="text" className="mycomments_typesection" placeholder="Add a comment..." value={replyComment} onChange={(e)=>setReplyComment(e.target.value)} />
-                             
-                         <button className="mycomments_addbtn"onClick={()=>postReplyComment(postData._id)}>Add comment</button>
-                     </div>
-                     {
-                         comments&&comments.map((item)=>(
-                             <div className="postcomment_question" key={item._id}>
-                             <h4></h4>
-                             <p>{item.content}</p>  
-                             <div className="postcomment_footerAction">
-                                 <div className="upvote" onClick={()=>handleUpvoteClick(item._id,profile.token)}>
-                                     <RxThickArrowUp className="post_footer-btns" />
-                                    
-                                 </div>
-                                 <div className="downvote" onClick={()=>handleDownvoteClick(item._id,profile.token)}>
-                                     <RxThickArrowDown  className="post_footer-btns"/>
-                                 </div>
-     
-                             </div>  
-     
-                             </div>
-                         ))
-                     }
-                    
-                 </div>
-             </div>
-            ))}
-            </div>
-            <div className={channelTab==="channel-about"?"channel-post-section":"chennal-nosection"}>
-                      <h1>Comming Soon</h1>
-            </div>
-            <div className={channelTab==="channel-question"?"channel-post-section":"chennal-nosection"}>
-                     <h1>Comming Soon</h1>
+            <div className={channelTab==="channel-post"?`lg:w-3/5 w-full h-screen mt-5 mx-0 ${darkMode?"bg-neutral-900 text-gray-300":"bg-white"}`:"hidden"}>
+              
+              {channelPosts&&channelPosts.map((item)=>(
+                  <Post key={item.id}  postData={item}  />
+              ))}
+              {channelPosts.length===0&&
+                <div>No Posts Yet</div>
+              }
             </div>
             </div>
         </div>

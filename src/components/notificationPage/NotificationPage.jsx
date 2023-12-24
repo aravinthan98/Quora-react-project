@@ -1,48 +1,44 @@
-import { Link, Outlet } from "react-router-dom";
-import AllNotification from "../allNotification/AllNotification";
-import { useCurrentContext } from "../../context/currentContext";
-import StoriesNotification from "../storiesNotification/StoriesNotification";
-import './NotificationPage.scss'
-function Notifications(){
 
-    const{noteTabSelected,setNoteTabSelected}=useCurrentContext();
+import './NotificationPage.scss'
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import NoNotification from "../noResultsModules/NoNotification";
+function Notifications(){   
+    const{darkMode}=useSelector((state)=>state.mode)
+    const[component,setComponent]=useState('All Notifications')
+   
    
     return(
-        <div className="notification-page">
-            <div className="notification-page-container">
-                <div className="notification-sidenav">
-                
+        <div className={`notification-page ${darkMode?"bg-neutral-900 text-zinc-400":"bg-white text-zinc-800"}`}>
+            <div className="notification-page-container lg:pt-8 lg:mt-12 mt-24 pt-8">
+                <div className="notification-sidenav lg:block hidden">               
                     <div className="question-lefttitle">Filter</div>
-                    <Link to=""><div className={noteTabSelected==="allNotification"?"selected-q-tab":"q-left-flex"} onClick={()=>setNoteTabSelected('allNotification')}>All Notifications</div>
-                    </Link>
-                    <Link to="stories"><div className={noteTabSelected==="Stories"?"selected-q-tab":"q-left-flex"} onClick={()=>setNoteTabSelected('Stories')}>Stories</div>
-                    </Link>
-                    <Link to="write"><div className={noteTabSelected==="Question"?"selected-q-tab":"q-left-flex"} onClick={()=>setNoteTabSelected('Question')}>Questions</div>
-                    </Link>
-                    <Link to="spaces"><div className={noteTabSelected==="Spaces"?"selected-q-tab":"q-left-flex"} onClick={()=>setNoteTabSelected('Spaces')}>Spaces</div>
-                    </Link>
-                    <Link to="subscriptions"><div className={noteTabSelected==="People"?"selected-q-tab":"q-left-flex"} onClick={()=>setNoteTabSelected('People')}>People updates</div>
-                    </Link>
-                    <Link to="direct"><div className={noteTabSelected==="Comments"?"selected-q-tab":"q-left-flex"} onClick={()=>setNoteTabSelected('Comments')}>Comments and mentions</div>
-                    </Link>       
-                    <Link to="upvotes"><div className={noteTabSelected==="Upvotes"?"selected-q-tab":"q-left-flex"} onClick={()=>setNoteTabSelected('Upvotes')}>Upvotes</div>
-                    </Link>
-                    <Link to="your_content"><div className={noteTabSelected==="YourContent"?"selected-q-tab":"q-left-flex"} onClick={()=>setNoteTabSelected('YourContent')}>Your content</div>
-                    </Link>
-                    <Link to="profile"><div className={noteTabSelected==="YourProfile"?"selected-q-tab":"q-left-flex"} onClick={()=>setNoteTabSelected('YourProfile')}>Your profile</div>
-                    </Link>
-                    <Link to="announcements"><div className={noteTabSelected==="Announcements"?"selected-q-tab":"q-left-flex"} onClick={()=>setNoteTabSelected('Announcements')}>Announcements</div>
-                    </Link>
-                    <Link to="earnings"><div className={noteTabSelected==="Earnings"?"selected-q-tab":"q-left-flex"} onClick={()=>setNoteTabSelected('Earnings')}>Earnings</div>
-                    </Link>
-                    <Link to="memberships"><div className={noteTabSelected==="Subscriptions"?"selected-q-tab":"q-left-flex"} onClick={()=>setNoteTabSelected('Subscriptions')}>Subscriptions</div>
-                    </Link>
-                    
+                    <div className={component==="All Notifications"?"selected-q-tab":"q-left-flex"} onClick={()=>setComponent('All Notifications')}>All Notifications</div>              
+                    <div className={component==="Stories"?"selected-q-tab":"q-left-flex"} onClick={()=>setComponent('Stories')}>Stories</div>                   
+                    <div className={component==="Question"?"selected-q-tab":"q-left-flex"} onClick={()=>setComponent('Question')}>Questions</div>
+                    <div className={component==="Spaces"?"selected-q-tab":"q-left-flex"} onClick={()=>setComponent('Spaces')}>Spaces</div>                   
+                    <div className={component==="People Updates"?"selected-q-tab":"q-left-flex"} onClick={()=>setComponent('People Updates')}>People updates</div>                    
+                    <div className={component==="Comments and mentions"?"selected-q-tab":"q-left-flex"} onClick={()=>setComponent('Comments and mentions')}>Comments and mentions</div>                         
+                    <div className={component==="Upvotes"?"selected-q-tab":"q-left-flex"} onClick={()=>setComponent('Upvotes')}>Upvotes</div>                  
+                    <div className={component==="Your content"?"selected-q-tab":"q-left-flex"} onClick={()=>setComponent('Your content')}>Your content</div>                  
+                    <div className={component==="Your profile"?"selected-q-tab":"q-left-flex"} onClick={()=>setComponent('Your profile')}>Your profile</div>                    
+                    <div className={component==="Announcements"?"selected-q-tab":"q-left-flex"} onClick={()=>setComponent('Announcements')}>Announcements</div>                    
+                    <div className={component==="Earnings"?"selected-q-tab":"q-left-flex"} onClick={()=>setComponent('Earnings')}>Earnings</div>                  
+                    <div className={component==="Subscriptions"?"selected-q-tab":"q-left-flex"} onClick={()=>setComponent('Subscriptions')}>Subscriptions</div>                    
                 </div>
-                <div className="notification-content">
-                    {/* <StoriesNotification/> */}
-                    {/* <AllNotification/> */}
-                    <Outlet/>
+                <div className="lg:w-1/2 lg:ml-80 w-full ml-2 ">
+                    <div className="lg:w-4/5 font-sans w-full">
+                        <div className={`w-full px-0 pt-4 pb-3 border-b border-solid ${darkMode?"border-zinc-600":"border-zinc-300"}`}>
+                            <div className="w-full flex justify-between">
+                                <div className=" font-medium">{component}</div>
+                                <div className="text-[13px]">Settings</div>
+                            </div>
+                        </div>
+                    <div >
+                        <NoNotification/>
+                    </div>
+
+                    </div>
                 </div>
             </div>
 

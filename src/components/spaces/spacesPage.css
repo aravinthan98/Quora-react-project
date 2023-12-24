@@ -1,0 +1,68 @@
+.spaces-section {
+  display: flex;
+  box-sizing: initial;
+  width: 1072px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 50px;
+  align-items: stretch;
+  gap: 30px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+.spaces-section .space-container {
+  width: 70%;
+}
+.spaces-section .space-container .space-top-sec {
+  width: 100%;
+  background-image: url("https://qsf.fs.quoracdn.net/-4-ans_frontend_assets.images.tribes.tribe_welcome_banner_full.png-26-64d500fd69494b66.png");
+  background-position: right bottom;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: #fff;
+  box-sizing: border-box;
+  padding: 16px;
+  position: relative;
+  border: 1px solid #dee0e1 !important;
+}
+.spaces-section .space-container .space-top-sec h3 {
+  margin: 0 0 6px 0;
+}
+.spaces-section .space-container .space-top-sec p {
+  margin: 0 0 16px 0;
+}
+.spaces-section .space-container .space-top-sec .space-top-sec-btns {
+  display: flex;
+}
+.spaces-section .space-container .space-top-sec .space-top-sec-btns .space-flex {
+  margin: 0 8px 0 0;
+  padding: 0 15px 0 10px;
+  display: flex;
+  gap: 5px;
+  height: 30px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  border: 1px solid rgb(46, 105, 255);
+  color: rgb(46, 105, 255);
+}
+.spaces-section .space-container .space-top-sec .space-top-sec-btns .space-flex h4 {
+  margin: 0;
+}
+.spaces-section .space-right-container {
+  width: 30%;
+  text-align: center;
+  background-color: #fff;
+  border: 1px solid #dee0e1 !important;
+  box-sizing: border-box;
+  height: 150px;
+}
+.spaces-section .space-right-container .space-right-bar-title {
+  padding: 8px 16px;
+  border-bottom: 1px solid #dee0e1 !important;
+}
+.spaces-section .space-right-container .space-right-content {
+  padding: 4px 8px;
+}
+.spaces-section .space-right-container .space-right-content-noinvite {
+  padding: 24px 0;
+}/*# sourceMappingURL=spacesPage.css.map */

@@ -1,0 +1,272 @@
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("https://qsf.fs.quoracdn.net/-4-ans_frontend_assets.images.home_page_bg_desktop.png-26-4770753d59b970e1.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+.login .login__container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0 0 0;
+  width: 700px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 3px;
+}
+.login .login__container .login__logo {
+  display: flex;
+  justify-content: center;
+}
+.login .login__container .login__logo img {
+  width: 180px;
+}
+.login .login__container .login__desc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 10px;
+}
+.login .login__container .login__desc p {
+  margin-top: 10px 0 0 0;
+  color: #636466;
+  text-align: center;
+  font-weight: 700;
+  font-size: 15px;
+}
+.login .login__container .login__auth {
+  display: flex;
+  margin-top: 30px;
+}
+.login .login__container .login__auth .login__authOptions {
+  display: flex;
+  flex: 0.5;
+  flex-direction: column;
+  padding: 0 20px 15px 20px;
+  border-right: 1px solid lightgray;
+}
+.login .login__container .login__auth .login__authOptions .login_authText {
+  font-size: 13px;
+  color: #939598;
+  padding: 8px 0 25px 0;
+}
+.login .login__container .login__auth .login__authOptions .login_authText a {
+  text-decoration: none;
+  color: rgb(25, 95, 170);
+}
+.login .login__container .login__auth .login__authOptions .login__authOption {
+  display: flex;
+  align-items: center;
+  padding: 7px;
+  margin-bottom: 15px;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.login .login__container .login__auth .login__authOptions .login__authOption:hover {
+  background-color: rgb(226, 226, 226);
+}
+.login .login__container .login__auth .login__authOptions .login__authOption p {
+  margin: 0 0 0 11px;
+}
+.login .login__container .login__auth .login__authOptions .login__authOption img {
+  height: 30px;
+}
+.login .login__container .login__auth .login__authOptions .signup-btn {
+  text-align: center;
+  border-radius: 99px;
+  padding: 5px 0;
+  color: #636466;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.login .login__container .login__auth .login__authOptions .signup-btn:hover {
+  background-color: rgb(243, 241, 241);
+}
+.login .login__container .login__auth .login__emailPass {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 20px 15px 20px;
+  flex: 0.5;
+  margin: 0;
+}
+.login .login__container .login__auth .login__emailPass .login__label {
+  border-bottom: 1px solid #e7e7e7;
+}
+.login .login__container .login__auth .login__emailPass .login__label h4 {
+  padding: 5px 0;
+  margin: 0;
+}
+.login .login__container .login__auth .login__emailPass .login__inputFields {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 0;
+}
+.login .login__container .login__auth .login__emailPass .login__inputFields .login__inputField {
+  padding: 5px 0px;
+}
+.login .login__container .login__auth .login__emailPass .login__inputFields .login__inputField label {
+  font-weight: 650;
+  font-size: 13px;
+}
+.login .login__container .login__auth .login__emailPass .login__inputFields .login__inputField input {
+  padding: 12px 10px;
+  width: 93%;
+  border-radius: 3px;
+  font-size: 15px;
+  outline: none;
+  border: 1px solid #dee0e1;
+  margin-top: 7px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+.login .login__container .login__auth .login__emailPass .login__inputFields .login__inputField input:hover {
+  border: 1px solid #2e69ff;
+}
+.login .login__container .login__auth .login__emailPass .login__forgButt {
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+.login .login__container .login__auth .login__emailPass .login__forgButt small {
+  color: gray;
+  cursor: pointer;
+}
+.login .login__container .login__auth .login__emailPass .login__forgButt small:hover {
+  color: blue;
+  text-decoration: underline;
+}
+.login .login__container .login__auth .login__emailPass .login__forgButt button {
+  height: 38px;
+  padding: 0 20px;
+  border-radius: 22px;
+  border: none;
+  outline: none;
+  background-color: #2e69ff;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+}
+.login .login__container .login__auth .login__emailPass .login__forgButt button:hover {
+  background-color: #46484e;
+}
+.login .login__container .login__lang {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  margin-top: 20px;
+  padding: 10px;
+}
+.login .login__container .login__lang a {
+  text-decoration: none;
+  color: rgb(25, 95, 170);
+  margin: 0 5px 0 0;
+  cursor: pointer;
+  font-size: 13px;
+}
+.login .login__container .login__footer {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #f6f6f6;
+}
+.login .login__container .login__footer p {
+  margin: 0;
+  color: gray;
+  font-size: small;
+  cursor: pointer;
+}
+.login .login__container .login__footer p:hover {
+  text-decoration: underline;
+}
+
+.signup-section {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.signup-section .signup-section-main {
+  width: 650px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+.signup-section .signup-section-main .signup-close-icone {
+  line-height: 1.4;
+  padding: 8px 8px 8px 15px;
+  font-size: 1.4em;
+  cursor: pointer;
+}
+.signup-section .signup-section-main .signup-container {
+  padding-left: 10px;
+}
+.signup-section .signup-section-main .signup-container h3 {
+  margin: 0;
+  padding: 5px 10px 15px 10px;
+}
+.signup-section .signup-section-main .signup-container .sign-auth {
+  padding: 10px 0;
+  padding-left: 10px;
+}
+.signup-section .signup-section-main .signup-container .sign-auth label {
+  font-weight: 650;
+  font-size: 13px;
+}
+.signup-section .signup-section-main .signup-container .sign-auth input {
+  padding: 12px 10px;
+  width: 93%;
+  border-radius: 3px;
+  font-size: 15px;
+  outline: none;
+  border: 1px solid #dee0e1;
+  margin-top: 7px;
+}
+.signup-section .signup-section-main .signup-container .sign-auth input:hover {
+  border: 1px solid #2e69ff;
+}
+.signup-section .signup-section-main .sign-auth-btn-sec {
+  padding: 15px 0;
+  display: flex;
+  justify-content: flex-end;
+}
+.signup-section .signup-section-main .sign-auth-btn-sec .sign-auth-btn {
+  height: 38px;
+  padding: 0 20px;
+  border-radius: 22px;
+  border: none;
+  outline: none;
+  background-color: #2e69ff;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+.signup-section .signup-section-main .sign-auth-btn-sec .sign-auth-btn:hover {
+  background-color: #46484e;
+}
+
+@media only screen and (max-width: 576px) {
+  .login {
+    height: 100%;
+    margin-top: 20px;
+  }
+  .login .login__container .login__footer {
+    display: block;
+    margin-left: 20px;
+  }
+  .login .login__container .login__auth {
+    display: block;
+    margin-top: 0px;
+  }
+}/*# sourceMappingURL=Login.css.map */

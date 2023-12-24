@@ -1,35 +1,15 @@
-.sibebarMenu {
-  display: flex;
-  flex-direction: column;
-  margin-top: 20px;
+.sidebar::-webkit-scrollbar {
+  width: 10px;
 }
 
-.sidebar {
-  height: 100%;
-  margin-left: 115px;
-  margin-right: 10px;
-  position: sticky;
-  top: 50px;
+.sidebar:hover::-webkit-scrollbar-thumb {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 10px 10px inset;
 }
 
-.MuiButtonBase-root {
-  padding: 10px;
-  display: flex;
-  align-items: center;
-}
-.MuiButtonBase-root:hover {
-  background-color: rgb(231, 230, 230);
-  border-radius: 5px;
-}
-.MuiButtonBase-root .MuiSvgIcon-root {
-  color: gray;
-}
-.MuiButtonBase-root p {
-  font-size: 0.8rem;
-  color: gray;
-  margin: 0;
-  padding-left: 5px;
-  text-transform: capitalize;
+.sidebar::-webkit-scrollbar-thumb {
+  border-radius: 9999em;
+  box-shadow: transparent 0px 0px 10px 10px inset;
+  border: 2px solid transparent;
 }
 
 @media only screen and (max-width: 992px) {

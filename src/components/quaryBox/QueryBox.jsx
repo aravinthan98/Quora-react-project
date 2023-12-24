@@ -1,6 +1,5 @@
 
 import React,{useState} from "react";
-import "./QueryBox.scss";
 import {BsQuestionSquare} from 'react-icons/bs';
 import {SlNote} from 'react-icons/sl';
 import {RxPencil1} from 'react-icons/rx';
@@ -9,136 +8,46 @@ import { Avatar, Input } from "@mui/material";
 import {MdOutlineExpandMore} from 'react-icons/md';
 import {RiGroupLine} from 'react-icons/ri'
 import { useCurrentContext } from "../../context/currentContext";
-
+import CreatePostModel from "../modelsSection/CreatePostModel";
+import { useSelector } from "react-redux";
 const QueryBox = () => {
   const{profile}=useCurrentContext();
   const [openModal, setOpenModal] = useState(false);
   const [postTitle, setPostTitle] = useState("");
   const[postContent,setPostContent]=useState("");
   const[modelTab,setModelTab]=useState('question')
-//   const user = useSelector(selectUser);
-const postData = async () => {
-  var myHeaders = new Headers();
-  myHeaders.append("projectID", "f104bi07c490");
-  myHeaders.append("Authorization", `Bearer ${profile.token}`);
-  
-  var formdata = new FormData();
-  formdata.append("content", `${postContent}`);
-  formdata.append("title", `${postTitle}`);
-  formdata.append("images", "");
-  
-  var requestOptions = {
-    method: 'POST',
-    headers: myHeaders,
-    body: formdata,
-    redirect: 'follow'
-  };
-  
-  fetch("https://academics.newtonschool.co/api/v1/quora/post/", requestOptions)
-    .then(response => response.text())
-    .then(result => console.log(result))
-    .catch(error => console.log('error', error));
-};
+  const{darkMode}=useSelector((state)=>state.mode)
+  const handleOpenModel=()=>{
+    setOpenModal(!openModal);
+  }
   return (
-    <div className="queryBox">
-      <div className="queryBox-top-section">
-      <div className="queryBox_info">
-        <Avatar
-        src={profile.image?profile.image:""}/>
-  
-      </div>
-      <div className="queryBox_quora" onClick={() => setOpenModal(true)}>
-        <p>What do you you want to ask or share?</p>
+    <div className={`flex flex-col px-2 pt-2 py-1 box-border border border-solid  cursor-pointer rounded transition-all duration-500 ease-in-out ${darkMode ? " bg-neutral-800 border-neutral-700 text-neutral-300" :  "bg-white border-slate-200 text-gray-950"}`}>
+      <div className="flex box-border">
+      <div className="flex justify-center items-center">
+      <div className="w-9 h-9 mr-2 bg-red-900 text-white border-2 border-solid border-blue-500 rounded-full font-medium text-center text-2xl flex justify-center items-center">
+              <div className="mb-0.5">{profile.userName[0].toUpperCase()}</div>
       </div>
       </div>
-      <div className="queryBox_footer">
-        <div className="ask-col flexrow" onClick={() => setOpenModal(true)}>
+      <div className={`flex box-border rounded-3xl w-full my-1 border border-solid  items-center ${darkMode ?"bg-zinc-800 border-neutral-700":"bg-gray-100 border-gainsboro "}`} onClick={() => setOpenModal(true)}>
+        <p className={`text-base mx-2 py-1  ${darkMode ?"text-zinc-400":"text-gray-400"}`}>What do you you want to ask or share?</p>
+      </div>
+      </div>
+      <div className={`flex w-full ${darkMode ?"text-neutral-400":"text-zink-800"}`}>
+        <div className={`w-full flex justify-center items-center text-[13px] font-medium px-2 rounded-3xl ${darkMode ?" hover:bg-neutral-700":" hover:bg-slate-50"}`} onClick={() => setOpenModal(true)}>
            <BsQuestionSquare/>
-          <div className="btn-text">Ask</div>
+          <div className="ml-1">Ask</div>
         </div>
-        <div className="ans-col flexrow" onClick={() => setOpenModal(true)}>
+       <div className="box-border h-4 mx-1 my-2 flex items-center border-r border-solid border-slate-400"></div>
+        <div className={`w-full flex justify-center items-center text-[13px] font-medium px-2 rounded-3xl ${darkMode ?" hover:bg-neutral-700":" hover:bg-slate-50"}`} onClick={() => setOpenModal(true)}>
           <SlNote/>
-          <div className="btn-text">Answer</div>
+          <div className="ml-1">Answer</div>
         </div>
-        <div className="post-col flexrow" onClick={() => setOpenModal(true)}>
+        <div className="box-border h-4 mx-1 my-2 flex items-center border-r border-solid border-slate-400"></div>
+        <div className={`w-full flex justify-center items-center text-[13px] font-medium px-2 rounded-3xl ${darkMode ?" hover:bg-neutral-700":" hover:bg-slate-50"}`} onClick={() => setOpenModal(true)}>
           <RxPencil1/>
-          <div className="btn-text">Post</div>
+          <div className="ml-1">Post</div>
         </div>
-        <Modal
-          open={openModal}
-          onClose={() => setOpenModal(false)}
-          
-        >
-          <div className="modal_title">
-          <div className="headings">
-              <div className={modelTab==="question"?"headings-txt":"headings-txt-nobar"} onClick={()=>setModelTab('question')}>
-              <h5>Add Question</h5>
-              </div>
-              <div className={modelTab==="post"?"headings-txt":"headings-txt-nobar"} onClick={()=>setModelTab('post')}>
-              <h5>Create Post</h5>
-              </div>
-            </div>
-            <div className={modelTab==="question"?"model-add_question":"model-add_question-hide"}>
-              <div className="modal-tips">
-                <h4>Tips on getting good answers quickly</h4>
-                  <ul> 
-                      <li>Make sure your question has not been asked already</li>
-                      <li>Keep your question short and to the point</li>
-                      <li>Double-check grammar and spelling</li>
-                  </ul>
-              </div>
-              <div className="modal_info">
-                <Avatar className="avatar" src={profile.userName?profile.userName:""} />
-                <div className="modal_scope">
-                  <div className="modal_scope-btns">
-                    <RiGroupLine />
-                  </div>
-                  <p>public</p>
-                  <div className="modal_scope-btns">
-                  <MdOutlineExpandMore />
-                  </div>
-                </div>
-              </div>
-              <div className="modal_field">
-                <Input
-                  type="text"
-                  value={postTitle}
-                  required
-                  onChange={(e) => setPostTitle(e.target.value)}
-                  placeholder="Start your question with 'what', 'How', 'Why' etc."
-                />
-
-              </div>
-              <div className="modal_buttons">
-                <button className="cancle" onClick={() => setOpenModal(false)}>
-                Cancel
-                </button>
-                <button type="submit" className="add" 
-                onClick={postData}
-                >
-                  Add Question
-                </button>
-              </div>
-            </div>
-            <div className={modelTab==="post"?"model-create_post":"model-add_question-hide"}>
-              <div className="model-post-top_section">
-                <Avatar className="avatar" src={profile.image?profile.imaage:""} />
-                <small>{profile.userName?profile.userName:""}</small>
-              </div>
-              <div className="model-post-bottom_section">
-                  <textarea name="title" id="title" cols="30" rows="2" placeholder="title here..." onChange={(e)=>setPostTitle(e.target.value)}></textarea>
-                  <textarea name="content" id="content" cols="30" rows="10" placeholder="Say something..." onChange={(e)=>setPostContent(e.target.value)}></textarea>
-              </div>
-              <div className="modal-scope_buttons">   
-                <button type="submit" className="post-add" 
-                onClick={postData}
-                >
-                  Post
-                </button>
-              </div>
-            </div>
-          </div>
-        </Modal>
+        <CreatePostModel onClickModel={handleOpenModel} value={openModal}/>
       </div>
     </div>
   );

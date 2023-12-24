@@ -1,0 +1,36 @@
+.space-cards-container {
+  width: 750px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  row-gap: 10px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+.space-cards-container .space-card {
+  text-align: center;
+  width: 172px;
+  height: 236px;
+  background-color: #fff;
+  border-radius: 9px;
+}
+.space-cards-container .space-card .space-card-img {
+  height: 50px;
+  overflow: hidden;
+}
+.space-cards-container .space-card .space-card-img img {
+  width: 172px;
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px ins;
+  background-repeat: no-repeat;
+}
+.space-cards-container .space-card .space-card-details {
+  border-bottom-left-radius: 9px;
+  border-bottom-right-radius: 9px;
+  padding: 4px 8px 8px 8px;
+  margin-top: 40px;
+}
+.space-cards-container .space-card .space-card-details h4 {
+  margin: 0 0 4px 0;
+  font-weight: bold;
+  font-size: 13px;
+}/*# sourceMappingURL=DiscoverSpaces.css.map */

@@ -1,207 +1,212 @@
-import { Avatar } from "@mui/material";
-import React, { useState } from "react";
-import './posts.scss';
+
+import React, { useEffect, useState, useRef } from "react";
 import {RxThickArrowUp} from 'react-icons/rx';
 import {RxThickArrowDown} from 'react-icons/rx';
 import {BsChat} from 'react-icons/bs';
-import {RiLoopLeftLine} from 'react-icons/ri';
 import {BsThreeDots} from 'react-icons/bs';
 import { useCurrentContext } from "../../context/currentContext";
 import { BiSolidUpvote } from "react-icons/bi";
 import { BiSolidDownvote } from "react-icons/bi";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { FollowUser } from "../../utilities/FollowUser";
+import { UnFollowUser } from "../../utilities/UnfollowUser";
+import { FetchVote } from "../../utilities/VoteAContent";
+import CommentsModel from "../../utilities/CommentsModel";
+import { useSelector } from "react-redux";
 
 function Post({postData}){
-    
-    const{profile,setSelectedProfile}=useCurrentContext();
-    const[comments,setComments]=useState([]);
+    const{darkMode}=useSelector((state)=>state.mode)
+    const navigate=useNavigate();
+    const{profile,selectedProfile,setSelectedProfile,voteArray,setVoteArray,selectedQuestion,setSelectedQuestion}=useCurrentContext();
+    const[commentCount,setCommentCount]=useState(postData.commentCount);
     const[commentBoxClicked,setCommentBoxClicked]=useState(false);
-    const[replyComment,setReplyComment]=useState('');
-    const[voteArray,setVoteArray]=useState([]);
-    const[clickedBtn,setClickedBtn]=useState('')
-
-const postReplyComment=(id)=>{
-    var myHeaders = new Headers();
-myHeaders.append("projectID", "f104bi07c490");
-myHeaders.append("Content-Type", "application/json");
-myHeaders.append("Authorization", `Bearer ${profile.token}`);
-
-var raw = JSON.stringify({
-  "content": `${replyComment}`
-});
-
-var requestOptions = {
-  method: 'POST',
-  headers: myHeaders,
-  body: raw,
-  redirect: 'follow'
-};
-
-fetch(`https://academics.newtonschool.co/api/v1/quora/comment/${id}`, requestOptions)
-  .then((response) => response.json())
-  .then((result) => {
-    
-    console.log(result)})
-  .catch(error => console.log('error', error));
-
-  setReplyComment('')
-}
-const handleComments=(id)=>{
-    setCommentBoxClicked(!commentBoxClicked);
-    var myHeaders = new Headers();
-myHeaders.append("projectID", "f104bi07c490");
-myHeaders.append("Authorization", `Bearer ${profile.token}`);
+    const[clickedBtn,setClickedBtn]=useState('');
+    const[likeCount,setLikeCount]=useState(postData.likeCount);  
+    const [followState,setFollowState]=useState('Follow');
+    const[dotClick,setDotClick]=useState(false);
+    const[author,setAuthor]=useState([])
 
 
 
-var requestOptions = {
-  method: 'GET',
-  headers: myHeaders,
-
-  redirect: 'follow'
-};
-
-fetch(`https://academics.newtonschool.co/api/v1/quora/post/${id}/comments`, requestOptions)
-  .then((response) => response.json())
-  .then((result) =>{
-    console.log("result",result)
-    setComments(result.data);
-  })
-  .catch(error => console.log('error', error));
-}
-function fetchVote(id,token,method){
-    var myHeaders = new Headers();
-    myHeaders.append("projectID", "f104bi07c490");
-    myHeaders.append("Authorization", `Bearer ${token}`);
-    
-    var requestOptions = {
-      method: `${method}`,
-      headers: myHeaders,
-      redirect: 'follow'
-    };
-    
-    fetch(`https://academics.newtonschool.co/api/v1/quora/like/${id}`, requestOptions)
-      .then(response => response.json())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
-
-     
-    } 
-const handleVoteClick=(id,token)=>{
-    const idCheck = voteArray.includes(id);
-    
-    if (!idCheck) {   
-        const newIdArray=[...voteArray,id]    
-        setVoteArray(newIdArray);
-        fetchVote(id,token,"POST");  
-        setClickedBtn('upvote')     
+    const handleChats=()=>{       
+            setCommentBoxClicked(!commentBoxClicked);
+         
     }
-    else{
-        const newIdArray=voteArray.filter((item)=>item!==id)   
-        setVoteArray(newIdArray);
-        setClickedBtn('');
-        fetchVote(id,token,"DELETE");
+    const handleFollow=(id)=>{
+       if(followState==='Follow'){
+            setFollowState('Following');
+            FollowUser(id,profile.token);
+       }
+       else{
+            
+            setFollowState('Follow')          
+            UnFollowUser(id,profile.token);
+       }
+       
+    }
+    const handleVoteClick=(id,token)=>{
+        const idCheck = voteArray.includes(id);
+
+        if (!idCheck) {  
+
+            const newIdArray=[...voteArray,id]           
+            FetchVote(id,token,"POST"); 
         
-    }
-    
-}
-const handleDownVoteClick=(id,token)=>{
-    const idCheck = voteArray.includes(id);
-    
-    if (idCheck) {
-        const newIdArray=voteArray.filter((item)=>item!==id)   
-        setVoteArray(newIdArray);
-        setClickedBtn('downvote')
-        fetchVote(id,token,"DELETE");
-   
-    }
-    else{
-        if(clickedBtn==="downvote"){
-            setClickedBtn('');
+            localStorage.setItem('likesIds', JSON.stringify(newIdArray));
+            setVoteArray(newIdArray);
+            setClickedBtn('upvote') ;
+            setLikeCount(prev=>prev+1);
         }
         else{
-            
-            setClickedBtn('downvote')
-           
-        }
+            const newIdArray=voteArray.filter((item)=>item!==id) 
+            localStorage.setItem('likesIds', JSON.stringify(newIdArray));  
+            setVoteArray(newIdArray);
+            setClickedBtn('');
+            console.log("votearray",newIdArray) 
+            FetchVote(id,token,"DELETE");
+            setLikeCount(prev=>prev-1);           
+        }    
     }
+    const handleDownVoteClick=(id,token)=>{
+        const idCheck = voteArray.includes(id);
     
-}
+        if (idCheck) {
+            const newIdArray=voteArray.filter((item)=>item!==id) 
+            localStorage.setItem('likesIds', JSON.stringify(newIdArray));
+            setVoteArray(newIdArray);
+            setClickedBtn('downvote')
+            FetchVote(id,token,"DELETE");
+            setLikeCount(prev=>prev-1);
+        }
+        else{
+            if(clickedBtn==="downvote"){
+                setClickedBtn('');
+            }
+            else{        
+                setClickedBtn('downvote')          
+            }
+        }   
+    }
 
+    const handleMore=()=>{  
+        setDotClick(!dotClick);     
+    }
+    const handleCloseMore=(id)=>{
+        handleDownVoteClick(id,profile.token);
+        setDotClick(!dotClick);
+    }
+    const handleQuestion=(item)=>{
+        setSelectedQuestion({
+          ...selectedQuestion,
+          title:item.title,
+          id:item.id,
+          commentCount:item.commentCount
+        })
+        
+      }
+      const handleProfile=(item)=>{
+        setSelectedProfile({
+            ...selectedProfile,
+            profileName:`${item.name}`,
+            id:`${item._id}`,
+            image:`${item.profileImage}`
+        })
+        
+    }
+      function getUserDetails(id){
+        var myHeaders = new Headers();
+        myHeaders.append("projectID", "f104bi07c490");
+        myHeaders.append("Authorization", `Bearer ${profile.token}`);
 
+        var requestOptions = {
+        method: 'GET',
+        headers: myHeaders,
+        redirect: 'follow'
+        };
+
+        fetch(`https://academics.newtonschool.co/api/v1/quora/user/${id}`, requestOptions)
+        .then(response => response.json())
+        .then((result) =>{
+            setAuthor(result.data);
+            console.log(result)
+        } )
+        .catch(error => console.log('error', error));
+    }
+    useEffect(()=>{
+        getUserDetails(postData.author_id)
+    },[])
     return(
-        <div className="post" key={postData._id}>
-            <div className="post_info">
-            <Link to="/profile"><Avatar src={postData.author.profileImage} onClick={()=>setSelectedProfile(postData.author._id)}/></Link>
-            <Link to="/profile"><h4 onClick={()=>setSelectedProfile(postData.author._id)}>{postData.author.name}</h4></Link>
-            </div>
-            <div className="post_body">
-                <div className="post_question">
-                    <h4>{postData.title}</h4>
-                    <p>{postData.content}</p>               
+        <div  key={postData.id}>
+            <div className={`flex flex-col px-3 pt-3 mt-4 rounded border border-solid relative mb-0 transition-all duration-500 ease-in-out ${darkMode?"bg-neutral-800 border-zinc-700 text-gray-300":"bg-white border-gray-300 text-gray-950"}`}>
+            <div className="box-border flex">
+                <div className="box-border flex mb-2">
+                <Link to='/profile' state={`${postData.author_id}`}>
+                    <img src={author.profileImage?author.profileImage:""} className="w-9 h-9 rounded-full mr-2 cursor-pointer" onClick={()=>handleProfile(author)}/>
+                   </Link>
+                   <Link to='/profile' state={`${postData.author_id}`} className="flex">
+                    <h4 className="font-bold text-[13px] cursor-pointer" 
+                    onClick={()=>handleProfile(author)}>{author.name?author.name:""}</h4>
+                    </Link>
+                    <span className=" text-sm px-2 font-medium cursor-pointer text-blue-600" onClick={()=>handleFollow(postData.author_id)}>{followState}</span>
+                    
                 </div>
-                <div className="post_footer">
-                    <div className="post_footerActions">
-                        <div className="post_footerAction">
-                            <div className="upvote" id={clickedBtn==="upvote"?"upvoted":"noupvote"}onClick={()=>handleVoteClick(postData._id,profile.token)}>
-                               {clickedBtn==="upvote"?(<BiSolidUpvote className="post_footer-up_btns" />):(<RxThickArrowUp className="post_footer-btns" />)} 
-                                <small>Upvote. {postData.likeCount}</small>
+            </div>
+            <div>
+                <div>
+                    <Link to='/question-detailpage' state={`${postData.id}`}>
+                    <div className={`box-border mb-1 font-bold text-base cursor-pointer hover:underline transition-all duration-500 ease-in-out ${darkMode?"text-neutral-200":"text-neutral-900"}`}  
+                    onClick={()=>handleQuestion(postData)}>{postData.title}</div>
+                    </Link>
+                    <div className={darkMode?"text-neutral-300":"text-neutral-800"}>{postData.content}</div>               
+                </div>
+                <div>
+                    {postData.post_image&&
+                    <img src={postData.post_image} alt="post_image"/>
+                    }
+                </div>
+                <div>
+                    <div className="box-border flex px-3 flex-nowrap justify-between py-1">
+                        <div className="flex items-center cursor-pointer">
+                            <div className={`box-border flex mr-2 h-8 rounded-full border-r border-solid  ${darkMode?"bg-neutral-700 border-neutral-600":"bg-zinc-100 border-gray-200"}`}>
+                                <div className="box-border flex items-center px-2 h-8 " id={clickedBtn==="upvote"?"upvoted":"noupvote"}onClick={()=>handleVoteClick(postData.id,profile.token)}>
+                                {voteArray.includes(postData.id)?(<BiSolidUpvote className="text-2xl text-blue-700" />):(<RxThickArrowUp className="text-2xl text-blue-700" />)} 
+                                    <span className="text-[13px] font-medium ml-1">Upvote. {likeCount}</span>
+                                </div>
+                                <div className={`h-8 border-r border-solid ${darkMode?"border-neutral-600":"border-zinc-200"}`}></div>
+                                <div className="box-border flex items-center justify-center px-2 pb-1 h-8" onClick={()=>handleDownVoteClick(postData.id,profile.token)}>
+                                {clickedBtn==="downvote"?(<BiSolidDownvote className="text-2xl text-orange-700"/>):(<RxThickArrowDown  className="text-2xl"/>)}
+                                </div>
                             </div>
-                            <div className="downvote" onClick={()=>handleDownVoteClick(postData._id,profile.token)}>
-                            {clickedBtn==="downvote"?(<BiSolidDownvote className="post_footer-down_btns"/>):(<RxThickArrowDown  className="post_footer-btns"/>)}
+                            <div className="box-border flex items-center h-8 min-w-8 px-1 mr-2 " id="chat" onClick={handleChats}>
+                                <BsChat className="text-lg mr-1" id="chat" />
+                                <small id="chat">{commentCount}</small>
                             </div>
+                            {/* <div className="box-border flex items-center h-8 min-w-8 px-1 mr-2">
+                                <RiLoopLeftLine className="text-xl" />                                                         
+                            </div> */}
                         </div>
-                        <div className="comment text-3xl" onClick={()=>handleComments(postData._id)}>
-                            <BsChat />
-                            <small>{postData.commentCount}</small>
-                        </div>
-                        <div className="share">
-                            <RiLoopLeftLine />
-                            {/* <small>69</small> */}
-                           
-                        </div>
-                        <div className="post_more">
-                            <BsThreeDots/>
+                        <div className="box-border flex items-center h-8 min-w-8 px-1e cursor-pointer" onClick={handleMore}>
+                            <BsThreeDots className="text-xl "/>
+                            <div className={dotClick?"block absolute left-auti top-auto bottom-0 right-0 translate-x-20 -translate-y-11 ":"hidden"}>
+                                <div className={`p-2.5 rounded border border-solid shadow ${darkMode?"bg-neutral-800 text-gray-300  border-gray-600":"bg-white  border-gray-300"}`}>
+                                    <div className="flex gap-1" onClick={()=>handleCloseMore(postData.id)}>
+                                    <RxThickArrowDown  className=" text-base"/>
+                                    <div className=" whitespace-nowrap text-sm ">Downvote question</div>
+                                    </div>
+                                </div>
+                              
+                            </div>
                         </div>
                     </div>
-                </div>
-            
+                </div>          
             </div>
-            <div className={commentBoxClicked?"comments-section":"comments-section-hide" }>
-                <div className="mycommentbox-section">
-                    <div className="mycommentsBox_info">
-                        <Avatar
-                        src={profile.image?profile.image:""}/>
-                
-                    </div>
-                    <input type="text" className="mycomments_typesection" placeholder="Add a comment..." value={replyComment} onChange={(e)=>setReplyComment(e.target.value)} />
-                        
-                    <button className="mycomments_addbtn"onClick={()=>postReplyComment(postData._id)}>Add comment</button>
-                </div>
-                {
-                    comments&&comments.map((item)=>(
-                        <div className="postcomment_question" key={item._id}>
-                        <h4></h4>
-                        <p>{item.content}</p>  
-                        <div className="postcomment_footerAction">
-                            <div className="upvote" onClick={()=>handleUpvoteClick(item._id,profile.token)}>
-                                <RxThickArrowUp className="post_footer-btns" />
-                               
-                            </div>
-                            <div className="downvote" onClick={()=>handleDownvoteClick(item._id,profile.token)}>
-                                <RxThickArrowDown  className="post_footer-btns"/>
-                            </div>
-
-                        </div>  
-
-                        </div>
-                    ))
-                }
-               
             </div>
+            {commentBoxClicked&&
+                <CommentsModel id={postData.id}/>
+            }
         </div>
     )
 }
 
 export default Post;
+
