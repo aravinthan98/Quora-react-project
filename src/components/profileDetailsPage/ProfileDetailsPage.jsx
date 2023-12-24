@@ -5,12 +5,11 @@ import { LuGraduationCap } from "react-icons/lu";
 import { SlLocationPin } from "react-icons/sl";
 import { useCurrentContext } from "../../context/currentContext";
 import { useState } from "react";
-import UserPosts from "./userPosts";
 import { FollowUser } from "../../utilities/FollowUser";
 import { UnFollowUser } from "../../utilities/UnfollowUser";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-
+import UserPosts from "./UserPosts";
 function ProfileDetailsPage(){
     const{profile}=useCurrentContext();
     const[details,setDetails]=useState({});

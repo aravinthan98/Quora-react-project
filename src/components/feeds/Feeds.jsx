@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import QueryBox from "../quaryBox/QueryBox";
 import { useCurrentContext } from "../../context/currentContext";
-import axios from "axios";
 import LoadingSec from "../../utilities/LoadingSec";
 import PostPage from "../posts/PostPage";
-
 const Feed = () => {
   const [posts, setPost] = useState([]);
   const{profile,voteArray,setVoteArray}=useCurrentContext();
@@ -62,7 +60,6 @@ const Feed = () => {
     
   }, []);
 
-//   console.log(posts);
 
   return (
     <div className="lg:w-[55%] lg:mx-4 flex flex-col gap-2 w-full mx-0">

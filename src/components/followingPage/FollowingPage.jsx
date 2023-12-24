@@ -1,6 +1,6 @@
 
 import EmptyFeed from "../noResultsModules/EmptyFeed";
-import Sidebar from "../sidebar/sidebar";
+import Sidebar from "../sidebar/Sidebar";
 import { useSelector } from "react-redux";
 function FollowingPage(){
 

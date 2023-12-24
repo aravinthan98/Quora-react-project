@@ -1,7 +1,7 @@
 import { LiaAddressCardSolid } from "react-icons/lia";
 import { useCurrentContext } from "../../context/currentContext";
 import RelatedTopics from "../relatedTopic/RelatedTopics";
-import Sidebar from "../sidebar/sidebar";
+import Sidebar from "../sidebar/Sidebar";
 import { useEffect, useState } from "react";
 import SpacePost from "./SpacePost";
 import Post from "../posts/posts";

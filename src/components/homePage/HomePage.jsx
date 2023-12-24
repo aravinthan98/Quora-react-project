@@ -1,11 +1,10 @@
 import React from "react";
 import Navbar from "../navbar/Navbar";
-import Sidebar from "../sidebar/sidebar";
 import Feed from "../feeds/Feeds";
 import Login from "../login/Login";
 import AdvertisementSection from "../advertisement/AdvertisementSection";
-
 import { useSelector } from "react-redux"; 
+import Sidebar from "../sidebar/Sidebar";
 
 function HomePage() {
   const { darkMode } = useSelector((state) => state.mode); 
