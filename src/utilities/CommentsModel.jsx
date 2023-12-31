@@ -9,7 +9,7 @@ import Loading from "./Loading";
 import LoadingSec from "./LoadingSec";
 import { useSelector } from "react-redux";
 
-function CommentsModel({id}){
+function CommentsModel({id,countComment}){
     
     const[replyComment,setReplyComment]=useState('');  
     const{profile}=useCurrentContext()
@@ -25,6 +25,7 @@ function CommentsModel({id}){
             const reversedData = result.data.reverse();     
             setComments(reversedData.slice(0,10));
             setLoading(false)
+            countComment(reversedData.length);
         })
         .catch(error => {         
             console.error('getcomments error:', error);
@@ -42,7 +43,8 @@ function CommentsModel({id}){
             fetchComments(id);
            
         },1000)   
-        setReplyComment('')      
+        setReplyComment('')  
+        countComment(prev=>prev+1);    
     }
     const handleKeyPress=(event)=>{
         if(event.key==='Enter'){

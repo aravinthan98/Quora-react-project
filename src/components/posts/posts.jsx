@@ -197,7 +197,7 @@ function Post({postData}){
             </div>
             </div>
             {commentBoxClicked&&
-                <CommentsModel id={postData.id}/>
+                <CommentsModel id={postData.id} countComment={setCommentCount}/>
             }
         </div>
     )
