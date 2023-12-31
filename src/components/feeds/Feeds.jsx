@@ -25,7 +25,7 @@ const Feed = () => {
      const newObjArr= jsonData.data.map((item)=>({
         author_id:item.author._id,
         author_name:item.author.name,
-        author_image:item.author.profileImage,
+        author_image:"https://qsf.cf2.quoracdn.net/-4-images.new_grid.profile_default.png-26-688c79556f251aa0.png",
         title:item.title,
         content:item.content,
         likeCount:item.likeCount,

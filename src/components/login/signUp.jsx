@@ -37,6 +37,7 @@ function SignUp({onModelClick,val}){
     fetch("https://academics.newtonschool.co/api/v1/user/signup?projectId=f104bi07c490&Content-Type=application/json", requestOptions)
     .then((response) => response.json())
     .then((result) =>{
+     
       if(result.status=="success"){
         console.log(result);
           setLogin(true);
@@ -83,7 +84,7 @@ function isValidEmail(mail) {
   }
   const handlePwd=(e)=>{
     setPassword(e.target.value);
-    if(password.length<8){
+    if(e.target.value.length<8){
       setPwdError('Password must be 8 characters')
     } 
     else{
@@ -100,7 +101,10 @@ const handleSignUpClick=()=>{
       setPwdError('Password must be 8 characters');
      }      
      else{
-      fetchSignup();
+      setTimeout(()=>{
+        fetchSignup();
+      },500)
+      
      }
   }
   else{   
@@ -147,7 +151,7 @@ const handleSignUpClick=()=>{
                         <label htmlFor="password">Password</label>
                         <input type="text" id="password"
                         value={password}
-                        onChange={(e) =>handlePwd(e)}/>
+                        onChange={(e)=>handlePwd(e)}/>
                          {pwdError&&
                             <div className="flex w-5/6 gap-1">
                               <div className="text-red-600 mt-1"><BiInfoCircle /></div>

@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 const SearchResultSpaces=({spaceResult})=>{
     const{selectedChannel,setSelectedChannel}=useCurrentContext();
     const{darkMode}=useSelector((state)=>state.mode)
-    const navigate=useNavigate();
 
     const handleCardClick=(object)=>{
         setSelectedChannel({

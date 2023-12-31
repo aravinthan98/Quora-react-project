@@ -16,7 +16,7 @@ function QuestionPage(){
                <div className='lg:hidden block h-12 '>
                 <MobileQuestionNav/>
                 </div>
-                <div className="lg:ml-48 ml-1">
+                <div className="lg:ml-48 lg:w-3/4 ml-1">
                     <Outlet/>
                 </div>
                 

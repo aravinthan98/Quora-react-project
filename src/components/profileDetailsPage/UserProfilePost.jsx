@@ -103,11 +103,11 @@ function UserProfilePost({postData}){
                     </Link>
                     <div className={darkMode?"text-neutral-300":"text-neutral-800"}>{postData.content}</div>               
                 </div>
-                <div>
-                    {postData.post_image&&
-                    <img src={postData.post_image} alt="post_image"/>
+                {/* <div>
+                    {postData.post_image!==" "?
+                    (<img src={postData.post_image} alt="post_image"/>):("")
                     }
-                </div>
+                </div> */}
                 <div>
                     <div className="box-border flex px-3 flex-nowrap justify-between py-1">
                         <div className="flex items-center cursor-pointer">
