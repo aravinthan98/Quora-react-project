@@ -19,7 +19,9 @@ import { RxCross1 } from "react-icons/rx";
   const[menuClicked,setMenuClicked]=useState('Home')
   const[langClicked,setLangClicked]=useState(false)
   const{darkMode}=useSelector((state)=>state.mode)
-
+  const handleMyMenu=()=>{
+    setMenuOpen(false);
+  }
   return (
     <div className={`lg:hidden block w-full fixed box-border top-12 left-0 right-0 mx-0 p-0 h-[50px] border-b border-solid shadow-sm z-30 ${darkMode?" bg-neutral-900 border-neutral-700":"bg-gray-100 border-gray-200"}`}>
       <div className=" mx-auto  w-full box-border h-[50px] text-zinc-800 ">
@@ -92,7 +94,7 @@ import { RxCross1 } from "react-icons/rx";
                 <div>Your Account</div>
                 <div  onClick={()=>setMenuOpen(false)}><RxCross1 /></div>
               </div>
-            <MyMenu/>
+            <MyMenu onMenuValue={handleMyMenu}/>
             </div>
           </div>
           }

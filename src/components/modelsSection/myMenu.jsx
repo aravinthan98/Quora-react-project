@@ -20,10 +20,10 @@ function MyMenu({onMenuValue}){
         setLogin(false)
         return navigate('/login')       
     }
-    const handleCloseMenu=()=>{
-        
-        onMenuValue();
-    }
+    // const handleCloseMenu=()=>{
+    //     console.log(onMenuValue)
+    //     onMenuValue();
+    // }
     return(
       
         <div className={`w-64 z-30 absolute lg:top-14 lg:h-auto h-screen border  border-solid ${darkMode?" bg-neutral-800 border-zinc-700 text-zinc-300":"bg-white border-slate-300 text-zinc-800"}`}>
@@ -39,36 +39,36 @@ function MyMenu({onMenuValue}){
                 <div className="border-b border-solid border-slate-300 ">
                     <div className="py-2">
                         <Link to='/commingsoon'>
-                            <div className={`py-2 px-3 flex gap-2 cursor-pointer ${darkMode?"hover:bg-zinc-700":"hover:bg-zinc-100"}`} onClick={handleCloseMenu}>
+                            <div className={`py-2 px-3 flex gap-2 cursor-pointer ${darkMode?"hover:bg-zinc-700":"hover:bg-zinc-100"}`} onClick={onMenuValue}>
                                 <div className="flex items-center text-xl"><BiMessageDots /></div>
                                 <div className="text-sm">Messages</div>
                             </div>
                         </Link>
-                        <div className={`py-2 px-3 flex gap-2 cursor-pointer ${darkMode?"hover:bg-zinc-700":"hover:bg-zinc-100"}`}>
+                        <div className={`py-2 px-3 flex gap-2 cursor-pointer ${darkMode?"hover:bg-zinc-700":"hover:bg-zinc-100"}`} onClick={onMenuValue}>
                             
                             <div className="flex items-center text-xl"><LiaBullhornSolid/></div>
                             <a href="https://business.quora.com/" target="_blank" className="text-sm">Create Ad</a>
                         </div>
                         <Link to='/commingsoon'>
-                        <div className={`py-2 px-3 flex gap-2 cursor-pointer ${darkMode?"hover:bg-zinc-700":"hover:bg-zinc-100"}`}>
+                        <div className={`py-2 px-3 flex gap-2 cursor-pointer ${darkMode?"hover:bg-zinc-700":"hover:bg-zinc-100"}`} onClick={onMenuValue}>
                             <div className="flex items-center text-xl"><FiDollarSign/></div>
                             <div className="text-sm">Monetization</div>
                         </div>
                         </Link>
                         <Link to='/commingsoon'>
-                        <div className={`py-2 px-3 flex gap-2 cursor-pointer ${darkMode?"hover:bg-zinc-700":"hover:bg-zinc-100"}`}>
+                        <div className={`py-2 px-3 flex gap-2 cursor-pointer ${darkMode?"hover:bg-zinc-700":"hover:bg-zinc-100"}`} onClick={onMenuValue}>
                             <div className="flex items-center text-xl"><RiBarChartFill/></div>
                             <div className="text-sm">Your content & stats</div>
                         </div>
                         </Link>
                         <Link to='/commingsoon'>
-                            <div className={`py-2 px-3 flex gap-2 cursor-pointer ${darkMode?"hover:bg-zinc-700":"hover:bg-zinc-100"}`}>
+                            <div className={`py-2 px-3 flex gap-2 cursor-pointer ${darkMode?"hover:bg-zinc-700":"hover:bg-zinc-100"}`} onClick={onMenuValue}>
                                 <div className="flex items-center text-xl"><PiBookmarks /></div>
                                 <div className="text-sm">Bookmarks</div>
                             </div>
                         </Link>
                         <Link to='/commingsoon'>
-                        <div className={`py-2 px-3 flex gap-2 cursor-pointer ${darkMode?"hover:bg-zinc-700":"hover:bg-zinc-100"}`}>
+                        <div className={`py-2 px-3 flex gap-2 cursor-pointer ${darkMode?"hover:bg-zinc-700":"hover:bg-zinc-100"}`} onClick={onMenuValue}>
                             <div className="flex items-center text-xl"><RiDraftLine /></div>
                             <div className="text-sm">Draft</div>
                         </div>
@@ -85,10 +85,10 @@ function MyMenu({onMenuValue}){
                             (<div className="text-xs rounded-3xl bg-slate-300 px-2 flex justify-center items-center"><div>OFF</div></div>)
                             }                                                       
                         </div>
-                        <div className={`py-1 px-3 ${darkMode?"hover:bg-zinc-700":"hover:bg-zinc-100"}`}>
+                        <div className={`py-1 px-3 ${darkMode?"hover:bg-zinc-700":"hover:bg-zinc-100"}`} onClick={onMenuValue}>
                             Settings
                         </div>
-                        <div className={`py-1 px-3 ${darkMode?"hover:bg-zinc-700":"hover:bg-zinc-100"}`}>
+                        <div className={`py-1 px-3 ${darkMode?"hover:bg-zinc-700":"hover:bg-zinc-100"}`} onClick={onMenuValue}>
                            <a href="https://help.quora.com/hc/en-us" target="_blank">Help</a>
                         </div>
                         <div className={`py-1 px-3 ${darkMode?"hover:bg-zinc-700":"hover:bg-zinc-100"}`}
