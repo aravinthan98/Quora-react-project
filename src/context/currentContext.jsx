@@ -36,6 +36,7 @@ const CurrentProvider = ({ children }) => {
 
     });
     const[relatedQuestion,setRelatedQuestion]=useState([]);
+    
       useEffect(()=>{
         const userlog=JSON.parse(localStorage.getItem('userLogin'));
         if(userlog!==null){

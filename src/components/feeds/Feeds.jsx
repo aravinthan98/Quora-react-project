@@ -3,11 +3,12 @@ import QueryBox from "../quaryBox/QueryBox";
 import { useCurrentContext } from "../../context/currentContext";
 import LoadingSec from "../../utilities/LoadingSec";
 import PostPage from "../posts/PostPage";
+import { useLocation } from "react-router-dom";
 const Feed = () => {
   const [posts, setPost] = useState([]);
   const{profile,voteArray,setVoteArray}=useCurrentContext();
   const[Loading,setLoading]=useState(false);
-
+  const{state}=useLocation();
   const fetchData = async () => {
     try {
       const response = await fetch('https://academics.newtonschool.co/api/v1/quora/post?limit=10 ', {
@@ -55,8 +56,7 @@ const Feed = () => {
     setLoading(true)
     setTimeout(()=>{
       fetchData();
-    },1000)
-    
+    },1000)   
     
   }, []);
 

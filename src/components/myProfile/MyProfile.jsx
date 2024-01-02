@@ -6,12 +6,13 @@ import { useState } from "react";
 import ProfilePost from "./ProfilePosts";
 import { useCurrentContext } from "../../context/currentContext";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 function MyProfile(){
-    const{profile,selectedProfile}=useCurrentContext();
+    const{profile}=useCurrentContext();
     const[details,setDetails]=useState({});
     const[clickedTab,setClickedTab]=useState('Profile');
-    const [followState,setFollowState]=useState('Follow');
-    const{darkMode}=useSelector((state)=>state.mode)
+    const{darkMode}=useSelector((state)=>state.mode);
+    const{state}=useLocation();
     function getUserDetails(id){
         var myHeaders = new Headers();
         myHeaders.append("projectID", "f104bi07c490");
@@ -26,7 +27,7 @@ function MyProfile(){
         fetch(`https://academics.newtonschool.co/api/v1/quora/user/${id}`, requestOptions)
         .then(response => response.json())
         .then((result) =>{
-            console.log(result);
+           
             const newResult={
                 name:`${result.data.name?result.data.name:""}`,
                 image:result.data.profileImage,
@@ -38,15 +39,13 @@ function MyProfile(){
                 country:`${result.data.address.length!==0?result.data.address[0].country:""}`
 
             }
-            console.log(newResult)
-            setDetails(newResult);
-           
+            setDetails(newResult);          
         } )
         .catch(error => console.log('error', error));
     }
 
     useEffect(()=>{ 
-        getUserDetails(profile.id);         
+        getUserDetails(state);         
       
     },[])
    
@@ -71,13 +70,13 @@ function MyProfile(){
                                 <div className="flex  box-border py-1 px-0 items-start">
                                     <div className={`mr-1 box-border flex justify-center items-center h-6 w-6 rounded-full text-sm ${darkMode?"bg-zinc-800":"bg-zinc-200 "}`} ><MdBusinessCenter className={darkMode?"text-zinc-300":"text-zinc-800"} />
                                     </div>
-                                    <div > {details.designation?details.designation:""} at {details.companyName?details.companyName:""}
+                                    <div > {details.designation?details.designation:""}  {details.companyName?`at ${details.companyName}`:"No data found"}
                                     </div>
                                 </div>
                                 <div className="flex  box-border py-1 px-0 items-start">
                                     <div className={`mr-1 box-border flex justify-center items-center h-6 w-6 rounded-full text-sm ${darkMode?"bg-zinc-800":"bg-zinc-200 "}`}><LuGraduationCap className={darkMode?"text-zinc-300":"text-zinc-800"} />
                                     </div>
-                                    <div > Studied {details.degree?details.degree:"not found"}
+                                    <div >{details.degree?`Studied ${details.degree}`:"No data found"}
                                     </div>
                                 </div>
                                 <div className="flex  box-border py-1 px-0 items-start">
@@ -88,7 +87,7 @@ function MyProfile(){
                                 {
                                     details&&
                                     <div>
-                                    Lives in {details.city?details.city:"not found"},
+                                     {details.city?`Lives in ${details.city}`:"No data found"},
                                     {details.state? details.state:""}, {details.country? details.country:""}
                                     </div>
                                 }
@@ -99,7 +98,7 @@ function MyProfile(){
                         <div className="profile_Details-spaces"></div>
                     </div>
                 </div>
-                <div className={`box-border lg:w-51 w-full ${darkMode?"bg-neutral-900":"bg-neutral-300"}`}>
+                <div className="box-border lg:w-51 w-full ">
                     <div className="box-border mt-2">
                         <div className={`flex justify-between border-b border-solid border-gray-300 text-[13px] font-medium ${darkMode?"border-gray-500":"border-gray-300"}`}>
                             <div className={`py-4 px-2 ${clickedTab==='Profile'?"border-b-4 border-solid border-red-700 text-red-700 cursor-pointer":"border-none text-neutral-400 cursor-pointer"}`} onClick={()=>setClickedTab('Profile')}>Profile</div>

@@ -26,7 +26,7 @@ function MyMenu(){
         <div className={`w-64 z-30 absolute lg:top-14 lg:h-auto h-screen border  border-solid ${darkMode?" bg-neutral-800 border-zinc-700 text-zinc-300":"bg-white border-slate-300 text-zinc-800"}`}>
             <div>
                 <div className=" border-b border-solid border-slate-300"> 
-                    <Link to="/myprofile"><div className=" px-4 py-2 cursor-pointer box-border " >
+                    <Link to="/myprofile" state={`${profile.id}`}><div className=" px-4 py-2 cursor-pointer box-border " >
                         <div className=" w-10 h-10 bg-green-500 text-white rounded-full text-center text-3xl flex justify-center items-center">
                         <div className="mb-1">{profile.userName[0].toUpperCase()}</div>
                         </div>

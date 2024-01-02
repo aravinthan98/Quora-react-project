@@ -7,6 +7,7 @@ import {MdOutlineExpandMore} from 'react-icons/md'
 import { useCurrentContext } from "../../context/currentContext";
 import { RxCross2 } from 'react-icons/rx';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 function CreatePostModel({onClickModel,value}){
     const{profile}=useCurrentContext();
     const [postTitle, setPostTitle] = useState("");
@@ -38,6 +39,7 @@ function CreatePostModel({onClickModel,value}){
         fetch("https://academics.newtonschool.co/api/v1/quora/post/", requestOptions)
           .then(response => response.text())
           .then((result) =>{ 
+
             onClickModel()
             })
           .catch(error => console.log('error', error));
@@ -124,6 +126,7 @@ function CreatePostModel({onClickModel,value}){
                   <button className="text-sm border-none outline-none my-2 text-slate-600 font-medium p-2 rounded-3xl cursor-pointer mr-5" onClick={() => setOpenModal(false)}>
                     
                   </button>
+                  <Link to="/myprofile" state={`${profile.id}`}>
                   <button type="submit" 
                   disabled={addBtn}
                   className={`text-sm border-none outline-none my-2 text-white font-medium p-2 rounded-3xl cursor-pointer mr-5 hover:bg-blue-300 ${addBtn?"bg-blue-300":"bg-blue-500"}`} 
@@ -132,6 +135,7 @@ function CreatePostModel({onClickModel,value}){
                   >
                     Add Question
                   </button>
+                  </Link>
                 </div>
               </div>
               <div className={modelTab==="post"?"w-full px-4 pt-4 mt-4":"hidden"}>
@@ -144,13 +148,14 @@ function CreatePostModel({onClickModel,value}){
                     <textarea className={`w-full outline-none border-none text-lg ${darkMode?"bg-neutral-900":"bg-white"}`} name="content" id="content" cols="30" rows="4" placeholder="Say something..." onChange={(e)=>handlePostContent(e)}></textarea>
                 </div>
                 <div className={`w-full flex justify-end border-t border-solid  py-2 ${darkMode?"border-gray-600":"border-gray-200"}`}> 
-                 
+                <Link to="/myprofile" state={`${profile.id}`}>
                   <button type="submit" className={`border-none outline-none text-white text-sm py-2.5 px-5 mr-5 rounded-3xl cursor-pointer hover:bg-blue-300 ${postBtn?"bg-blue-300":"bg-blue-500"}`} 
                   onClick={postData}
                   disabled={postBtn}
                   >
                     Post
                   </button>
+                  </Link>
                 </div>
               </div>
             </div>
