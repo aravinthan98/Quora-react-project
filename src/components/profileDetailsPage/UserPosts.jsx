@@ -38,9 +38,9 @@ const getposts=(id)=>{
     },[])
 return(
     <div>
-       {posts.map((item)=>(
+       {posts.length!==0?(posts.map((item)=>(
         <UserProfilePost postData={item} key={item.id}/>
-       ))}
+       ))):(<div className=" text-center">No data found</div>)}
     </div>
 )
 }

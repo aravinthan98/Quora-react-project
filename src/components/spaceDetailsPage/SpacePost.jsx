@@ -165,7 +165,9 @@ const handleDownVoteClick=(id,token)=>{
                                 </div>
                                 <div>
                                     <div>
-                                        <div className="box-border mb-1 font-bold text-base">{item&&item.title}</div>
+                                        <Link to='/question-detailpage' state={item}>
+                                            <div className="box-border mb-1 font-bold text-base">{item&&item.title}</div>
+                                        </Link>
                                         <div>{item&&item.content}</div>               
                                     </div>
                                     <div>

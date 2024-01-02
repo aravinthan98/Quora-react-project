@@ -4,6 +4,8 @@ import { RxThickArrowDown, RxThickArrowUp } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
 import { useCurrentContext } from "../context/currentContext";
 import { useSelector } from "react-redux";
+import { BsThreeDots } from "react-icons/bs";
+import DeleteCommentModel from "../components/modelsSection/DeleteCommentModel";
 
 function CommentCard({comment,onClickrender}){
     const navigate=useNavigate();
@@ -12,7 +14,8 @@ function CommentCard({comment,onClickrender}){
     const[editClicked,setEditClicked]=useState(false);
     const[updateComment,setUpdateComment]=useState(comment.content);
     const {darkMode}=useSelector((state)=>state.mode);
-
+    const[dotClick,setDotClick]=useState(false);
+    const[openDeleteModel,setOpenDeleteModel]=useState(false)
     const handleProfile=(item)=>{
         setSelectedProfile({
             ...selectedProfile,
@@ -42,22 +45,7 @@ function CommentCard({comment,onClickrender}){
         } )
         .catch(error => console.log('error', error));
     }
-    const deleteComment=(id)=>{
-        var myHeaders = new Headers();
-        myHeaders.append("projectID", "f104bi07c490");
-        myHeaders.append("Authorization", `Bearer ${profile.token}`);
 
-        var requestOptions = {
-        method: 'DELETE',
-        headers: myHeaders,
-        redirect: 'follow'
-        };
-
-        fetch(`https://academics.newtonschool.co/api/v1/quora/comment/${id}`, requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
-    }
     const updatingComment=(id)=>{
         var myHeaders = new Headers();
         myHeaders.append("projectID", "f104bi07c490");
@@ -82,8 +70,11 @@ function CommentCard({comment,onClickrender}){
             console.log(result)})
         .catch(error => console.log('error', error));
     }
-    const handleComment=(id)=>{
-        deleteComment(id);
+    const handleDeleteModel=()=>{
+        setOpenDeleteModel(true)
+    }
+    const handleComment=()=>{
+        setOpenDeleteModel(false)
         setTimeout(()=>{
             onClickrender()
         },500)
@@ -93,6 +84,9 @@ function CommentCard({comment,onClickrender}){
         setTimeout(()=>{
             onClickrender()
         },500)
+    }
+    const handleMore=()=>{
+        setDotClick(!dotClick)
     }
     useEffect(()=>{
         getUserDetails(comment.author)
@@ -116,10 +110,28 @@ function CommentCard({comment,onClickrender}){
                     <div className="box-border">{comment.content}</div> 
                 </div> 
                 {author._id===profile.id&&
-                    <div className="flex gap-3 text-[13px] font-medium text-zinc-500">
-                        <div className=" cursor-pointer rounded-3xl px-3 py-1 border border-solid border-zinc-300 hover:bg-zinc-200" onClick={()=>setEditClicked(true)}>Edit</div>
-                        <div className="cursor-pointer rounded-3xl px-3 py-1 border border-solid border-zinc-300 hover:bg-zinc-200" onClick={()=>handleComment(comment._id)}>Delete</div>
+                <div className="box-border flex items-center h-8 min-w-8 px-1e cursor-pointer relative" onClick={handleMore}>
+                    <BsThreeDots className="text-xl "/>
+                    <div className={dotClick?`block absolute top-auto bottom-1 right-8 translate-x-20 -translate-y-11 rounded border border-solid shadow 
+                    ${darkMode?"bg-neutral-800 text-gray-300  border-gray-600":"bg-white  border-gray-300"}`:"hidden"}>
+                        <div 
+                        onClick={handleDeleteModel}
+                        className={`p-2.5 ${darkMode?"hover:bg-neutral-400":"hover:bg-neutral-200"}`}
+                        >              
+                            <div className=" whitespace-nowrap text-sm ">Delete</div>                                                   
+                        </div>
+                        <div 
+                        className={`p-2.5 ${darkMode?"hover:bg-neutral-400":"hover:bg-neutral-200"}`}
+                        onClick={()=>setEditClicked(true)}>                       
+                            <div className=" whitespace-nowrap text-sm ">Edit Comment</div>
+                            
+                        </div>
+                        
                     </div>
+            </div>
+                    
+                       
+                 
                 }
             </div>
             </div>
@@ -134,6 +146,7 @@ function CommentCard({comment,onClickrender}){
                     </div>
                 </div>
             }
+            <DeleteCommentModel commentId={comment._id} onClickModel={handleComment} value={openDeleteModel}/>
         </div>
     )
 }

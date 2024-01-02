@@ -67,7 +67,7 @@ function ChannelDetailPage(){
   
     useEffect(()=>{   
         fetchChannelDetail(state)                        
-    },[])
+    },[state])
     return(
         <div className={`channel_detail-page h-full lg:mt-2 mt-24 w-full ${darkMode?"bg-neutral-900":"bg-gray-100"}`}>
           <div className="channel-detail-top_section w-full">
@@ -93,7 +93,7 @@ function ChannelDetailPage(){
             <div className={`channel-detail-navbar-section lg:w-3/4 w-full flex ${darkMode?"text-gray-300 border-b border-solid border-neutral-700":"text-gray-800 border-b border-solid border-neutral-300"}`}>          
               <div className={channelTab==="channel-post"?"channel-tab-selected":"channel-detail-tab"} onClick={()=>setChannelTab("channel-post")}>Post</div>
             </div>
-            <div className={channelTab==="channel-post"?`lg:w-3/5 w-full h-screen mt-5 mx-0 ${darkMode?"bg-neutral-900 text-gray-300":"bg-white"}`:"hidden"}>
+            <div className={channelTab==="channel-post"?`lg:w-3/5 w-full mt-5 mx-0 ${darkMode?"bg-neutral-900 text-gray-300":"bg-gray-100"}`:"hidden"}>
               
               {channelPosts&&channelPosts.map((item)=>(
                   <Post key={item.id}  postData={item}  />

@@ -65,7 +65,7 @@ function QuestionCard({postData}){
     return(
         <>
         <div className={`px-4 pt-4 pb-0 border-b border-solid transition-all duration-500 ease-in-out  ${darkMode?"border-gray-700":"border-gray-100"}`} key={postData._id}>
-            <Link to='/question-detailpage' state={`${postData._id}`}>
+            <Link to='/question-detailpage' state={postData}>
             <h4 className={`m-0 font-bold cursor-pointer hover:underline ${darkMode?"text-zinc-300":"text-zinc-900"}`} 
             onClick={()=>handleQuestion(postData)}>{postData.title}
             </h4>

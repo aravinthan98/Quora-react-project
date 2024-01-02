@@ -7,24 +7,28 @@ import {BsThreeDots} from 'react-icons/bs';
 import { useCurrentContext } from "../../context/currentContext";
 import { BiSolidUpvote } from "react-icons/bi";
 import { BiSolidDownvote } from "react-icons/bi";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CommentsModel from "../../utilities/CommentsModel";
 import { RiBookmarkLine, RiDeleteBinLine } from "react-icons/ri";
 import { LuPen } from "react-icons/lu";
 import { DeletePost } from "../../utilities/DeletePost";
 import UpdatePostModel from "../modelsSection/UpdatePostModel";
 import { useSelector } from "react-redux";
+import DeletePostModel from "../modelsSection/DeletePostModel";
 // import { DeletePost } from "../../utilities/DeletePost";
 
 
 
 function ProfilePostModel({postData,postfetch}){
+    
     const{darkMode}=useSelector((state)=>state.mode)
     const navigate=useNavigate();
+    const[commentCount,setCommentCount]=useState(postData.commentCount);
     const{profile,voteArray,selectedQuestion,setSelectedQuestion}=useCurrentContext();    
     const[commentBoxClicked,setCommentBoxClicked]=useState(false);
     const[dotClick,setDotClick]=useState(false);
     const[openModel,setOpenModel]=useState(false);
+    const[openDeleteModel,setOpenDeleteModel]=useState(false)
     
     const handleUpdatePost=()=>{
         console.log(postData.id);       
@@ -36,9 +40,12 @@ function ProfilePostModel({postData,postfetch}){
     const handleOpenModel=()=>{
         setOpenModel(true);
     }
+    const handleDeleteModel=()=>{
+        setOpenDeleteModel(true)
+    }
     
-    const handleDeletePost=(id)=>{
-        DeletePost(id,profile.token)
+    const handleDeletePost=()=>{
+        setOpenDeleteModel(false)    
         setTimeout(()=>{
             postfetch();
         },1000)
@@ -57,17 +64,19 @@ function ProfilePostModel({postData,postfetch}){
           id:item.id,
           commentCount:item.commentCount
         })
-        return navigate('/question-detailpage');
+       
       }
 
     return(
         <>
         <div  key={postData.id}>
-            <div className={`flex flex-col px-3 pt-3 rounded border border-solid  relative transition-all duration-500 ease-in-out ${darkMode?"bg-neutral-800 border-neutral-700":"bg-white border-gray-300"}`}>
+            <div className={`flex flex-col px-3 pt-3 mt-3 rounded border border-solid  relative transition-all duration-500 ease-in-out ${darkMode?"bg-neutral-800 border-neutral-700":"bg-white border-gray-300"}`}>
             <div>
                 <div>
+                    <Link to='/question-detailpage' state={postData}>
                     <div className={`box-border mb-1 font-bold text-base cursor-pointer hover:underline transition-all duration-500 ease-in-out ${darkMode?"text-neutral-200":"text-neutral-900"}`} 
                     onClick={()=>handleQuestion(postData)}>{postData.title}</div>
+                    </Link>
                     <div className={darkMode?"text-neutral-300":"text-neutral-800"}>{postData.content}</div>               
                 </div>
                 <div>
@@ -90,7 +99,7 @@ function ProfilePostModel({postData,postfetch}){
                             </div>
                             <div className="box-border flex items-center h-8 min-w-8 px-1 mr-2 " id="chat" onClick={handleChats}>
                                 <BsChat className="text-lg mr-1" id="chat" />
-                                <small id="chat">{postData.commentCount}</small>
+                                <small id="chat">{commentCount}</small>
                             </div>
                             {/* <div className="box-border flex items-center h-8 min-w-8 px-1 mr-2">
                                 <RiLoopLeftLine className="text-xl" />                                                         
@@ -104,7 +113,7 @@ function ProfilePostModel({postData,postfetch}){
                                         <LuPen  className=" text-base"/>
                                         <div className=" whitespace-nowrap text-sm " >Edit post</div>
                                     </div>
-                                    <div className={`flex gap-1 py-2 px-4 text-red-700 ${darkMode?"hover:bg-zinc-700":"hover:bg-zinc-100"}`} onClick={()=>handleDeletePost(postData.id)}>
+                                    <div className={`flex gap-1 py-2 px-4 text-red-700 ${darkMode?"hover:bg-zinc-700":"hover:bg-zinc-100"}`} onClick={handleDeleteModel}>
                                     <RiDeleteBinLine  className=" text-base"/>
                                     <div className=" whitespace-nowrap text-sm ">Delete post</div>
                                     </div>
@@ -118,11 +127,12 @@ function ProfilePostModel({postData,postfetch}){
             </div>
             </div>
             {commentBoxClicked&&
-                <CommentsModel id={postData.id}/>
+                <CommentsModel id={postData.id} countComment={setCommentCount}/>
             }
             
         </div>
         <UpdatePostModel object={postData} onClickModel={handleUpdatePost} value={openModel} />
+        <DeletePostModel postId={postData.id} onClickModel={handleDeletePost} value={openDeleteModel}/>
         </>
     )
 }

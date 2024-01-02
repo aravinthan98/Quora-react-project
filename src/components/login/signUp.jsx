@@ -11,8 +11,10 @@ function SignUp({onModelClick,val}){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");   
     const navigate=useNavigate();
+    const[userNameError,setUserNameError]=useState(null);
     const[emailError,setEmailError]=useState(null);
     const[pwdError,setPwdError]=useState(null);
+    const[signUpBtn,setSignUpBtn]=useState(true);
 
     
   const fetchSignup=()=>{
@@ -67,8 +69,17 @@ function SignUp({onModelClick,val}){
 })
 .catch(error => console.log('error', error));
 } 
-function isValidEmail(mail) {
+  function isValidEmail(mail) {
     return /\S+@\S+\.\S+/.test(mail);
+  }
+
+  const handleSignUpBtn=(val1,val2,val3)=>{
+    if(val1&&val2&&val3){
+      setSignUpBtn(false)
+    }
+    else{
+      setSignUpBtn(true);
+    }
   }
   const handleEmail=(e)=>{
     setEmail(e.target.value);
@@ -76,10 +87,9 @@ function isValidEmail(mail) {
       setEmailError("No account found for this email. Retry, or Sign up for Quora.")         
     }
     else{  
-
-      setEmailError(null);
-     
+      setEmailError(null);    
     }
+    handleSignUpBtn(userName,e.target.value,password)
    
   }
   const handlePwd=(e)=>{
@@ -89,7 +99,12 @@ function isValidEmail(mail) {
     } 
     else{
       setPwdError(null);
-    } 
+    }
+    handleSignUpBtn(userName,email,e.target.value) 
+  }
+  const handleUserName=(e)=>{
+    setUserName(e.target.value)
+    handleSignUpBtn(e.target.value,email,password)
   }
 const handleSignUpClick=()=>{
     console.log("called");
@@ -100,11 +115,8 @@ const handleSignUpClick=()=>{
      else if(password.length<8){
       setPwdError('Password must be 8 characters');
      }      
-     else{
-      setTimeout(()=>{
-        fetchSignup();
-      },500)
-      
+     else{   
+        fetchSignup();        
      }
   }
   else{   
@@ -129,7 +141,7 @@ const handleSignUpClick=()=>{
                         <label htmlFor="username">Username</label>
                         <input type="text" id="username"
                          value={userName}
-                         onChange={(e) => setUserName(e.target.value)}
+                         onChange={(e) => handleUserName(e)}
                         />
                     </div>
                     <div className="sign-auth">
@@ -149,7 +161,7 @@ const handleSignUpClick=()=>{
                     </div>
                     <div className="sign-auth">
                         <label htmlFor="password">Password</label>
-                        <input type="text" id="password"
+                        <input type="password" name="password" id="password"
                         value={password}
                         onChange={(e)=>handlePwd(e)}/>
                          {pwdError&&
@@ -160,8 +172,9 @@ const handleSignUpClick=()=>{
                           }
                     </div>
                     <div className="sign-auth-btn-sec">
-                    <button className="sign-auth-btn" 
+                    <button className={`sign-auth-btn hover:bg-blue-300 ${signUpBtn?"bg-blue-300":"bg-blue-600"}`} 
                     onClick={handleSignUpClick}
+                    disabled={signUpBtn}
                     >Sign Up</button>
                     </div>
                 </div>

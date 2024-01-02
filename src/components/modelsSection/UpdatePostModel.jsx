@@ -10,6 +10,7 @@ function UpdatePostModel({object,onClickModel,value}){
     const[content,setContent]=useState(object.content);
     const{profile}=useCurrentContext();
     const{darkMode}=useSelector((state)=>state.mode)
+    const[updateBtn,setUpdateBtn]=useState(true)
     const updatePost=(id)=>{
         var myHeaders = new Headers();
         myHeaders.append("projectID", "f104bi07c490");
@@ -36,6 +37,22 @@ function UpdatePostModel({object,onClickModel,value}){
 
         onClickModel()
     }
+    const handlePostBtn=(val1,val2)=>{
+      if(val1&&val2){
+        setUpdateBtn(false)
+      }
+      else{
+        setUpdateBtn(true)
+      }
+    }
+    const handleTitle=(e)=>{
+      setTitle(e.target.value);
+      handlePostBtn(e.target.value,content)
+    }
+    const handleContent=(e)=>{
+      setContent(e.target.value);
+      handlePostBtn(title,e.target.value);
+    }
     return(
         <Modal
         open={value}
@@ -57,7 +74,7 @@ function UpdatePostModel({object,onClickModel,value}){
               <br/>
               <input type="text" id="username"
               value={title}
-               onChange={(e)=>setTitle(e.target.value)}
+               onChange={(e)=>handleTitle(e)}
                className={`px-3 py-2 w-full rounded text-sm outline-none border border-solid  mt-2 hover:border-blue-600 ${darkMode?"bg-neutral-900 border-zinc-600":"bg-white border-gray-300"}`}
 
               />
@@ -69,13 +86,14 @@ function UpdatePostModel({object,onClickModel,value}){
               <br/>
               <textarea className={`w-full outline-none border border-solid text-lg ${darkMode?"bg-neutral-900 border-zinc-600":"bg-white border-gray-300"}`} name="content" cols="30" rows="4"
                value={content}
-               onChange={(e)=>setContent(e.target.value)}>                
+               onChange={(e)=>handleContent(e)}>                
               </textarea>
              
             </div>             
             <div className="flex justify-end py-4">
-              <button className=" h-9 px-5 rounded-3xl border-none outline-none bg-blue-600 text-white font-medium text-sm mr-5 cursor-pointer hover:bg-zinc-700" 
+              <button className={` h-9 px-5 rounded-3xl border-none outline-none  text-white font-medium text-sm mr-5 cursor-pointer hover:bg-blue-300 ${updateBtn?"bg-blue-300":"bg-blue-600"}`} 
                  onClick={handleCreateSpace}
+                 disabled={updateBtn}
               >Post</button>
             </div>
           </div>

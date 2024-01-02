@@ -13,7 +13,9 @@ function CreatePostModel({onClickModel,value}){
     const[postContent,setPostContent]=useState("");
     const[modelTab,setModelTab]=useState('question');
     const{darkMode}=useSelector((state)=>state.mode)
-  
+    const[postQuestion,setPostQuestion]=useState("");
+    const[addBtn,setAddBtn]=useState(true);
+    const[postBtn,setPostBtn]=useState(true)
     
 
     const postData=()=> {
@@ -40,6 +42,32 @@ function CreatePostModel({onClickModel,value}){
             })
           .catch(error => console.log('error', error));
       };
+      const handlePostQuestion=(e)=>{
+        console.log(addBtn);
+        setPostQuestion(e.target.value);
+        if(e.target.value.length!==0){
+          setAddBtn(false);
+        }
+        else{
+          setAddBtn(true);
+        }
+      }
+      const handlePostBtn=(val1,val2)=>{
+        if(val1&&val2){
+          setPostBtn(false)
+        }
+        else{
+          setPostBtn(true)
+        }
+      }
+      const handlePostTitle=(e)=>{
+        setPostTitle(e.target.value);
+        handlePostBtn(e.target.value,postContent)
+      }
+      const handlePostContent=(e)=>{
+        setPostContent(e.target.value);
+        handlePostBtn(postTitle,e.target.value);
+      }
 
     return(
         <Modal
@@ -83,9 +111,9 @@ function CreatePostModel({onClickModel,value}){
                 <div className={` flex flex-col pt-5 pr-12 pl-3 ml-4 border-b w-11/12 border-solid ${darkMode?"text-gray-300 border-gray-600":"text-gray-800 border-gray-300"}`}>
                   <input
                     type="text"
-                    value={postTitle}
+                    value={postQuestion}
                     required
-                    onChange={(e) => setPostTitle(e.target.value)}
+                    onChange={(e) => handlePostQuestion(e)}
                     placeholder="Start your question with 'what', 'How', 'Why' etc."
                     className={`outline-none ${darkMode?"bg-neutral-900":"bg-white"}`}
                   
@@ -96,8 +124,11 @@ function CreatePostModel({onClickModel,value}){
                   <button className="text-sm border-none outline-none my-2 text-slate-600 font-medium p-2 rounded-3xl cursor-pointer mr-5" onClick={() => setOpenModal(false)}>
                     
                   </button>
-                  <button type="submit" className="text-sm border-none outline-none my-2 text-white font-medium p-2 rounded-3xl cursor-pointer mr-5 bg-blue-500 hover:bg-blue-300" 
+                  <button type="submit" 
+                  disabled={addBtn}
+                  className={`text-sm border-none outline-none my-2 text-white font-medium p-2 rounded-3xl cursor-pointer mr-5 hover:bg-blue-300 ${addBtn?"bg-blue-300":"bg-blue-500"}`} 
                   onClick={postData}
+                  
                   >
                     Add Question
                   </button>
@@ -109,13 +140,14 @@ function CreatePostModel({onClickModel,value}){
                   <small className='font-medium text-sm'>{profile.userName?profile.userName:""}</small>
                 </div>
                 <div className={`pt-2.5 pl-1 ${darkMode?"text-gray-400":""}`}>
-                    <textarea className={`w-full outline-none border-none text-lg ${darkMode?"bg-neutral-900":"bg-white"}`} name="title" id="title" cols="30" rows="2" placeholder="title here..." onChange={(e)=>setPostTitle(e.target.value)}></textarea>
-                    <textarea className={`w-full outline-none border-none text-lg ${darkMode?"bg-neutral-900":"bg-white"}`} name="content" id="content" cols="30" rows="4" placeholder="Say something..." onChange={(e)=>setPostContent(e.target.value)}></textarea>
+                    <textarea className={`w-full outline-none border-none text-lg ${darkMode?"bg-neutral-900":"bg-white"}`} name="title" id="title" cols="30" rows="2" placeholder="title here..." onChange={(e)=>handlePostTitle(e)}></textarea>
+                    <textarea className={`w-full outline-none border-none text-lg ${darkMode?"bg-neutral-900":"bg-white"}`} name="content" id="content" cols="30" rows="4" placeholder="Say something..." onChange={(e)=>handlePostContent(e)}></textarea>
                 </div>
                 <div className={`w-full flex justify-end border-t border-solid  py-2 ${darkMode?"border-gray-600":"border-gray-200"}`}> 
                  
-                  <button type="submit" className=" border-none outline-none text-white text-sm py-2.5 px-5 mr-5 rounded-3xl cursor-pointer bg-blue-500 hover:bg-blue-300" 
+                  <button type="submit" className={`border-none outline-none text-white text-sm py-2.5 px-5 mr-5 rounded-3xl cursor-pointer hover:bg-blue-300 ${postBtn?"bg-blue-300":"bg-blue-500"}`} 
                   onClick={postData}
+                  disabled={postBtn}
                   >
                     Post
                   </button>

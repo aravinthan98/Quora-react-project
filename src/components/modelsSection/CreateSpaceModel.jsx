@@ -8,7 +8,7 @@ function CreateSpaceModel({onModelClick,value}){
   const[spaceName,setSpaceName]=useState('');
   const[spaceDescription,setSpaceDescription]=useState('');
   const{darkMode}=useSelector((state)=>state.mode)
-
+  const[createBtn,setCreateBtn]=useState(true)
   const handleCreateSpace=()=>{
     var myHeaders = new Headers();
     myHeaders.append("projectID", "f104bi07c490");
@@ -34,6 +34,22 @@ function CreateSpaceModel({onModelClick,value}){
       })
     .catch(error => console.log('error', error));
     }
+    const handlePostBtn=(val1,val2)=>{
+      if(val1&&val2){
+        setCreateBtn(false)
+      }
+      else{
+        setCreateBtn(true)
+      }
+    }
+    const handleSpaceName=(e)=>{
+      setSpaceName(e.target.value);
+      handlePostBtn(e.target.value,spaceDescription)
+    }
+    const handleSpaceDescription=(e)=>{
+      setSpaceDescription(e.target.value);
+      handlePostBtn(spaceName,e.target.value);
+    }
     return(
         <Modal
           open={value}
@@ -56,7 +72,7 @@ function CreateSpaceModel({onModelClick,value}){
                 <small>This can be changed in Space settings.</small>
                 <input type="text" id="username"
                 value={spaceName}
-                 onChange={(e)=>setSpaceName(e.target.value)}
+                 onChange={(e)=>handleSpaceName(e)}
                  className={`px-3 py-2 w-full rounded text-sm outline-none border border-solid  mt-2 hover:border-blue-600 ${darkMode?"bg-neutral-950 border-zinc-600":"bg-white border-gray-300"}`}
                 />
                 <br/>
@@ -68,12 +84,14 @@ function CreateSpaceModel({onModelClick,value}){
                 <small>Include a few keywords to show people what to expect if they join.</small>
                 <input type="text" id="email"
                   value={spaceDescription}
-                  onChange={(e)=>setSpaceDescription(e.target.value)}
+                  onChange={(e)=>handleSpaceDescription(e)}
                     className={`px-3 py-2 w-full rounded text-sm outline-none border border-solid mt-2 hover:border-blue-600 ${darkMode?"bg-neutral-950 border-zinc-600":"bg-white border-gray-300"}`} 
                 />
               </div>             
               <div className="flex justify-end py-4" onClick={handleCreateSpace}>
-                <button className=" h-9 px-5 rounded-3xl border-none outline-none bg-blue-600 text-white font-medium text-sm mr-5 cursor-pointer hover:bg-zinc-700"            
+                <button 
+                disabled={createBtn}
+                className={`h-9 px-5 rounded-3xl border-none outline-none  text-white font-medium text-sm mr-5 cursor-pointer hover:bg-blue-300 ${createBtn?"bg-blue-300":"bg-blue-600"}`}           
                 >Create
                 </button>
               </div>

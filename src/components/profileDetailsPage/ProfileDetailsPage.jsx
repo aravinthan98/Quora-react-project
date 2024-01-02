@@ -63,7 +63,7 @@ function ProfileDetailsPage(){
         if(state){
             getUserDetails(state);         
         }
-    },[])
+    },[state])
  
     return(
         <div className={`lg:pt-12 pt-24 w-full h-screen overflow-y-scroll transition-all duration-300 ease-out ${darkMode?"bg-neutral-900 text-zinc-400":"bg-[#fff]"}`}>
@@ -92,13 +92,13 @@ function ProfileDetailsPage(){
                                 <div className="flex  box-border py-1 px-0 items-start">
                                     <div className={`mr-1 box-border flex justify-center items-center h-6 w-6 rounded-full text-sm ${darkMode?"bg-zinc-800":"bg-zinc-200 "}`} ><MdBusinessCenter className={darkMode?"text-zinc-300":"text-zinc-800"}/>
                                     </div>
-                                    <div > {details.designation?details.designation:""} at {details.companyName?details.companyName:""}
+                                    <div > {details.designation?details.designation:""}{details.companyName?`at ${details.companyName}`:"No data found"}
                                     </div>
                                 </div>
                                 <div className="flex  box-border py-1 px-0 items-start">
                                     <div className={`mr-1 box-border flex justify-center items-center h-6 w-6 rounded-full text-sm ${darkMode?"bg-zinc-800":"bg-zinc-200 "}`}><LuGraduationCap className={darkMode?"text-zinc-300":"text-zinc-800"} />
                                     </div>
-                                    <div> Studied {details.degree?details.degree:""}</div>
+                                    <div>{details.degree?`Studied ${details.degree}`:"No data found"}</div>
                                     </div>
                                     <div className="flex  box-border py-1 px-0 items-start">
                                         <div className={`mr-1 box-border flex justify-center items-center h-6 w-6 rounded-full text-sm ${darkMode?"bg-zinc-800":"bg-zinc-200"}`}><SlLocationPin className={darkMode?"text-zinc-300":"text-zinc-800 "} />
@@ -108,7 +108,7 @@ function ProfileDetailsPage(){
                                         {
                                             details&&
                                             <div>
-                                            Lives in {details.city?details.city:""},
+                                            {details.city?`Lives in ${details.city}`:"No data found"},
                                             {details.state? details.state:""}, {details.country? details.country:""}
                                             </div>
                                         }
@@ -138,6 +138,9 @@ function ProfileDetailsPage(){
                             }
                             {clickedTab==='Answer' && 
                                 <UserPosts id={state} />
+                            }
+                            {clickedTab==='Question'&&
+                                <div className="text-center">No Data found</div>
                             }
                             {clickedTab==='Posts' &&
                                 <UserPosts id={state}/>

@@ -51,8 +51,8 @@ function MyProfile(){
     },[])
    
     return(
-        <div className={`lg:mt-12 mt-24 w-full h-screen transition-all duration-300 ease-out ${darkMode?"bg-neutral-900 text-zinc-400":"bg-[#fff]"}`}>
-            <div className="box-border lg:w-98 lg:mx-auto mx-0 pt-8 px-6 pb-6 items-stretch font-sans leading-6">
+        <div className={`lg:mt-12 mt-24 w-full h-full transition-all duration-300 ease-out ${darkMode?"bg-neutral-900 text-zinc-400":"bg-[#fff]"}`}>
+            <div className="box-border lg:w-98 h-screen lg:mx-auto mx-0 pt-8 px-6 pb-6 items-stretch font-sans leading-6">
                 <div className="flex lg:flex-row flex-col justify-between w-full">
                     <div className="lg:w-auto w-full mb-4" >
                         <div className="flex box-border">
@@ -99,7 +99,7 @@ function MyProfile(){
                         <div className="profile_Details-spaces"></div>
                     </div>
                 </div>
-                <div className="box-border lg:w-51 w-full">
+                <div className={`box-border lg:w-51 w-full ${darkMode?"bg-neutral-900":"bg-neutral-300"}`}>
                     <div className="box-border mt-2">
                         <div className={`flex justify-between border-b border-solid border-gray-300 text-[13px] font-medium ${darkMode?"border-gray-500":"border-gray-300"}`}>
                             <div className={`py-4 px-2 ${clickedTab==='Profile'?"border-b-4 border-solid border-red-700 text-red-700 cursor-pointer":"border-none text-neutral-400 cursor-pointer"}`} onClick={()=>setClickedTab('Profile')}>Profile</div>

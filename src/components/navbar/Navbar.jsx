@@ -41,7 +41,12 @@ import LanguageSection from "../modelsSection/LanguageSection";
  }
 
  const handleOpenModel=()=>{
-  setOpenModal(!openModal);
+  setOpenModal(true);
+ }
+ const handleCloseModel=()=>{
+  setOpenModal(false);
+ 
+
  }
   return (
     <div className={`lg:w-full lg:block hidden fixed box-border top-0 left-0 right-0 h-[50px] border-b border-solid shadow-sm z-30 ${darkMode?" bg-neutral-800 border-neutral-700":"bg-[#fff] border-gray-200"}`}>
@@ -129,7 +134,7 @@ import LanguageSection from "../modelsSection/LanguageSection";
           <div className=" h-8 border-r border-solid border-red-800"></div>
           <div className="pl-2 pr-2 h-8 flex justify-center items-center cursor-pointer" onClick={handleOpenModel}><PiCaretDown className="w-5 h-5" /></div>
           </div>
-          <CreatePostModel onClickModel={handleOpenModel} value={openModal}/>
+          <CreatePostModel onClickModel={handleCloseModel} value={openModal}/>
         </div>
         </div>
         </div>

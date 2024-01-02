@@ -131,8 +131,8 @@ function Post({postData}){
         getUserDetails(postData.author_id)
     },[])
     return(
-        <div  key={postData.id}>
-            <div className={`flex flex-col px-3 pt-3 mt-4 rounded border border-solid relative mb-0 transition-all duration-500 ease-in-out ${darkMode?"bg-neutral-800 border-zinc-700 text-gray-300":"bg-white border-gray-300 text-gray-950"}`}>
+        <div  key={postData.id} className={`rounded border mb-3 border-solid transition-all duration-500 ease-in-out ${darkMode ? "border-neutral-800" :  " border-gray-300"}`}>
+            <div className={`flex flex-col px-3 pt-3 relative ${darkMode?"bg-neutral-800 text-gray-300":"bg-white text-gray-950"}`}>
             <div className="box-border flex">
                 <div className="box-border flex mb-2">
                 <Link to='/profile' state={`${postData.author_id}`}>
@@ -148,7 +148,7 @@ function Post({postData}){
             </div>
             <div>
                 <div>
-                    <Link to='/question-detailpage' state={`${postData.id}`}>
+                    <Link to='/question-detailpage' state={postData}>
                     <div className={`box-border mb-1 font-bold text-base cursor-pointer hover:underline transition-all duration-500 ease-in-out ${darkMode?"text-neutral-200":"text-neutral-900"}`}  
                     onClick={()=>handleQuestion(postData)}>{postData.title}</div>
                     </Link>

@@ -68,9 +68,8 @@
                     border: 1px solid lightgray;
                     border-radius: 3px;
                     cursor: pointer;
-                    &:hover {
-                        background-color: rgb(226, 226, 226);
-                    }
+                    opacity: 0.5;
+                   
                     p{
                         margin: 0 0 0 11px;
                     }
@@ -156,14 +155,11 @@
                         border-radius: 22px;
                         border: none;
                         outline: none;
-                        background-color: #2e69ff;
                         color: white;
                         font-weight: bold;
                         font-size: 15px;
                         cursor: pointer;
-                        &:hover {
-                            background-color: #46484e;
-                        }
+                        
                     }
                 }
                 
@@ -192,6 +188,15 @@
             align-items: center;
             justify-content: space-evenly;
             background-color: #f6f6f6;
+            a{
+                margin: 0;
+                color: gray;
+                font-size: small;
+                cursor: pointer;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
             p{
                 margin: 0;
                 color: gray;
@@ -258,16 +263,13 @@
                 border-radius: 22px;
                 border: none;
                 outline: none;
-                background-color: #2e69ff;
                 color: white;
                 font-weight: bold;
                 font-size: 15px;
                 margin-right:20px ;
                 
                 cursor: pointer;
-                &:hover {
-                    background-color: #46484e;
-                }
+                
             }
         }
     }

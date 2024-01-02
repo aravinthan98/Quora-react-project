@@ -26,34 +26,10 @@ function QuestionDetailPage(){
     const[comments,setComments]=useState([]);
     const[commentBoxClicked,setCommentBoxClicked]=useState(false);   
     const{state}=useLocation();
-    const[post,setPost]=useState([]);
+    const[post,setPost]=useState(state);
     const{darkMode}=useSelector((state)=>state.mode)
     
-    const fetchQuestion=(id)=>{
-        var myHeaders = new Headers();
-        myHeaders.append("projectID", "f104bi07c490");
-        myHeaders.append("Authorization", `Bearer ${profile.token}`);
-
-        var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow'
-        };
-
-        fetch(`https://academics.newtonschool.co/api/v1/quora/post/${id}`, requestOptions)
-        .then(response => response.json())
-        .then((result) =>{
-            const newObjArr={
-                title:result.data.title,
-                content:result.data.content,
-                likeCount:result.data.likeCount,
-                commentCount:result.data.commentCount,
-                id:result.data._id
-            }
-            setPost(newObjArr);
-        })
-        .catch(error => console.log('error', error));
-    }
+    
     const fetchComments=(id)=>{
         GetComments(id,profile.token)
         .then(result => {   
@@ -66,7 +42,8 @@ function QuestionDetailPage(){
         });
         
     }
-    const handleChats=(id)=>{   
+    const handleChats=(id)=>{  
+        console.log("id",id) 
         if(!commentBoxClicked){
             setCommentBoxClicked(true);
             fetchComments(id);
@@ -118,16 +95,17 @@ function QuestionDetailPage(){
   
       }
     useEffect(()=>{
-       
-        fetchQuestion(state)
-    },[])
+        console.log("state",state);
+        setPost(state)
+        
+    },[state])
     return(
         <div className={`w-full h-screen lg:mt-12 mt-24 ${darkMode?"bg-neutral-900 text-zinc-300":"bg-zinc-100 "}`}>
             <div className="lg:w-98 lg:mx-auto w-full mx-0 pt-4 flex lg:gap-4" >
                 <div className="lg:w-3/5 w-full px-2">
-                    <div className={`px-3 pt-3 pb-0 border border-solid ${darkMode?"bg-neutral-900 border-zinc-600":"bg-white border-gray-400"}`}>
-                        <h4 className="text-xl m-0 font-bold">{post.title}</h4>
-                        <div className="flex justify-between pt-1 pb-1 ">
+                    <div className={` pt-3 pb-0 border border-solid ${darkMode?"bg-neutral-900 border-zinc-600":"bg-white border-gray-400"}`}>
+                        <h4 className="text-xl px-3 m-0 font-bold">{post.title}</h4>
+                        <div className="flex justify-between pt-1 pb-1 px-3">
                             <div className="flex">
                                 <div className={`flex py-0 pl-2.5 pr-5 rounded-full h-9 cursor-pointer justify-center items-center mb-1.5  ${darkMode?"border-gray-700 bg-neutral-800 hover:bg-zinc-700":"border-gray-200 hover:bg-slate-100"}`}  
                                 onClick={()=>handleClickAnswer(post.title,post.id)} ><SlNote className={`text-lg font-bold ${darkMode?"text-gray-300":"text-gray-700"}`}/> <h4 className={`m-0 pl-1.5 text-sm font-semibold ${darkMode?"text-gray-400":"text-gray-700"}`}>Answer</h4></div>
@@ -143,11 +121,12 @@ function QuestionDetailPage(){
                                     {downVoteArray.includes(post.id)?(<BiSolidDownvote className=" text-2xl text-blue-600 " />):(<RxThickArrowDown className={`text-2xl cursor-pointer ${darkMode?"text-zinc-400":"text-gray-600"}`}/>)}
                                 </div>                      
                             </div>
-                        </div>                                                                                    
+                        </div> 
+                        {commentBoxClicked&&    
+                        <CommentsModel id={post.id} countComment={setCommentCount}/>
+                        }                                                                                   
                     </div>
-                    {commentBoxClicked&&    
-                        <CommentsModel id={post.id}/>
-                    } 
+ 
                 </div>
                 <div>
                 <AddAnswer onClickModel={handleCloseModel} value={openModal} content={question} id={postId}/>

@@ -92,12 +92,12 @@ function UserProfilePost({postData}){
       }
 
     return(
-        <div  key={postData.id}>
-            <div className={`flex flex-col px-3 pt-3 rounded border border-solid relative mb-3 transition-all duration-500 ease-in-out ${darkMode?"bg-neutral-800 border-neutral-700":"bg-white border-gray-300"}`}>
+        <div  key={postData.id} className={`rounded border mb-3 border-solid transition-all duration-500 ease-in-out ${darkMode ? "border-neutral-800" :  " border-gray-300"}`}>
+            <div className={`flex flex-col px-3 pt-3 relative ${darkMode?"bg-neutral-800":"bg-white"}`}>
            
             <div>
                 <div>
-                    <Link to='/question-detailpage' state={`${postData.id}`}>
+                    <Link to='/question-detailpage' state={postData}>
                     <div className={`box-border mb-1 font-bold text-base cursor-pointer hover:underline transition-all duration-500 ease-in-out ${darkMode?"text-neutral-200":"text-neutral-900"}`} 
                     onClick={()=>handleQuestion(postData)}>{postData.title}</div>
                     </Link>
@@ -111,6 +111,18 @@ function UserProfilePost({postData}){
                 <div>
                     <div className="box-border flex px-3 flex-nowrap justify-between py-1">
                         <div className="flex items-center cursor-pointer">
+                        {postData.author_id===profile.id?(
+                            <div className={`box-border flex mr-2 h-8 rounded-full border-r opacity-40 border-solid  ${darkMode?"bg-neutral-700 border-neutral-600":"bg-zinc-100 border-gray-200"}`}>
+                                <div className="box-border flex items-center px-2 h-8 " >
+                                    <RxThickArrowUp className="text-2xl text-blue-700" />
+                                    <span className="text-[13px] font-medium ml-1">Upvote. {likeCount}</span>
+                                </div>
+                                <div className={`h-8 border-r border-solid ${darkMode?"border-neutral-600":"border-zinc-200"}`}></div>
+                                <div className="box-border flex items-center justify-center px-2 pb-1 h-8" >
+                                <RxThickArrowDown  className="text-2xl"/>
+                                </div>
+                            </div>
+                        ):(
                             <div className={`box-border flex mr-2 h-8 rounded-full border-r border-solid  ${darkMode?"bg-neutral-700 border-neutral-600":"bg-zinc-100 border-gray-200"}`}>
                                 <div className="box-border flex items-center px-2 h-8 " id={clickedBtn==="upvote"?"upvoted":"noupvote"}onClick={()=>handleVoteClick(postData.id,profile.token)}>
                                 {voteArray.includes(postData.id)?(<BiSolidUpvote className="text-2xl text-blue-700" />):(<RxThickArrowUp className="text-2xl text-blue-700" />)} 
@@ -121,12 +133,18 @@ function UserProfilePost({postData}){
                                 {clickedBtn==="downvote"?(<BiSolidDownvote className="text-2xl text-orange-700"/>):(<RxThickArrowDown  className="text-2xl"/>)}
                                 </div>
                             </div>
+                        )}
                             <div className="box-border flex items-center h-8 min-w-8 px-1 mr-2 " id="chat" onClick={handleChats}>
                                 <BsChat className="text-lg mr-1" id="chat" />
                                 <small id="chat">{commentCount}</small>
                             </div>
           
                         </div>
+                        {postData.author_id===profile.id?(
+                             <div className="box-border flex items-center h-8 min-w-8 opacity-40 px-1e cursor-pointer" onClick={handleMore}>
+                             <BsThreeDots className="text-xl "/>
+                             </div>
+                        ):(
                         <div className="box-border flex items-center h-8 min-w-8 px-1e cursor-pointer" onClick={handleMore}>
                             <BsThreeDots className="text-xl "/>
                             <div className={dotClick?"block absolute left-auti top-auto bottom-0 right-0 translate-x-20 -translate-y-11 ":"hidden"}>
@@ -139,6 +157,7 @@ function UserProfilePost({postData}){
                               
                             </div>
                         </div>
+                        )}
                     </div>
                 </div>          
             </div>

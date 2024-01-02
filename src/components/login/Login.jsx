@@ -15,7 +15,7 @@ const Login = () => {
   const[emailError,setEmailError]=useState(null);
   const[pwdError,setPwdError]=useState(null);
   const[openModal,setOpenModal]=useState(false);
-   
+   const[loginBtn,setLoginBtn]=useState(true);
 
  
   const fetchLogin=()=>{
@@ -70,6 +70,14 @@ const Login = () => {
     function isValidEmail(mail) {
       return /\S+@\S+\.\S+/.test(mail);
     }
+    const handleLoginBtn=(val1,val2)=>{
+        if(val1&&val2){
+          setLoginBtn(false);
+        }
+        else{
+          setLoginBtn(true);
+        }
+    }
     const handleEmail=(e)=>{
       setEmail(e.target.value);
       if(!isValidEmail(e.target.value)){   
@@ -80,7 +88,7 @@ const Login = () => {
         setEmailError(null);
        
       }
-     
+     handleLoginBtn(e.target.value,password)
     }
     const handlePwd=(e)=>{
       const val=e.target.value
@@ -91,6 +99,7 @@ const Login = () => {
       else{
         setPwdError(null);
       } 
+      handleLoginBtn(email,e.target.value)
     }
    const handleClickModel=()=>{
     setOpenModal(!openModal)
@@ -118,24 +127,18 @@ const handleLoginClick=()=>{
 
   return (
     <div className="login">
-
         <div className="login__container">
-
             <div className="login__logo">
             <img
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Quora_logo_2015.svg/250px-Quora_logo_2015.svg.png"
                 alt=""
             />
             </div>
-
             <div className="login__desc">
             <p>A Place to Share knowledge and better understand the world</p>
             </div>
-
             <div className="login__auth">
-
                 <div className="login__authOptions">
-
                     <div className="login_authText">
                     By continuing you indicate that you agree to Quora’s{" "}
                     <a href="https://www.quora.com/about/tos" target="_blank">
@@ -146,7 +149,6 @@ const handleLoginClick=()=>{
                         Privacy Policy.
                     </a>
                     </div>
-
                     <div className="login__authOption"
                     //  onClick={signInWithGoogle}
                      >
@@ -159,7 +161,6 @@ const handleLoginClick=()=>{
                         Continue With Google
                     </p>
                     </div>
-
                     <div
                     className="login__authOption"
                     // onClick={signInWithFacebook}
@@ -172,11 +173,9 @@ const handleLoginClick=()=>{
                     <p>Continue With Facebook</p>
                     </div>
                     <div className="signup-btn" onClick={handleClickModel}>SignUp</div>
-
                 </div>
                {openModal&&
                 <SignUp onModelClick={handleClickModel} val={openModal} />
-
                }
                 <div className="login__emailPass">
                     <div className="login__label">
@@ -214,21 +213,19 @@ const handleLoginClick=()=>{
                                 <div className="text-red-600 mt-1"><BiInfoCircle /></div>
                                 <div className="text-[13px] text-red-600">{pwdError}</div>
                               </div>
-                            }
-                            
+                            }                            
                         </div>
                     </div>
-
                     <div className="login__forgButt">
                     <small></small>
                     <button 
                     onClick={handleLoginClick}
+                    disabled={loginBtn}
+                    className={`hover:bg-blue-300 ${loginBtn?"bg-blue-300":"bg-blue-600"}`}
                     >
                         Login
                     </button>
-                    </div>
-
-                  
+                    </div>                 
                 </div>
             </div>
             <div className="login__lang">
@@ -236,14 +233,15 @@ const handleLoginClick=()=>{
             <MdArrowForwardIos fontSize="small" />
             </div>
             <div className="login__footer">
-            <p>About</p>
-            <p>Languages</p>
-            <p>Careers</p>
-            <p>Businesses</p>
-            <p>Privacy</p>
-            <p>Terms</p>
-            <p>Contact</p>
-            <p>&copy; Quora Clone Inc. 2023</p>
+            <a href="https://www.quora.com/about" >About</a>
+            <a href="https://www.careers.quora.com/" >Careers</a>
+            <a href="https://www.quora.com/about/privacy">Privacy</a>
+            <a href="https://www.quora.com/about/tos">Terms</a>
+            <a href="https://help.quora.com/hc/en-us/requests/new" target="_blank">Contact</a>
+            <a href="https://www.quora.com/about/languages" target="_blank">Languages</a>
+            <a href="https://www.quora.com/about/your_ad_choices">Your Ad choices</a>
+            <a href="https://www.quora.com/press">Press</a>
+            <p>&copy; Quora Clone Inc. 2024</p>
             </div>
         </div>
     </div>

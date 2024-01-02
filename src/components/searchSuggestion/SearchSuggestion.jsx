@@ -22,10 +22,22 @@ function SearchSuggestion({onClickModel,value,input}){
                 'projectID': 'f104bi07c490'
               }
             });
-         
-            setQuestionResults(response.data.data);
+           
+            const newObjArr= response.data.data.map((item)=>({
+              author_id:item.author._id,
+              author_name:item.author.name,
+              author_image:"https://qsf.cf2.quoracdn.net/-4-images.new_grid.profile_default.png-26-688c79556f251aa0.png",
+              title:item.title,
+              content:item.content,
+              likeCount:item.likeCount,
+              commentCount:item.commentCount,
+              id:item._id
+           }));
+            setQuestionResults(newObjArr);        
           } catch (error) {
+            setQuestionResults([])
             console.error('Error fetching data:', error);
+
           }  
 
           try {
@@ -34,9 +46,19 @@ function SearchSuggestion({onClickModel,value,input}){
                 'projectID': 'f104bi07c490'
               }
             });
-          
-            setAnswerResults(response.data.data);
+            const newObjArr= response.data.data.map((item)=>({
+              author_id:item.author._id,
+              author_name:item.author.name,
+              author_image:"https://qsf.cf2.quoracdn.net/-4-images.new_grid.profile_default.png-26-688c79556f251aa0.png",
+              title:item.title,
+              content:item.content,
+              likeCount:item.likeCount,
+              commentCount:item.commentCount,
+              id:item._id
+           }));
+           setAnswerResults(newObjArr);
           } catch (error) {
+            setAnswerResults([])
             console.error('Error fetching data:', error);
           }
           try {
@@ -48,6 +70,7 @@ function SearchSuggestion({onClickModel,value,input}){
             
             setSpaceResults(response.data.data);            
           } catch (error) {
+            setSpaceResults([])
             console.error('Error fetching data:', error);
           }  
           try {
@@ -61,6 +84,7 @@ function SearchSuggestion({onClickModel,value,input}){
             setProfileResults(response.data.data);
             console.log("profile",response);
           } catch (error) {
+            setProfileResults([])
             console.error('Error fetching data:', error);
           }  
     }
@@ -125,10 +149,10 @@ function SearchSuggestion({onClickModel,value,input}){
                 </div>
             </div>
             <div>
-              {questionResults&&
+              {questionResults.length!==0&&
                 questionResults.map((item)=>(
                   <div key={item._id}>
-                    <Link to='/question-detailpage' state={`${item._id}`}>
+                    <Link to='/question-detailpage' state={item}>
                     <div className="px-3 border-t border-solid border-slate-300 cursor-pointer"  onClick={()=>handleQuestion(item)}>
                         <div className="py-2 whitespace-nowrap overflow-hidden text-ellipsis">
                           <p>{item.title}</p>

@@ -109,7 +109,7 @@ function SpaceDetailPage(){
                             {/* <div className={clickedTab==='Answer'?"py-4 px-2 border-b-2 border-solid border-red-700 text-red-700":"py-4 px-2"} onClick={()=>setClickedTab('Answer')}>Answer</div> */}
                             
                         </div>
-                        <div className={`box-border  rounded mt-2 ${darkMode?" bg-neutral-900":" bg-white"}`}>
+                        <div className={`box-border  rounded mt-2 ${darkMode?" bg-neutral-900":""}`}>
                             {clickedTab==='Read'&&
                                posts.map((item)=>(
                                 <Post postData={item} key={item.id}/>
