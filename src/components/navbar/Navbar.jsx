@@ -46,7 +46,9 @@ import LanguageSection from "../modelsSection/LanguageSection";
  const handleCloseModel=()=>{
   setOpenModal(false);
  
-
+ }
+ const handleMyMenuClose=()=>{
+    setMenuOpen(false);
  }
   return (
     <div className={`lg:w-full lg:block hidden fixed box-border top-0 left-0 right-0 h-[50px] border-b border-solid shadow-sm z-30 ${darkMode?" bg-neutral-800 border-neutral-700":"bg-[#fff] border-gray-200"}`}>
@@ -115,7 +117,7 @@ import LanguageSection from "../modelsSection/LanguageSection";
               <div className="">{profile.userName[0].toUpperCase()}</div>
             </div>
               {menuOpen&&
-              <MyMenu/>
+              <MyMenu onMenuValue={handleMyMenuClose}/>
               }
           </div>
 

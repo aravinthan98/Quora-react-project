@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setMode } from "../../redux/features/mode/modeSlice";
 import { useNavigate } from "react-router-dom";
-function MyMenu(){
+function MyMenu({onMenuValue}){
     const dispatch = useDispatch(); 
     const { darkMode } = useSelector((state)=>state.mode); 
 
@@ -20,7 +20,10 @@ function MyMenu(){
         setLogin(false)
         return navigate('/login')       
     }
-
+    const handleCloseMenu=()=>{
+        
+        onMenuValue();
+    }
     return(
       
         <div className={`w-64 z-30 absolute lg:top-14 lg:h-auto h-screen border  border-solid ${darkMode?" bg-neutral-800 border-zinc-700 text-zinc-300":"bg-white border-slate-300 text-zinc-800"}`}>
@@ -36,7 +39,7 @@ function MyMenu(){
                 <div className="border-b border-solid border-slate-300 ">
                     <div className="py-2">
                         <Link to='/commingsoon'>
-                            <div className={`py-2 px-3 flex gap-2 cursor-pointer ${darkMode?"hover:bg-zinc-700":"hover:bg-zinc-100"}`}>
+                            <div className={`py-2 px-3 flex gap-2 cursor-pointer ${darkMode?"hover:bg-zinc-700":"hover:bg-zinc-100"}`} onClick={handleCloseMenu}>
                                 <div className="flex items-center text-xl"><BiMessageDots /></div>
                                 <div className="text-sm">Messages</div>
                             </div>
