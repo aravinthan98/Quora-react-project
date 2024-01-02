@@ -19,8 +19,7 @@ function CreatePostModel({onClickModel,value}){
     const[postBtn,setPostBtn]=useState(true)
     
 
-    const postData=()=> {
-        
+    const postData=()=> {        
         var myHeaders = new Headers();
         myHeaders.append("projectID", "f104bi07c490");
         myHeaders.append("Authorization", `Bearer ${profile.token}`);
@@ -28,6 +27,29 @@ function CreatePostModel({onClickModel,value}){
         var formdata = new FormData();
         formdata.append("content", `${postContent}`);
         formdata.append("title", `${postTitle}`);
+           
+        var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: formdata,
+          redirect: 'follow'
+        };
+        
+        fetch("https://academics.newtonschool.co/api/v1/quora/post/", requestOptions)
+          .then(response => response.text())
+          .then((result) =>{ 
+
+            onClickModel()
+            })
+          .catch(error => console.log('error', error));
+      };
+      const postQuestionData=()=> {        
+        var myHeaders = new Headers();
+        myHeaders.append("projectID", "f104bi07c490");
+        myHeaders.append("Authorization", `Bearer ${profile.token}`);
+        
+        var formdata = new FormData();
+        formdata.append("title", `${postQuestion}`);
            
         var requestOptions = {
           method: 'POST',
@@ -130,7 +152,7 @@ function CreatePostModel({onClickModel,value}){
                   <button type="submit" 
                   disabled={addBtn}
                   className={`text-sm border-none outline-none my-2 text-white font-medium p-2 rounded-3xl cursor-pointer mr-5 hover:bg-blue-300 ${addBtn?"bg-blue-300":"bg-blue-500"}`} 
-                  onClick={postData}
+                  onClick={postQuestionData}
                   
                   >
                     Add Question
