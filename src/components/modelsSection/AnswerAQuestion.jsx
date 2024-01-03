@@ -36,6 +36,7 @@ function AddAnswer({onClickModel,value,content,id}){
       onClickModel();
     }
     const handleAnswerInput=(e)=>{
+ 
       setAnswerInput(e.target.value);
       if(e.target.value.length!==0){
         setPostBtn(false)

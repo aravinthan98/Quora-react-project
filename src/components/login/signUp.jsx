@@ -63,7 +63,9 @@ function SignUp({onModelClick,val}){
           return navigate('/')
         }
         else{
- 
+          console.log(result);
+          setEmailError(result.message);
+
       }
 
 })

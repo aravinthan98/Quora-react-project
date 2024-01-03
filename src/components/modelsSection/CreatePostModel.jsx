@@ -9,7 +9,7 @@ import { RxCross2 } from 'react-icons/rx';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 function CreatePostModel({onClickModel,value}){
-    const{profile}=useCurrentContext();
+    const{profile,setReRenderPost}=useCurrentContext();
     const [postTitle, setPostTitle] = useState("");
     const[postContent,setPostContent]=useState("");
     const[modelTab,setModelTab]=useState('question');
@@ -17,8 +17,7 @@ function CreatePostModel({onClickModel,value}){
     const[postQuestion,setPostQuestion]=useState("");
     const[addBtn,setAddBtn]=useState(true);
     const[postBtn,setPostBtn]=useState(true)
-    
-
+    const[postImage,setPostImage]=useState(null);
     const postData=()=> {        
         var myHeaders = new Headers();
         myHeaders.append("projectID", "f104bi07c490");
@@ -27,7 +26,7 @@ function CreatePostModel({onClickModel,value}){
         var formdata = new FormData();
         formdata.append("content", `${postContent}`);
         formdata.append("title", `${postTitle}`);
-           
+        formdata.append("images", postImage, "[PROXY]");
         var requestOptions = {
           method: 'POST',
           headers: myHeaders,
@@ -38,11 +37,17 @@ function CreatePostModel({onClickModel,value}){
         fetch("https://academics.newtonschool.co/api/v1/quora/post/", requestOptions)
           .then(response => response.text())
           .then((result) =>{ 
-
+            setReRenderPost(prev=>prev+1);
             onClickModel()
             })
           .catch(error => console.log('error', error));
       };
+      const handleCreatePost=()=>{
+        setPostBtn(true);
+        if(postContent.length!==0&&postTitle.length!==0){
+          postData();
+        }
+      }
       const postQuestionData=()=> {        
         var myHeaders = new Headers();
         myHeaders.append("projectID", "f104bi07c490");
@@ -61,7 +66,7 @@ function CreatePostModel({onClickModel,value}){
         fetch("https://academics.newtonschool.co/api/v1/quora/post/", requestOptions)
           .then(response => response.text())
           .then((result) =>{ 
-
+            setReRenderPost(prev=>prev+1);
             onClickModel()
             })
           .catch(error => console.log('error', error));
@@ -77,7 +82,7 @@ function CreatePostModel({onClickModel,value}){
         }
       }
       const handlePostBtn=(val1,val2)=>{
-        if(val1&&val2){
+        if(val1.length!==0&&val2.length!==0){
           setPostBtn(false)
         }
         else{
@@ -91,6 +96,11 @@ function CreatePostModel({onClickModel,value}){
       const handlePostContent=(e)=>{
         setPostContent(e.target.value);
         handlePostBtn(postTitle,e.target.value);
+      }
+      const handleImage = (e) => {
+       
+        setPostImage(e.target.files[0]);
+        
       }
 
     return(
@@ -148,7 +158,7 @@ function CreatePostModel({onClickModel,value}){
                   <button className="text-sm border-none outline-none my-2 text-slate-600 font-medium p-2 rounded-3xl cursor-pointer mr-5" onClick={() => setOpenModal(false)}>
                     
                   </button>
-                  <Link to="/myprofile" state={`${profile.id}`}>
+                  
                   <button type="submit" 
                   disabled={addBtn}
                   className={`text-sm border-none outline-none my-2 text-white font-medium p-2 rounded-3xl cursor-pointer mr-5 hover:bg-blue-300 ${addBtn?"bg-blue-300":"bg-blue-500"}`} 
@@ -157,7 +167,7 @@ function CreatePostModel({onClickModel,value}){
                   >
                     Add Question
                   </button>
-                  </Link>
+                
                 </div>
               </div>
               <div className={modelTab==="post"?"w-full px-4 pt-4 mt-4":"hidden"}>
@@ -169,15 +179,22 @@ function CreatePostModel({onClickModel,value}){
                     <textarea className={`w-full outline-none border-none text-lg ${darkMode?"bg-neutral-900":"bg-white"}`} name="title" id="title" cols="30" rows="2" placeholder="title here..." onChange={(e)=>handlePostTitle(e)}></textarea>
                     <textarea className={`w-full outline-none border-none text-lg ${darkMode?"bg-neutral-900":"bg-white"}`} name="content" id="content" cols="30" rows="4" placeholder="Say something..." onChange={(e)=>handlePostContent(e)}></textarea>
                 </div>
-                <div className={`w-full flex justify-end border-t border-solid  py-2 ${darkMode?"border-gray-600":"border-gray-200"}`}> 
-                <Link to="/myprofile" state={`${profile.id}`}>
+                <div className={`w-full flex justify-between border-t border-solid  py-2 ${darkMode?"border-gray-600":"border-gray-200"}`}> 
+                <div>
+                  <input
+                    onChange={handleImage}
+                    className="block w-full text-sm text-gray-900 dark:border-[rgba(177,179,182,0.2)] border border-gray-300 rounded bg-gray-50 focus:outline-none dark:bg-transparent cursor-pointer"
+                    name="images"
+                    type="file"
+                  />
+                </div>
                   <button type="submit" className={`border-none outline-none text-white text-sm py-2.5 px-5 mr-5 rounded-3xl cursor-pointer hover:bg-blue-300 ${postBtn?"bg-blue-300":"bg-blue-500"}`} 
-                  onClick={postData}
+                  onClick={handleCreatePost}
                   disabled={postBtn}
                   >
                     Post
                   </button>
-                  </Link>
+                 
                 </div>
               </div>
             </div>

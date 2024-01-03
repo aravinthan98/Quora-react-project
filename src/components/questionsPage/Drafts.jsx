@@ -18,7 +18,7 @@ function Draft(){
                 <Link to="/answer"><button className="py-0 px-5 m-0  outline-none  border border-solid border-blue-600 text-blue-600 font-bold h-9 rounded-full" onClick={()=>setQuestionTabSelected('QuestionForU')}>See questions for you</button></Link>
                 
             </div>
-            <div className={`lg:block hidden w-56 py-4  h-40 ${darkMode?"bg-neutral-800  text-neutral-400":"bg-[#fff] text-neutral-800"}`}>
+            <div className={`lg:block hidden w-56 py-4 px-4  h-40 ${darkMode?"bg-neutral-800  text-neutral-400":"bg-[#fff] text-neutral-800"}`}>
                 <h4 className={` text-base m-0 font-medium ${darkMode?"text-neutral-300":"text-neutral-800"}`}>Add topics you know about</h4>
 
                 <p className="m-0 text-[13px] ">Adding topics helps us find questions for you to answer</p>

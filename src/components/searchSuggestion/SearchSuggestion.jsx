@@ -139,6 +139,7 @@ function SearchSuggestion({onClickModel,value,input}){
     },[input])
     return(     
         <div className={`w-full absolute mt-0 z-50 max-h-72 overflow-y-hidden border-x border-solid ${darkMode?"bg-neutral-800 border-zinc-700 text-zinc-300":"bg-white border-zinc-300"}`}>
+            <div>
             <div className={`px-3 border-t border-solid border-slate-300  ${darkMode?"bg-zinc-800":"bg-zinc-100"}`}>
                 <div className="py-2 whitespace-nowrap overflow-hidden text-ellipsis">
                   <div className="flex items-center gap-2">
@@ -148,7 +149,7 @@ function SearchSuggestion({onClickModel,value,input}){
                   
                 </div>
             </div>
-            <div>
+           
               {questionResults.length!==0&&
                 questionResults.map((item)=>(
                   <div key={item._id}>
@@ -163,8 +164,7 @@ function SearchSuggestion({onClickModel,value,input}){
                 ))
                 
               }
-            </div>
-            <div>
+         
               {profileResults&&
                 profileResults.map((item)=>(
                   <div key={item._id}>
@@ -184,8 +184,8 @@ function SearchSuggestion({onClickModel,value,input}){
                   </div>
                 ))
               }
-            </div>
-            <div>
+         
+           
             {spaceResults&&
                 spaceResults.map((item)=>(
                   <div key={item._id} >
@@ -194,7 +194,7 @@ function SearchSuggestion({onClickModel,value,input}){
                       <div className="py-2 whitespace-nowrap overflow-hidden text-ellipsis">
                         <div className="flex gap-2">
                           <div className="rounded-lg">
-                            <img src={item.image?item.image:"https://qsf.cf2.quoracdn.net/-4-ans_frontend_assets.images.tribes.defaults.space_banner_yellow.png-26-0cad087b263ce130.png"} className=" w-6 rounded-lg"/>
+                            <img src={item.image?item.image:"https://qsf.cf2.quoracdn.net/-4-ans_frontend_assets.images.tribes.defaults.space_icon_yellow.png-26-fe83a11d61dd4889.png"} className=" w-6 rounded-lg"/>
                           </div>
                           <div>
                           <p><span className=" text-gray-400">Space:</span> <span className="font-medium text-base">{item.name}</span></p>

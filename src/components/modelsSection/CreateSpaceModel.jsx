@@ -3,13 +3,15 @@ import { Modal } from "@mui/material";
 import { RxCross2 } from "react-icons/rx";
 import { useCurrentContext } from "../../context/currentContext";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 function CreateSpaceModel({onModelClick,value}){
-  const{profile}=useCurrentContext();
+  const{profile,setRenderChannel}=useCurrentContext();
   const[spaceName,setSpaceName]=useState('');
   const[spaceDescription,setSpaceDescription]=useState('');
   const{darkMode}=useSelector((state)=>state.mode)
   const[createBtn,setCreateBtn]=useState(true)
-  const handleCreateSpace=()=>{
+  const navigate=useNavigate();
+  const createSpace=()=>{
     var myHeaders = new Headers();
     myHeaders.append("projectID", "f104bi07c490");
     myHeaders.append("Content-Type", "application/json");
@@ -30,10 +32,21 @@ function CreateSpaceModel({onModelClick,value}){
   fetch("https://academics.newtonschool.co/api/v1/quora/channel/", requestOptions)
     .then(response => response.json())
     .then((result) => {
+      console.log("result",result.data._id)
+      setRenderChannel(result.data._id);
       onModelClick()
       })
     .catch(error => console.log('error', error));
-    }
+  }
+  const renderChannelPage=()=>{
+    return navigate('/channel_detail_page')
+  }
+  const handleCreateSpace=()=>{
+    createSpace()
+    setTimeout(()=>{
+      renderChannelPage()
+    },1000)
+  }
     const handlePostBtn=(val1,val2)=>{
       if(val1&&val2){
         setCreateBtn(false)
@@ -88,12 +101,15 @@ function CreateSpaceModel({onModelClick,value}){
                     className={`px-3 py-2 w-full rounded text-sm outline-none border border-solid mt-2 hover:border-blue-600 ${darkMode?"bg-neutral-950 border-zinc-600":"bg-white border-gray-300"}`} 
                 />
               </div>             
-              <div className="flex justify-end py-4" onClick={handleCreateSpace}>
+              <div className="flex justify-end" >
+               
                 <button 
                 disabled={createBtn}
-                className={`h-9 px-5 rounded-3xl border-none outline-none  text-white font-medium text-sm mr-5 cursor-pointer hover:bg-blue-300 ${createBtn?"bg-blue-300":"bg-blue-600"}`}           
+                className={`h-9 px-5 py-2 rounded-3xl border-none outline-none  text-white font-medium text-sm mr-5 my-2 cursor-pointer hover:bg-blue-300 ${createBtn?"bg-blue-300":"bg-blue-600"}`}           
+                onClick={handleCreateSpace}
                 >Create
                 </button>
+                
               </div>
             </div>
           </div>   

@@ -60,7 +60,8 @@ const Login = () => {
             return navigate('/')
         }
         else{
-            // setMessage(result.message);
+            console.log(result)
+            setPwdError(result.message);
             // setError(true)
         }
       

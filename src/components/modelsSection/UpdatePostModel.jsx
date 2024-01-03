@@ -11,6 +11,7 @@ function UpdatePostModel({object,onClickModel,value}){
     const{profile}=useCurrentContext();
     const{darkMode}=useSelector((state)=>state.mode)
     const[updateBtn,setUpdateBtn]=useState(true)
+    
     const updatePost=(id)=>{
         var myHeaders = new Headers();
         myHeaders.append("projectID", "f104bi07c490");
@@ -19,7 +20,7 @@ function UpdatePostModel({object,onClickModel,value}){
         var formdata = new FormData();
         formdata.append("title", `${title}`);
         formdata.append("content", `${content}`);
-
+       
         var requestOptions = {
         method: 'PATCH',
         headers: myHeaders,
@@ -53,6 +54,12 @@ function UpdatePostModel({object,onClickModel,value}){
       setContent(e.target.value);
       handlePostBtn(title,e.target.value);
     }
+    const handleImage = (e) => {
+       
+      setPostImage(e.target.files[0]);
+      
+    }
+
     return(
         <Modal
         open={value}
@@ -91,6 +98,7 @@ function UpdatePostModel({object,onClickModel,value}){
              
             </div>             
             <div className="flex justify-end py-4">
+
               <button className={` h-9 px-5 rounded-3xl border-none outline-none  text-white font-medium text-sm mr-5 cursor-pointer hover:bg-blue-300 ${updateBtn?"bg-blue-300":"bg-blue-600"}`} 
                  onClick={handleCreateSpace}
                  disabled={updateBtn}

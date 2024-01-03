@@ -2,17 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useCurrentContext } from "../../context/currentContext";
 import './ChannelDetailPage.scss';
 import Post from "../posts/posts";
-import commingsoon1 from "../../assets/pngitem.png";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { FiSettings } from "react-icons/fi";
 function ChannelDetailPage(){
   const{darkMode}=useSelector((state)=>state.mode)
-  const{selectedChannel,setSelectedChannel,profile}=useCurrentContext();
+  const{selectedChannel,renderChannel,profile}=useCurrentContext();
   const[channelDetails,setChannelDetails]=useState([]);
   const[channelPosts,setChannelPost]=useState([]);
   const[channelTab,setChannelTab]=useState('channel-post');
   const{state}=useLocation();
-
+  const navigate=useNavigate()
   const fetchChannelPost=(id)=>{
     var myHeaders = new Headers();
     myHeaders.append("projectID", "f104bi07c490");
@@ -58,16 +58,28 @@ function ChannelDetailPage(){
     fetch(`https://academics.newtonschool.co/api/v1/quora/channel/${id}`, requestOptions)
       .then(response => response.json())
       .then((result) =>{
+        console.log(result.data)
+        console.log(profile.token);
         setChannelDetails(result.data);
         fetchChannelPost(id); 
         
       } )
       .catch(error => console.log('error', error));      
   }
+
   
-    useEffect(()=>{   
-        fetchChannelDetail(state)                        
+    useEffect(()=>{
+    
+      if(state){   
+        fetchChannelDetail(state)  
+      }                      
     },[state])
+
+    useEffect(()=>{
+      if(renderChannel){
+      fetchChannelDetail(renderChannel)
+      }
+    },[renderChannel])
     return(
         <div className={`channel_detail-page h-full lg:mt-2 mt-24 w-full ${darkMode?"bg-neutral-900":"bg-gray-100"}`}>
           <div className="channel-detail-top_section w-full">
@@ -87,6 +99,15 @@ function ChannelDetailPage(){
                 <h1 className=" font-bold">{channelDetails.name}</h1>
                 <p>{channelDetails.description}</p>
             </div>
+            {channelDetails.length!==0&&channelDetails.owner._id===profile.id&&
+              <div className="absolute left-auto right-16 bottom-4">
+                  <Link to='/channel_setting_page' state={channelDetails._id}>
+                  <div className="p-3 rounded-full bg-slate-400">
+                    <div><FiSettings/></div>
+                  </div>
+                  </Link>
+              </div>
+            }
           </div>
            
           <div className="channel-detail-bottom-section lg:w-98 lg:mx-auto lg:px-6 mx-0 px-0 w-full">

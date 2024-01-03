@@ -12,6 +12,7 @@ function MyProfile(){
     const[details,setDetails]=useState({});
     const[clickedTab,setClickedTab]=useState('Profile');
     const{darkMode}=useSelector((state)=>state.mode);
+    
     const{state}=useLocation();
     function getUserDetails(id){
         var myHeaders = new Headers();
@@ -27,7 +28,7 @@ function MyProfile(){
         fetch(`https://academics.newtonschool.co/api/v1/quora/user/${id}`, requestOptions)
         .then(response => response.json())
         .then((result) =>{
-           
+            console.log(result)
             const newResult={
                 name:`${result.data.name?result.data.name:""}`,
                 image:result.data.profileImage,
@@ -48,6 +49,7 @@ function MyProfile(){
         getUserDetails(state);         
       
     },[])
+
    
     return(
         <div className={`lg:mt-12 mt-24 w-full h-full transition-all duration-300 ease-out ${darkMode?"bg-neutral-900 text-zinc-400":"bg-[#fff]"}`}>

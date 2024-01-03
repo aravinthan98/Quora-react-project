@@ -19,6 +19,7 @@ import QuestionDetailPage from "./components/questionDetailPage/QuestionDetailPa
 import CommingSoon from "./utilities/CommingSoonPage";
 import MyProfile from "./components/myProfile/MyProfile";
 import HomePage from "./components/homePage/HomePage";
+import ChannelSettingPage from "./components/channelDetailPage/ChannelSettingPage";
 
 function App() {
   
@@ -45,6 +46,7 @@ function App() {
           <Route path="/question-detailpage" element={<QuestionDetailPage/>}/>
           <Route path="/CommingSoon" element={<CommingSoon/>}/>
           <Route path="/myprofile" element={<MyProfile/>}/>
+          <Route exact path="/channel_setting_page" Component={ChannelSettingPage}/>
         </Routes>
       </Layout>
       </CurrentProvider> 

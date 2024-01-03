@@ -3,7 +3,7 @@ import React,{useState,useEffect} from "react";
 import { useCurrentContext } from "../../context/currentContext";
 
 function ProfilePost(){
-    const{profile,selectedProfile}=useCurrentContext()
+    const{profile,selectedProfile,reRenderPost}=useCurrentContext()
     const[posts,setPosts]=useState([]);
     
 
@@ -38,10 +38,15 @@ const getposts=()=>{
     .catch(error => console.log('error', error));
 }
     useEffect(()=>{
-       
+       console.log(profile.token);
      getposts();
         
     },[])
+    useEffect(()=>{      
+        setTimeout(()=>{           
+            getposts();
+        },500)
+    },[reRenderPost])
 return(
     <div>
        {posts.map((item)=>(

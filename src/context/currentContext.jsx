@@ -36,7 +36,8 @@ const CurrentProvider = ({ children }) => {
 
     });
     const[relatedQuestion,setRelatedQuestion]=useState([]);
-    
+    const[reRenderPost,setReRenderPost]=useState(0);
+    const[renderChannel,setRenderChannel]=useState(null)
       useEffect(()=>{
         const userlog=JSON.parse(localStorage.getItem('userLogin'));
         if(userlog!==null){
@@ -53,7 +54,7 @@ const CurrentProvider = ({ children }) => {
     return (
         <CurrentContext.Provider value={{questionTabSelected,setQuestionTabSelected,noteTabSelected,setNoteTabSelected,profile,setProfile,
         login,setLogin,searchVal,setSearchVal,selectedChannel,setSelectedChannel,selectedProfile,setSelectedProfile,selectedSpace,setSelectedSpace,
-        voteArray,setVoteArray,selectedQuestion,setSelectedQuestion,relatedQuestion,setRelatedQuestion}}>
+        voteArray,setVoteArray,selectedQuestion,setSelectedQuestion,relatedQuestion,setRelatedQuestion,reRenderPost,setReRenderPost,renderChannel,setRenderChannel}}>
             {children}
         </CurrentContext.Provider>
     );

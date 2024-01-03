@@ -6,7 +6,7 @@ import PostPage from "../posts/PostPage";
 import { useLocation } from "react-router-dom";
 const Feed = () => {
   const [posts, setPost] = useState([]);
-  const{profile,voteArray,setVoteArray}=useCurrentContext();
+  const{profile,voteArray,setVoteArray,reRenderPost}=useCurrentContext();
   const[Loading,setLoading]=useState(false);
   const{state}=useLocation();
   const fetchData = async () => {
@@ -29,6 +29,7 @@ const Feed = () => {
         author_image:"https://qsf.cf2.quoracdn.net/-4-images.new_grid.profile_default.png-26-688c79556f251aa0.png",
         title:item.title,
         content:item.content,
+        image:item.images[0]||"",
         likeCount:item.likeCount,
         commentCount:item.commentCount,
         id:item._id
@@ -59,6 +60,12 @@ const Feed = () => {
     },1000)   
     
   }, []);
+  useEffect(()=>{      
+    setLoading(true)
+    setTimeout(()=>{
+      fetchData();
+    },1000) 
+  },[reRenderPost])
 
 
   return (

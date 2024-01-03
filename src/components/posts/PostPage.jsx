@@ -138,8 +138,8 @@ function PostPage({postData}){
                     <div>{postData.content}</div>               
                 </div>
                 <div>
-                    {postData.post_image&&
-                    <img src={postData.post_image} alt="post_image"/>
+                    {postData.image&&
+                    <img src={postData.image} alt="post_image"/>
                     }
                 </div>
                 <div>

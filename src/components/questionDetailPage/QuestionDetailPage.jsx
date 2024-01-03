@@ -85,15 +85,15 @@ function QuestionDetailPage(){
           
         }       
       }
-      const handleQuestion=(item)=>{    
-        setSelectedQuestion({
-          ...selectedQuestion,
-          title:item.title,
-          id:item._id,
-          commentCount:item.commentCount
-        })
+    //   const handleQuestion=(item)=>{    
+    //     setSelectedQuestion({
+    //       ...selectedQuestion,
+    //       title:item.title,
+    //       id:item._id,
+    //       commentCount:item.commentCount
+    //     })
   
-      }
+    //   }
     useEffect(()=>{
         console.log("state",state);
         setPost(state)
@@ -131,7 +131,7 @@ function QuestionDetailPage(){
                 <div>
                 <AddAnswer onClickModel={handleCloseModel} value={openModal} content={question} id={postId}/>
                 </div>
-                <div className={`lg:w-1/3 lg:block hidden h-96 overflow-hidden ${darkMode?"bg-neutral-800 text-zinc-300":"bg-white"}`}>
+                {/* <div className={`lg:w-1/3 lg:block hidden h-96 overflow-hidden ${darkMode?"bg-neutral-800 text-zinc-300":"bg-white"}`}>
                     <div>
                         <div className={`py-2 px-3 border-b border-solid  ${darkMode?"border-zinc-600":"border-slate-300"}`}>Related Questions</div>
                         <div className="px-4">
@@ -140,7 +140,7 @@ function QuestionDetailPage(){
                             ))}
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     )

@@ -30,6 +30,10 @@ export default {
         'midmobile':  '353px'
        
       },
+      backgroundImage: {
+        'hero-pattern': "url('https://qsf.cf2.quoracdn.net/-4-ans_frontend_assets.images.tribes.defaults.space_banner_yellow.png-26-0cad087b263ce130.png')",
+        
+      }
     },
   },
   plugins: [],
