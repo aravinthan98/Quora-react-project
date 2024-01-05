@@ -1,5 +1,4 @@
 import React from 'react'
-import './Layout.css'
 import Navbar from './components/navbar/Navbar';
 import { useLocation } from 'react-router-dom';
 import { useCurrentContext } from './context/currentContext';
