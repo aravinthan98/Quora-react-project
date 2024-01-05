@@ -11,6 +11,6 @@ var requestOptions = {
 
 fetch(`https://academics.newtonschool.co/api/v1/quora/channel/${id}/`, requestOptions)
   .then(response => response.text())
-  .then(result => console.log(result))
+  .then((result)=>{})
   .catch(error => console.log('error', error));
 }

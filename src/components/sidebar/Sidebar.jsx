@@ -24,7 +24,7 @@ const getSpaces=async()=>{
     });
  
     setChannelData(response.data.data);
-    console.log("response",response);
+  
   } catch (error) {
     console.error('Error fetching data:', error);
   } 

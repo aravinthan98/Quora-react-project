@@ -21,7 +21,7 @@ function CommentsModel({id,countComment}){
         
         GetComments(id,profile.token)
         .then(result => {  
-            console.log(result); 
+            
             const reversedData = result.data.reverse();     
             setComments(reversedData.slice(0,10));
             setLoading(false)

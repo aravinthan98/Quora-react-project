@@ -58,16 +58,12 @@ function ChannelDetailPage(){
     fetch(`https://academics.newtonschool.co/api/v1/quora/channel/${id}`, requestOptions)
       .then(response => response.json())
       .then((result) =>{
-        console.log(result.data)
-        console.log(profile.token);
         setChannelDetails(result.data);
         fetchChannelPost(id); 
         
       } )
       .catch(error => console.log('error', error));      
-  }
-
-  
+  } 
     useEffect(()=>{
     
       if(state){   

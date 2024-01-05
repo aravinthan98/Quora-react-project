@@ -43,7 +43,7 @@ function QuestionDetailPage(){
         
     }
     const handleChats=(id)=>{  
-        console.log("id",id) 
+       
         if(!commentBoxClicked){
             setCommentBoxClicked(true);
             fetchComments(id);
@@ -95,8 +95,12 @@ function QuestionDetailPage(){
   
     //   }
     useEffect(()=>{
-        console.log("state",state);
-        setPost(state)
+        const newObjArr={
+            title:state.title,
+            commentCount:state.commentCount,
+            id:state._id||state.id
+         };
+        setPost(newObjArr)
         
     },[state])
     return(

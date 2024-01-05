@@ -32,7 +32,7 @@ function CreateSpaceModel({onModelClick,value}){
   fetch("https://academics.newtonschool.co/api/v1/quora/channel/", requestOptions)
     .then(response => response.json())
     .then((result) => {
-      console.log("result",result.data._id)
+     
       setRenderChannel(result.data._id);
       onModelClick()
       })

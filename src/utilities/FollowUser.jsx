@@ -11,6 +11,7 @@ export const FollowUser=(id,token)=>{
 
     fetch(`https://academics.newtonschool.co/api/v1/quora/follow/${id}`, requestOptions)
     .then(response => response.json())
-    .then(result => console.log(result))
+    .then((result)=>{
+    })
     .catch(error => console.log('error', error));
 }

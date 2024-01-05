@@ -41,7 +41,7 @@ function SignUp({onModelClick,val}){
     .then((result) =>{
      
       if(result.status=="success"){
-        console.log(result);
+      
           setLogin(true);
        
           setProfile({
@@ -63,7 +63,7 @@ function SignUp({onModelClick,val}){
           return navigate('/')
         }
         else{
-          console.log(result);
+         
           setEmailError(result.message);
 
       }
@@ -109,7 +109,7 @@ function SignUp({onModelClick,val}){
     handleSignUpBtn(e.target.value,email,password)
   }
 const handleSignUpClick=()=>{
-    console.log("called");
+  
   if( email && password&&userName){
       if(!isValidEmail(email)){   
         setEmailError("No account found for this email. Retry, or Sign up for Quora.")          

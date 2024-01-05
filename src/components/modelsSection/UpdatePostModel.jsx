@@ -30,7 +30,9 @@ function UpdatePostModel({object,onClickModel,value}){
 
         fetch(`https://academics.newtonschool.co/api/v1/quora/post/${id}`, requestOptions)
         .then(response => response.json())
-        .then(result => console.log(result))
+        .then((result) => {
+          
+        })
         .catch(error => console.log('error', error));
     }
     const handleCreateSpace=()=>{
@@ -54,11 +56,7 @@ function UpdatePostModel({object,onClickModel,value}){
       setContent(e.target.value);
       handlePostBtn(title,e.target.value);
     }
-    const handleImage = (e) => {
-       
-      setPostImage(e.target.files[0]);
-      
-    }
+
 
     return(
         <Modal

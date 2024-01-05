@@ -12,7 +12,7 @@ export const FetchVote=(id,token,method)=>{
     fetch(`https://academics.newtonschool.co/api/v1/quora/like/${id}`, requestOptions)
       .then(response => response.json())
       .then((result) => {
-        console.log(result)})
+        })
       .catch(error => console.log('error', error));
 
      

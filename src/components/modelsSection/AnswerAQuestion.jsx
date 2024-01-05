@@ -27,9 +27,8 @@ function AddAnswer({onClickModel,value,content,id}){
     
     fetch(`https://academics.newtonschool.co/api/v1/quora/comment/${id}`, requestOptions)
       .then((response) => response.json())
-      .then((result) => {
-        
-        console.log(result)})
+      .then((result) => {       
+        })
       .catch(error => console.log('error', error));
     
       setAnswerInput('')

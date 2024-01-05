@@ -8,7 +8,6 @@ import SignUp from "./signUp";
 
 const Login = () => {
   const{setLogin,profile,setProfile}=useCurrentContext();
-  const[userName,setUserName]=useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");   
   const navigate=useNavigate();
@@ -60,7 +59,7 @@ const Login = () => {
             return navigate('/')
         }
         else{
-            console.log(result)
+     
             setPwdError(result.message);
             // setError(true)
         }

@@ -31,7 +31,7 @@ function ProfilePostModel({postData,postfetch}){
     const[openDeleteModel,setOpenDeleteModel]=useState(false)
     
     const handleUpdatePost=()=>{
-        console.log(postData.id);       
+             
         setOpenModel(false);
         setTimeout(()=>{
             postfetch();

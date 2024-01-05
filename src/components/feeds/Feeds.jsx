@@ -22,7 +22,7 @@ const Feed = () => {
       }
 
       const jsonData = await response.json();
-      console.log("jsonData",jsonData);
+     
      const newObjArr= jsonData.data.map((item)=>({
         author_id:item.author._id,
         author_name:item.author.name,

@@ -82,7 +82,7 @@ function SearchSuggestion({onClickModel,value,input}){
             });
           
             setProfileResults(response.data.data);
-            console.log("profile",response);
+       
           } catch (error) {
             setProfileResults([])
             console.error('Error fetching data:', error);

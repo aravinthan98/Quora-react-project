@@ -38,7 +38,7 @@ const getposts=()=>{
     .catch(error => console.log('error', error));
 }
     useEffect(()=>{
-       console.log(profile.token);
+      
      getposts();
         
     },[])

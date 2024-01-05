@@ -50,8 +50,7 @@ function PostPage({postData}){
         if (!idCheck) {  
 
             const newIdArray=[...voteArray,id]           
-            FetchVote(id,token,"POST"); 
-        
+            FetchVote(id,token,"POST");       
             localStorage.setItem('likesIds', JSON.stringify(newIdArray));
             setVoteArray(newIdArray);
             setClickedBtn('upvote') ;
@@ -61,8 +60,7 @@ function PostPage({postData}){
             const newIdArray=voteArray.filter((item)=>item!==id) 
             localStorage.setItem('likesIds', JSON.stringify(newIdArray));  
             setVoteArray(newIdArray);
-            setClickedBtn('');
-            console.log("votearray",newIdArray) 
+            setClickedBtn('');        
             FetchVote(id,token,"DELETE");
             setLikeCount(prev=>prev-1);           
         }    
@@ -96,7 +94,7 @@ function PostPage({postData}){
         setDotClick(!dotClick);
     }
     const handleQuestion=(item)=>{
-        console.log("id",item.id);
+      
         setSelectedQuestion({
       
           ...selectedQuestion,

@@ -72,7 +72,7 @@ function CreatePostModel({onClickModel,value}){
           .catch(error => console.log('error', error));
       };
       const handlePostQuestion=(e)=>{
-        console.log(addBtn);
+       
         setPostQuestion(e.target.value);
         if(e.target.value.length!==0){
           setAddBtn(false);

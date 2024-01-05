@@ -17,7 +17,7 @@ function ProfileDetailsPage(){
     const [followState,setFollowState]=useState('Follow');
     const {state}=useLocation();
     const{darkMode}=useSelector((state)=>state.mode)
-    console.log("location",state)
+   
     const handleFollow=()=>{
         if(followState==='Follow'){
              setFollowState('Following');
@@ -42,7 +42,7 @@ function ProfileDetailsPage(){
         fetch(`https://academics.newtonschool.co/api/v1/quora/user/${id}`, requestOptions)
         .then(response => response.json())
         .then((result) =>{
-            console.log(result)
+           
             const newResult={
                 name:`${result.data.name?result.data.name:""}`,
                 image:result.data.profileImage||"https://qsf.cf2.quoracdn.net/-4-images.new_grid.profile_default.png-26-688c79556f251aa0.png",

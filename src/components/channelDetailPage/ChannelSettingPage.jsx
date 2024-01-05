@@ -30,8 +30,7 @@ function ChannelSettingPage(){
         fetch(`https://academics.newtonschool.co/api/v1/quora/channel/${id}`, requestOptions)
           .then(response => response.json())
           .then((result) =>{
-            console.log(result.data)
-            console.log(profile.token);
+           
             setChannelDetails(result.data); 
             setChannelName(result.data.name);
             setChannelDescription(result.data.description);
@@ -58,7 +57,7 @@ function ChannelSettingPage(){
         fetch(`https://academics.newtonschool.co/api/v1/quora/channel/${channelDetails._id}/`, requestOptions)
         .then(response => response.text())
         .then((result) =>{
-             console.log(result)
+             
              fetchChannelDetail(channelDetails._id)
             })
         .catch(error => console.log('error', error));
@@ -92,7 +91,7 @@ function ChannelSettingPage(){
                 <div className=" lg:w-98 lg:px-6  px-2 lg:mx-auto lg:flex h-full">
                     <div className="w-full flex gap-8">
                         <div className=" w-1/3">
-                            <div className={`w-full mb-3  rounded ${darkMode?"bg-neutral-800 text-zinc-300":"bg-white"}`}>
+                            <div className={`w-full mb-3 rounded ${darkMode?"bg-neutral-800 text-zinc-300":"bg-white"}`}>
                                 <Link to="/channel_detail_page">
                                 <div className="flex px-2 pt-2 gap-1 items-center" >
                                     <div><MdOutlineArrowBackIos/></div>

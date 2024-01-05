@@ -28,7 +28,7 @@ function MyProfile(){
         fetch(`https://academics.newtonschool.co/api/v1/quora/user/${id}`, requestOptions)
         .then(response => response.json())
         .then((result) =>{
-            console.log(result)
+            
             const newResult={
                 name:`${result.data.name?result.data.name:""}`,
                 image:result.data.profileImage,

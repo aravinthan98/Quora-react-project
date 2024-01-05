@@ -67,7 +67,7 @@ function CommentCard({comment,onClickrender}){
         .then(response => response.json())
         .then((result) => {
             setEditClicked(false);
-            console.log(result)})
+           })
         .catch(error => console.log('error', error));
     }
     const handleDeleteModel=()=>{
