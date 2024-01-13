@@ -14,6 +14,12 @@ const Sidebar = () => {
   const[channelData,setChannelData]=useState([]);
   const{darkMode}=useSelector((state)=>state.mode);
   
+  const dpArray=["https://qsf.cf2.quoracdn.net/-4-ans_frontend_assets.images.tribes.defaults.space_icon_gray.png-26-a461963c75474740.png",
+  "https://qsf.cf2.quoracdn.net/-4-ans_frontend_assets.images.tribes.defaults.space_icon_yellow.png-26-fe83a11d61dd4889.png",
+  "https://qsf.cf2.quoracdn.net/-4-ans_frontend_assets.images.tribes.defaults.space_icon_green.png-26-4020b62698aa9121.png",
+  "https://qsf.cf2.quoracdn.net/-4-ans_frontend_assets.images.tribes.defaults.space_icon_blue.png-26-59bea7960fef2c75.png",
+  "https://qsf.cf2.quoracdn.net/-4-ans_frontend_assets.images.tribes.defaults.space_icon_pink.png-26-b775bb30fc463837.png",
+  "https://qsf.cf2.quoracdn.net/-4-ans_frontend_assets.images.tribes.defaults.space_icon_purple.png-26-6ea9822273dc841e.png"]
 
 const getSpaces=async()=>{
   try {
@@ -47,7 +53,7 @@ const handleModel=()=>{
       </div>
       <CreateSpaceModel onModelClick={handleModel} value={openModal}/>
       <div>
-        {channelData&&channelData.map((item)=>(
+        {channelData&&channelData.map((item,index)=>(
           <Link to="/topic" state={`${item._id}`} key={item._id}><div className="flex gap-1 justify-start mb-1 cursor-pointer p-2 box-border hover:bg-gray-300 rounded"
            key={item._id} 
            onClick={()=>setSelectedSpace({
@@ -57,7 +63,7 @@ const handleModel=()=>{
             image:`${item.image} `
            })}>
             <div className="box-border w-7">
-              <img src={item.image?"item.image":"https://qsf.cf2.quoracdn.net/-4-ans_frontend_assets.images.tribes.defaults.space_icon_green.png-26-4020b62698aa9121.png"}  className="rounded"/>
+              <img src={item.image?"item.image":dpArray[index%dpArray.length]}  className="rounded"/>
             </div>
             <div className=" text-xs box-border text-ellipsis">
               {item.name}
