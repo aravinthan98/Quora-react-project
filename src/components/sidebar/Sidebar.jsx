@@ -57,7 +57,7 @@ const handleModel=()=>{
             image:`${item.image} `
            })}>
             <div className="box-border w-7">
-              <img src={item.image}  className="rounded"/>
+              <img src={item.image?"item.image":"https://qsf.cf2.quoracdn.net/-4-ans_frontend_assets.images.tribes.defaults.space_icon_green.png-26-4020b62698aa9121.png"}  className="rounded"/>
             </div>
             <div className=" text-xs box-border text-ellipsis">
               {item.name}
