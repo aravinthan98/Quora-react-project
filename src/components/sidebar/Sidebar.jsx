@@ -7,12 +7,10 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import CreateSpaceModel from '../modelsSection/CreateSpaceModel';
 import Footer from '../Footer/Footer';
-import { useSelector } from 'react-redux';
 const Sidebar = () => {
   const[openModal,setOpenModal]=useState(false);
   const{profile,selectedSpace,setSelectedSpace}=useCurrentContext();
   const[channelData,setChannelData]=useState([]);
-  const{darkMode}=useSelector((state)=>state.mode);
   
   const dpArray=["https://qsf.cf2.quoracdn.net/-4-ans_frontend_assets.images.tribes.defaults.space_icon_gray.png-26-a461963c75474740.png",
   "https://qsf.cf2.quoracdn.net/-4-ans_frontend_assets.images.tribes.defaults.space_icon_yellow.png-26-fe83a11d61dd4889.png",
@@ -44,9 +42,9 @@ const handleModel=()=>{
   setOpenModal(!openModal);
 }
   return (
-    <div className={`sidebar lg:block hidden sticky  w-36 pb-4 pr-2 top-12 max-h-screen overflow-y-auto ${darkMode?" text-neutral-400":"text-zinc-600"}`}>
+    <div className="sidebar lg:block hidden sticky  w-36 pb-4 pr-2 top-12 max-h-screen overflow-y-auto dark:text-neutral-400 text-zinc-600">
       <div className="flex flex-col" onClick={handleModel}>
-      <div className={`flex gap-1 justify-start mb-1 cursor-pointer p-2 rounded border border-solid  ${darkMode?" bg-neutral-800 border-neutral-700":"bg-gray-200"}`}>
+      <div className="flex gap-1 justify-start mb-1 cursor-pointer p-2 rounded border border-solid  dark:bg-neutral-800 dark:border-neutral-700 bg-gray-200">
           <VscDiffAdded />
           <p className="text-sm m-0 pl-1 ">Create Space</p>
       </div>
@@ -63,7 +61,7 @@ const handleModel=()=>{
             image:`${item.image} `
            })}>
             <div className="box-border w-7">
-              <img src={item.image?"item.image":dpArray[index%dpArray.length]}  className="rounded"/>
+              <img src={item.image?"item.image":dpArray[index%dpArray.length]}  className="rounded" alt='group-logo'/>
             </div>
             <div className=" text-xs box-border text-ellipsis">
               {item.name}

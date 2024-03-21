@@ -4,14 +4,12 @@ import { useCurrentContext } from "../../context/currentContext";
 import { Debounce } from "../../utilities/Debounce";
 import { GoSearch } from "react-icons/go";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 function SearchSuggestion({onClickModel,value,input}){
     const{searchVal,profile,selectedProfile,setSelectedProfile,selectedChannel,setSelectedChannel,selectedQuestion,setSelectedQuestion,relatedQuestion,setRelatedQuestion}=useCurrentContext();
     const[questionResults,setQuestionResults]=useState([]);
     const[answerResults,setAnswerResults]=useState([]);
     const[spaceResults,setSpaceResults]=useState([]);
     const[profileResults,setProfileResults]=useState([]);
-    const{darkMode}=useSelector((state)=>state.mode)
     const navigate=useNavigate();
    
     const fetchQuestionData=async(val)=>{
@@ -138,12 +136,12 @@ function SearchSuggestion({onClickModel,value,input}){
       doDebouce()
     },[input])
     return(     
-        <div className={`w-full absolute mt-0 z-50 max-h-72 overflow-y-hidden border-x border-solid ${darkMode?"bg-neutral-800 border-zinc-700 text-zinc-300":"bg-white border-zinc-300"}`}>
+        <div className="w-full absolute mt-0 z-50 max-h-72 overflow-y-hidden border-x border-solid dark:bg-neutral-800 dark:border-zinc-700 dark:text-zinc-300 bg-white border-zinc-300">
             <div>
-            <div className={`px-3 border-t border-solid border-slate-300  ${darkMode?"bg-zinc-800":"bg-zinc-100"}`}>
+            <div className="px-3 border-t border-solid border-slate-300  dark:bg-zinc-800 bg-zinc-100">
                 <div className="py-2 whitespace-nowrap overflow-hidden text-ellipsis">
                   <div className="flex items-center gap-2">
-                    <GoSearch className={`text-2xl  ${darkMode?"text-gray-400":"text-gray-600"}`}/>
+                    <GoSearch className="text-2xl  dark:text-gray-400 text-gray-600"/>
                     <p><span className=" text-gray-400">Search:</span> <span className="font-medium text-base">{input}</span></p>
                   </div>
                   

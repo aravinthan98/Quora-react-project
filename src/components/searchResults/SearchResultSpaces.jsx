@@ -1,10 +1,8 @@
 import { Avatar, List, ListItem, ListItemAvatar, ListItemText } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useCurrentContext } from "../../context/currentContext";
-import { useSelector } from "react-redux";
 const SearchResultSpaces=({spaceResult})=>{
     const{selectedChannel,setSelectedChannel}=useCurrentContext();
-    const{darkMode}=useSelector((state)=>state.mode)
 
     const handleCardClick=(object)=>{
         setSelectedChannel({
@@ -12,8 +10,7 @@ const SearchResultSpaces=({spaceResult})=>{
         channelName: `${object.name}`,
         id:`${object._id}`,
         image:`${object.image}`
-        })
-            
+        })         
     }
     return(
         <div className="spaces-search_result-section">
@@ -21,7 +18,7 @@ const SearchResultSpaces=({spaceResult})=>{
             {
                 spaceResult.length!==0?( <List>
                     {spaceResult.map((item)=>(
-                        <div key={item._id}  className={`border border-solid ${darkMode?"bg-neutral-800 border-zinc-600 text-gray-300":"bg-white border-gray-300"}`}>
+                        <div key={item._id}  className="border border-solid dark:bg-neutral-800 dark:border-zinc-600 dark:text-gray-300 bg-white border-gray-300">
                          <Link to="/channel_detail_page" state={`${item._id}`}><ListItem button key={item._id} 
                          onClick={()=>handleCardClick(item)}
                          
@@ -31,7 +28,7 @@ const SearchResultSpaces=({spaceResult})=>{
                             </ListItemAvatar>
                             <div>
                                 <div>{item.name}</div>
-                                <div className={`text-sm ${darkMode?"text-neutral-400":""}`}>{item.description}</div>
+                                <div className="text-sm dark:text-neutral-400">{item.description}</div>
                             </div>
                         </ListItem></Link>
                         </div>

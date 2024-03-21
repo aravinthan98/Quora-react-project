@@ -9,8 +9,8 @@ import {RxThickArrowDown} from 'react-icons/rx';
 import {TfiRssAlt} from 'react-icons/tfi';
 import {PiPencilSimpleSlashLight} from 'react-icons/pi'
 import React,{useState} from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
 function QuestionCard({postData}){
     const{profile,selectedQuestion,setSelectedQuestion}=useCurrentContext();
     const[openModal,setOpenModal]=useState(false);
@@ -18,8 +18,7 @@ function QuestionCard({postData}){
     const[postId,setPostId]=useState('');
     const[followState,setFollowState]=useState([]);
     const[downVoteArray,setDownVoteArray]=useState([]);
-    const navigate=useNavigate();
-    const{darkMode}=useSelector((state)=>state.mode)
+
     const handleClickAnswer=(ques,id)=>{
         setOpenModal(true);
         setQuestion(ques);
@@ -64,26 +63,26 @@ function QuestionCard({postData}){
       }
     return(
         <>
-        <div className={`px-4 pt-4 pb-0 border-b border-solid transition-all duration-500 ease-in-out  ${darkMode?"border-gray-700":"border-gray-100"}`} key={postData._id}>
+        <div className="px-4 pt-4 pb-0 border-b border-solid transition-all duration-500 ease-in-out  dark:border-gray-700 border-gray-100" key={postData._id}>
             <Link to='/question-detailpage' state={postData}>
-            <h4 className={`m-0 font-bold cursor-pointer hover:underline ${darkMode?"text-zinc-300":"text-zinc-900"}`} 
+            <h4 className="m-0 font-bold cursor-pointer hover:underline dark:text-zinc-300 text-zinc-900" 
             onClick={()=>handleQuestion(postData)}>{postData.title}
             </h4>
             </Link>
             <div className="flex justify-between pt-1 pb-1 ">
                 <div className="flex gap-2">
-                    <div className={`flex py-0 pl-2.5 pr-5 rounded-full h-9 cursor-pointer justify-center items-center mb-1.5  border border-solid  ${darkMode?"border-gray-700 bg-neutral-800 hover:bg-zinc-700":"border-gray-200 hover:bg-slate-100"}`}
-                     onClick={()=>handleClickAnswer(postData.title,postData._id)} ><SlNote className={`text-lg font-bold ${darkMode?"text-gray-300":"text-gray-700"}`}/>
-                      <h4 className={`m-0 pl-1.5 text-sm font-semibold ${darkMode?"text-gray-400":"text-gray-700"}`}>Answer</h4>
+                    <div className={`flex py-0 pl-2.5 pr-5 rounded-full h-9 cursor-pointer justify-center items-center mb-1.5  border border-solid  dark:border-gray-700 dark:bg-neutral-800 dark:hover:bg-zinc-700 border-gray-200 hover:bg-slate-100"}`}
+                     onClick={()=>handleClickAnswer(postData.title,postData._id)} ><SlNote className="text-lg font-bold dark:text-gray-300 text-gray-700"/>
+                      <h4 className="m-0 pl-1.5 text-sm font-semibold dark:text-gray-400 text-gray-700">Answer</h4>
                     </div>
-                    <div className={`flex py-0 pl-2.5 pr-5 rounded-full h-9 cursor-pointer justify-center items-center mb-1.5 ${darkMode?`${followState.includes(postData.author._id)?"text-blue-600":"text-gray-400 hover:bg-zinc-700"}`:`${followState.includes(postData.author._id)?"text-blue-600":"hover:bg-slate-50"}`}`}
+                    <div className={`flex py-0 pl-2.5 pr-5 rounded-full h-9 cursor-pointer justify-center items-center mb-1.5 ${followState.includes(postData.author._id)?"text-blue-600":"dark:text-gray-400 dark:hover:bg-zinc-700 hover:bg-slate-50"}`}
                      onClick={()=>getFollowUser(postData.author._id)}>
                       <TfiRssAlt className="text-lg font-bold"/><h4 className="m-0 pl-1.5 text-sm font-semibold">Follow</h4></div>
                     
                 </div>
                 <div className="w-full items-end" >
                     <div className="flex items-center justify-end h-full" 
-                    onClick={()=>handleDownVoteClick(postData._id,profile.token)}>{downVoteArray.includes(postData._id)?(<BiSolidDownvote className=" text-lg text-blue-600 " />):(<RxThickArrowDown className={`text-xl cursor-pointer ${darkMode?"text-gray-400":"text-gray-700"}`}/>)}</div>
+                    onClick={()=>handleDownVoteClick(postData._id,profile.token)}>{downVoteArray.includes(postData._id)?(<BiSolidDownvote className=" text-lg text-blue-600 " />):(<RxThickArrowDown className="text-xl cursor-pointer dark:text-gray-400 text-gray-700"/>)}</div>
                     {/* <div className="q-for-u-card-btns-left"><BsThreeDots/></div> */}
                 </div>
 

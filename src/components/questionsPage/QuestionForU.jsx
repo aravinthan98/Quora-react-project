@@ -5,9 +5,7 @@ import { useCurrentContext } from "../../context/currentContext";
 import QuestionCard from "./QuestionCard";
 import { useSelector } from "react-redux";
 function QuestionsForU(){
-  const{profile}=useCurrentContext();
   const [posts, setPost] = useState([]);
-  const{darkMode}=useSelector((state)=>state.mode)
 
   const fetchData = async () => {
     try {
@@ -34,8 +32,8 @@ function QuestionsForU(){
   }, []);
     return(
         <div className="flex lg:gap-8 gap-1 transition-all duration-500 ease-in-out">
-            <div className={`font-sans  border border-solid w-full lg:w-full ${darkMode?" bg-neutral-800 border-zinc-700":"bg-[#fff]  border-zinc-300"}`}>
-            <div className={`flex px-4 py-2 border border-solid  ${darkMode?"text-zinc-400 border-zinc-700":"border-zinc-300"}`}>
+            <div className="font-sans  border border-solid w-full lg:w-full dark:bg-neutral-800 dark:border-zinc-700 bg-[#fff]  border-zinc-300">
+            <div className="flex px-4 py-2 border border-solid  dark:text-zinc-400 dark:border-zinc-700 border-zinc-300">
                 <TbSquareAsteriskFilled className=" text-3xl text-red-600 bg-[#fff] rounded-md"/>
                 <p className=" pl-1 text-sm m-0 flex items-center">Questions for you</p>
             </div>

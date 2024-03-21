@@ -7,7 +7,6 @@ import SearchResultAllPeople from "./SearchResultAllPeople";
 import SearchResultAllType from "./SearchResultAlltype";
 import axios from "axios";
 import { useCurrentContext } from "../../context/currentContext";
-import { useSelector } from "react-redux";
 
 function SearchResultsPage(){
     const{searchVal}=useCurrentContext();
@@ -16,9 +15,6 @@ function SearchResultsPage(){
     const[answerResults,setAnswerResults]=useState([]);
     const[spaceResults,setSpaceResults]=useState([]);
     const[allPeopleResults,setAllPeopleResults]=useState([]);
-    const{darkMode}=useSelector((state)=>state.mode)
-
-  
     
     const fetchQuestionData=async(val)=>{
        
@@ -103,16 +99,16 @@ function SearchResultsPage(){
     }
     return(
     
-      <div className={`search_result-page ${darkMode?"bg-neutral-900 text-zinc-300":"bg-gray-100"}`}>
+      <div className="search_result-page dark:bg-neutral-900 dark:text-zinc-300 bg-gray-100">
         <div className="search_result-page-container">
             <div className="result-page-sidenav lg:w-40 lg:block hidden">           
-                <div className={`question-lefttitle border-b border-solid ${darkMode?"border-zinc-600":"border-zinc-300"}`}>By types</div>
-                <div className={noteTabSelected==="alltype"?`selected-q-tab ${darkMode?" text-red-600":"text-red-700"}`:`q-left-flex ${darkMode?"text-zinc-400":"text-zinc-700"}`} onClick={()=>setNoteTabSelected('alltype')}>All types</div>            
-                <div className={noteTabSelected==="Question"?`selected-q-tab ${darkMode?" text-red-600":"text-red-700"}`:`q-left-flex ${darkMode?"text-zinc-400":"text-zinc-700"}`} onClick={()=>setNoteTabSelected('Question')}>Questions</div>
-                <div className={noteTabSelected==="Answer"?`selected-q-tab ${darkMode?" text-red-600":"text-red-700"}`:`q-left-flex ${darkMode?"text-zinc-400":"text-zinc-700"}`} onClick={()=>setNoteTabSelected('Answer')}>Answer</div>              
-                <div className={noteTabSelected==="spaces"?`selected-q-tab ${darkMode?" text-red-600":"text-red-700"}`:`q-left-flex ${darkMode?"text-zinc-400":"text-zinc-700"}`} onClick={()=>setNoteTabSelected('spaces')}>Spaces</div>              
-                <div className={`question-lefttitle border-b border-solid ${darkMode?"border-zinc-600":"border-zinc-300"}`}>By author</div>                
-               <div className={noteTabSelected==="Author"?`selected-q-tab ${darkMode?" text-red-600":"text-red-700"}`:`q-left-flex ${darkMode?"text-zinc-400":"text-zinc-700"}`} onClick={()=>setNoteTabSelected('Author')}>All people</div>     
+                <div className="question-lefttitle border-b border-solid dark:border-zinc-600 border-zinc-300">By types</div>
+                <div className={noteTabSelected==="alltype"?"selected-q-tab dark:text-red-600 text-red-700":"q-left-flex dark:text-zinc-400 text-zinc-700"} onClick={()=>setNoteTabSelected('alltype')}>All types</div>            
+                <div className={noteTabSelected==="Question"?"selected-q-tab dark:text-red-600 text-red-700":"q-left-flex dark:text-zinc-400 text-zinc-700"} onClick={()=>setNoteTabSelected('Question')}>Questions</div>
+                <div className={noteTabSelected==="Answer"?"selected-q-tab  dark:text-red-600 text-red-700":"q-left-flex dark:text-zinc-400 text-zinc-700"} onClick={()=>setNoteTabSelected('Answer')}>Answer</div>              
+                <div className={noteTabSelected==="spaces"?"selected-q-tab  dark:text-red-600 text-red-700":"q-left-flex dark:text-zinc-400 text-zinc-700"} onClick={()=>setNoteTabSelected('spaces')}>Spaces</div>              
+                <div className="question-lefttitle border-b border-solid dark:border-zinc-600 border-zinc-300">By author</div>                
+               <div className={noteTabSelected==="Author"?"selected-q-tab dark:text-red-600 text-red-700":"q-left-flex dark:text-zinc-400 text-zinc-700"} onClick={()=>setNoteTabSelected('Author')}>All people</div>     
             </div>
             <div className="lg:w-1/2 lg:ml-80 ml-0 w-full">
                 {resultComponent}

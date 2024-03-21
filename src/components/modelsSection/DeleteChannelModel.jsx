@@ -1,12 +1,10 @@
 import { Modal } from "@mui/material";
 import { useCurrentContext } from "../../context/currentContext";
-import { useSelector } from "react-redux";
 import { DeleteChannel } from "../../utilities/DeleteChannel";
 import { useNavigate } from "react-router-dom";
 
 function DeleteChannelModel({spaceObj,onClickModel,value}){
     const{profile}=useCurrentContext();
-    const{darkMode}=useSelector((state)=>state.mode)
     const navigate=useNavigate();
 
     const handleDeleteChannel=()=>{
@@ -20,7 +18,7 @@ function DeleteChannelModel({spaceObj,onClickModel,value}){
        
     >
       <div className="w-full h-full flex justify-center items-center">  
-        <div className={` rounded-lg lg:w-auto w-full h-auto ${darkMode?"bg-neutral-800 text-zinc-300":"bg-white text-neutral-800"}`}>       
+        <div className="rounded-lg lg:w-auto w-full h-auto dark:bg-neutral-800 dark:text-zinc-300 bg-white text-neutral-800">       
           
             <div className="pt-0 px-3 pb-3">
               <h3 className="mx-4 mt-4 mb-1 p-0 font-bold text-lg">Confirm Space Deletion</h3>

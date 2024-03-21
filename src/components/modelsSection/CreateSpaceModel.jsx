@@ -2,13 +2,11 @@ import React,{useState} from "react";
 import { Modal } from "@mui/material";
 import { RxCross2 } from "react-icons/rx";
 import { useCurrentContext } from "../../context/currentContext";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 function CreateSpaceModel({onModelClick,value}){
   const{profile,setRenderChannel}=useCurrentContext();
   const[spaceName,setSpaceName]=useState('');
   const[spaceDescription,setSpaceDescription]=useState('');
-  const{darkMode}=useSelector((state)=>state.mode)
   const[createBtn,setCreateBtn]=useState(true)
   const navigate=useNavigate();
   const createSpace=()=>{
@@ -69,7 +67,7 @@ function CreateSpaceModel({onModelClick,value}){
           onClose={onModelClick}  
       >
         <div className="w-full h-full flex justify-center items-center">  
-          <div className={`rounded-lg w-auto h-auto border border-solid ${darkMode?"bg-neutral-900 text-zinc-300 border-neutral-700":"bg-white border-neutral-200"}`}> 
+          <div className="rounded-lg w-auto h-auto border border-solid dark:bg-neutral-900 dark:text-zinc-300 dark:border-neutral-700 bg-white border-neutral-200"> 
             <div className="leading-normal py-3 pr-2 pl-4 text-lg cursor-pointer">
               <RxCross2 onClick={onModelClick}/>
             </div> 
@@ -86,7 +84,7 @@ function CreateSpaceModel({onModelClick,value}){
                 <input type="text" id="username"
                 value={spaceName}
                  onChange={(e)=>handleSpaceName(e)}
-                 className={`px-3 py-2 w-full rounded text-sm outline-none border border-solid  mt-2 hover:border-blue-600 ${darkMode?"bg-neutral-950 border-zinc-600":"bg-white border-gray-300"}`}
+                 className="px-3 py-2 w-full rounded text-sm outline-none border border-solid  mt-2 hover:border-blue-600 dark:bg-neutral-950 dark:border-zinc-600 bg-white border-gray-300"
                 />
                 <br/>
                 <small></small>
@@ -98,7 +96,7 @@ function CreateSpaceModel({onModelClick,value}){
                 <input type="text" id="email"
                   value={spaceDescription}
                   onChange={(e)=>handleSpaceDescription(e)}
-                    className={`px-3 py-2 w-full rounded text-sm outline-none border border-solid mt-2 hover:border-blue-600 ${darkMode?"bg-neutral-950 border-zinc-600":"bg-white border-gray-300"}`} 
+                    className="px-3 py-2 w-full rounded text-sm outline-none border border-solid mt-2 hover:border-blue-600 dark:bg-neutral-950 dark:border-zinc-600 bg-white border-gray-300" 
                 />
               </div>             
               <div className="flex justify-end" >

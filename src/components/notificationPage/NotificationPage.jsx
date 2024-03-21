@@ -9,7 +9,7 @@ function Notifications(){
    
    
     return(
-        <div className={`notification-page ${darkMode?"bg-neutral-900 text-zinc-400":"bg-white text-zinc-800"}`}>
+        <div className="notification-page dark:bg-neutral-900 dark:text-zinc-400 bg-white text-zinc-800">
             <div className="notification-page-container lg:pt-8 lg:mt-12 mt-24 pt-8">
                 <div className="notification-sidenav lg:block hidden">               
                     <div className="question-lefttitle">Filter</div>
@@ -28,7 +28,7 @@ function Notifications(){
                 </div>
                 <div className="lg:w-1/2 lg:ml-80 w-full ml-2 ">
                     <div className="lg:w-4/5 font-sans w-full">
-                        <div className={`w-full px-0 pt-4 pb-3 border-b border-solid ${darkMode?"border-zinc-600":"border-zinc-300"}`}>
+                        <div className="w-full px-0 pt-4 pb-3 border-b border-solid dark:border-zinc-600 border-zinc-300">
                             <div className="w-full flex justify-between">
                                 <div className=" font-medium">{component}</div>
                                 <div className="text-[13px]">Settings</div>

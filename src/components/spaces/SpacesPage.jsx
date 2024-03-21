@@ -8,19 +8,17 @@ import DiscoverSpaces from "../discoverSpaces/DiscoverSpaces";
 import { Modal } from "@mui/base";
 import { RxCross2 } from "react-icons/rx";
 import CreateSpaceModel from "../modelsSection/CreateSpaceModel";
-import { useSelector } from "react-redux";
 
 function Spaces(){
     const[openModal,setOpenModal]=useState(false);
-    const{darkMode}=useSelector((state)=>state.mode)
     const handleModel=()=>{
         setOpenModal(!openModal);
     }
     return(
-        <div className={` ${darkMode?"bg-neutral-900 text-zinc-300":"bg-gray-100"}`}>
-        <div className={`flex box-border lg:w-98 lg:mt-8 mt-20 w-full mx-auto pt-8 items-stretch gap-8 font-sans ${darkMode?"bg-neutral-900 text-zinc-300":"bg-gray-100"}`}>
+        <div className="dark:bg-neutral-900 dark:text-zinc-300 bg-gray-100">
+        <div className="flex box-border lg:w-98 lg:mt-8 mt-20 w-full mx-auto pt-8 items-stretch gap-8 font-sans dark:bg-neutral-900 dark:text-zinc-300 bg-gray-100">
             <div className="space-container lg:w-3/4 w-full">
-                <div className={`space-top-sec border border-solid  ${darkMode?"bg-neutral-800 border-zinc-700":"bg-white border-gray-300"}`}>
+                <div className="space-top-sec border border-solid  dark:bg-neutral-800 dark:border-zinc-700 bg-white border-gray-300">
                     <h3>Welcome to Spaces!</h3>
                     <p>Follow Spaces to explore your interests on Quora.</p>
                     <div className="space-top-sec-btns">
@@ -40,8 +38,8 @@ function Spaces(){
                     <DiscoverSpaces/>
                 </div>
             </div>
-            <div className={`lg:block hidden space-right-container border border-solid  ${darkMode?"bg-neutral-800 border-zinc-700":"bg-white border-gray-300"}`}>
-                <div className={`space-right-bar-title font-medium ${darkMode?"text-zinc-300":"text-slate-700"}`}>Pending Invites</div>
+            <div className="lg:block hidden space-right-container border border-solid  dark:bg-neutral-800 dark:border-zinc-700 bg-white border-gray-300">
+                <div className="space-right-bar-title font-medium dark:text-zinc-300 text-slate-700">Pending Invites</div>
                 <div className="space-right-content flex justify-center">
                     <div className="space-right-content-noinvite flex flex-col justify-center items-center">
                         <AiOutlineMail className="font-medium text-slate-400 text-xl"/>

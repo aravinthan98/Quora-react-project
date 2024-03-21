@@ -1,14 +1,12 @@
 import React from "react";
 import {LuPen} from 'react-icons/lu'
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 function QuestionPageAddTopicSection(){
-    const{darkMode}=useSelector((state)=>state.mode)
 
     return(
         <div className="font-sans lg:w-56 lg:block hidden">
             
-            <div className={`flex justify-between pb-2 border-b border-solid border-gray-200 ${darkMode?" text-zinc-300":"text-black"}`}>
+            <div className="flex justify-between pb-2 border-b border-solid border-gray-200 dark:text-zinc-300  text-black">
                 <div>Topics you know about</div>
                 <Link to='/commingsoon'>
                 <div className=" rounded-full px-2 py-1 border border-solid border-zinc-400">
@@ -17,7 +15,7 @@ function QuestionPageAddTopicSection(){
                 </Link>
             </div>
             <div>
-                <div className={`text-center mt-2 py-6 ${darkMode?"bg-neutral-800 text-neutral-400":" bg-[#fff]"}`}>
+                <div className="text-center mt-2 py-6 dark:bg-neutral-800 dark:text-neutral-400 bg-[#fff]">
                     <div className="flex justify-center mb-1">
                         <img src="https://qsf.fs.quoracdn.net/-4-ans_frontend_assets.images.empty_states.dormant_lightmode.png-26-c4532c98034818a0.png" alt="topic-icone" className=" w-12"/>
                     </div>

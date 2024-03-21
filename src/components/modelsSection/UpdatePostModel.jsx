@@ -1,15 +1,12 @@
 import { Modal } from "@mui/material";
 import { useState } from "react"
 import { RxCross2 } from "react-icons/rx";
-import { UpdatePost } from "../../utilities/UpdatePost";
 import { useCurrentContext } from "../../context/currentContext";
-import { useSelector } from "react-redux";
 
 function UpdatePostModel({object,onClickModel,value}){
     const[title,setTitle]=useState(object.title);
     const[content,setContent]=useState(object.content);
     const{profile}=useCurrentContext();
-    const{darkMode}=useSelector((state)=>state.mode)
     const[updateBtn,setUpdateBtn]=useState(true)
     
     const updatePost=(id)=>{
@@ -64,7 +61,7 @@ function UpdatePostModel({object,onClickModel,value}){
         onClose={onClickModel}  
     >
       <div className="w-full h-full flex justify-center items-center">  
-        <div className={` rounded-lg lg:w-auto w-full h-auto ${darkMode?"bg-neutral-800 text-zinc-300":"bg-white text-neutral-800"}`}> 
+        <div className="rounded-lg lg:w-auto w-full h-auto dark:bg-neutral-800 dark:text-zinc-300 bg-white text-neutral-800"> 
           <div className="leading-normal py-3 pr-2 pl-4 text-lg cursor-pointer w-97">
             <RxCross2 onClick={onClickModel}/>
           </div> 
@@ -80,7 +77,7 @@ function UpdatePostModel({object,onClickModel,value}){
               <input type="text" id="username"
               value={title}
                onChange={(e)=>handleTitle(e)}
-               className={`px-3 py-2 w-full rounded text-sm outline-none border border-solid  mt-2 hover:border-blue-600 ${darkMode?"bg-neutral-900 border-zinc-600":"bg-white border-gray-300"}`}
+               className="px-3 py-2 w-full rounded text-sm outline-none border border-solid  mt-2 hover:border-blue-600 dark:bg-neutral-900 dark:border-zinc-600 bg-white border-gray-300"
 
               />
               <br/>
@@ -89,7 +86,7 @@ function UpdatePostModel({object,onClickModel,value}){
             <div className="p-2 my-4">
               <label htmlFor="email" className="font-medium text-base">Content</label>
               <br/>
-              <textarea className={`w-full outline-none border border-solid text-lg ${darkMode?"bg-neutral-900 border-zinc-600":"bg-white border-gray-300"}`} name="content" cols="30" rows="4"
+              <textarea className="w-full outline-none border border-solid text-lg dark:bg-neutral-900 dark:border-zinc-600 bg-white border-gray-300" name="content" cols="30" rows="4"
                value={content}
                onChange={(e)=>handleContent(e)}>                
               </textarea>

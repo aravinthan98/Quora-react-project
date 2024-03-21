@@ -66,63 +66,42 @@ const Login = () => {
       
     })
       .catch(error => console.log('error', error));
-  }   
-    function isValidEmail(mail) {
-      return /\S+@\S+\.\S+/.test(mail);
-    }
-    const handleLoginBtn=(val1,val2)=>{
-        if(val1&&val2){
-          setLoginBtn(false);
-        }
-        else{
-          setLoginBtn(true);
-        }
-    }
-    const handleEmail=(e)=>{
-      setEmail(e.target.value);
-      if(!isValidEmail(e.target.value)){   
-        setEmailError("No account found for this email. Retry, or Sign up for Quora.")         
-      }
-      else{  
+  }  
 
-        setEmailError(null);
-       
-      }
-     handleLoginBtn(e.target.value,password)
-    }
-    const handlePwd=(e)=>{
-      const val=e.target.value
-      setPassword(val);
-      if(val.length<8){
-        setPwdError('Password must be 8 characters')
-      } 
-      else{
-        setPwdError(null);
-      } 
-      handleLoginBtn(email,e.target.value)
-    }
-   const handleClickModel=()=>{
-    setOpenModal(!openModal)
-   }
-
+  function isValidEmail(mail) {
+    return /\S+@\S+\.\S+/.test(mail);
+  }
+  
 
 const handleLoginClick=()=>{
    
-  if( email && password){
+  if (isValidEmail(email) && password.length >= 8) {   
+    fetchLogin();    
+  }
+  else{  
     if(!isValidEmail(email)){   
-        setEmailError("No account found for this email. Retry, or Sign up for Quora.")          
+      setEmailError("No account found for this email. Retry, or Sign up for Quora.")          
     }
     else if(password.length<8){
     setPwdError('Password must be 8 characters');
     }      
-    else{
-    fetchLogin();
-    } 
-  }
-  else{   
-    setEmailError("No account found for this email. Retry, or Sign up for Quora.");
-    setPwdError('Password must be 8 characters');
-  }  
+  } 
+}
+const handleEmail=(e)=>{
+ const emailValue = e.target.value;
+ setEmail(emailValue);
+ setEmailError(!isValidEmail(emailValue) ? "No account found for this email. Retry, or Sign up for Quora." : null);
+ setLoginBtn(emailValue&&password?false:true);
+}
+const handlePwd=(e)=>{
+  const passwordValue = e.target.value;
+    setPassword(passwordValue);
+    setPwdError(passwordValue.length < 8 ? "Password must be at least 8 characters." : null);
+    setLoginBtn(emailValue&&password?false:true);
+}
+
+const handleClickModel=()=>{
+  setOpenModal(!openModal)
 }
 
   return (

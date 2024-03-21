@@ -12,7 +12,6 @@ import { FollowUser } from "../../utilities/FollowUser";
 import { UnFollowUser } from "../../utilities/UnfollowUser";
 import { FetchVote } from "../../utilities/VoteAContent";
 import CommentsModel from "../../utilities/CommentsModel";
-import { useSelector } from "react-redux";
 
 
 function UserProfilePost({postData}){
@@ -25,7 +24,6 @@ function UserProfilePost({postData}){
     const [followState,setFollowState]=useState('Follow');
     const[dotClick,setDotClick]=useState(false);
     const[author,setAuthor]=useState([])
-    const{darkMode}=useSelector((state)=>state.mode)
 
     const handleChats=()=>{       
         setCommentBoxClicked(!commentBoxClicked);        
@@ -92,16 +90,16 @@ function UserProfilePost({postData}){
       }
 
     return(
-        <div  key={postData.id} className={`rounded border mb-3 border-solid transition-all duration-500 ease-in-out ${darkMode ? "border-neutral-800" :  " border-gray-300"}`}>
-            <div className={`flex flex-col px-3 pt-3 relative ${darkMode?"bg-neutral-800":"bg-white"}`}>
+        <div  key={postData.id} className="rounded border mb-3 border-solid transition-all duration-500 ease-in-out dark:border-neutral-800 border-gray-300">
+            <div className="flex flex-col px-3 pt-3 relative dark:bg-neutral-800 bg-white">
            
             <div>
                 <div>
                     <Link to='/question-detailpage' state={postData}>
-                    <div className={`box-border mb-1 font-bold text-base cursor-pointer hover:underline transition-all duration-500 ease-in-out ${darkMode?"text-neutral-200":"text-neutral-900"}`} 
+                    <div className="box-border mb-1 font-bold text-base cursor-pointer hover:underline transition-all duration-500 ease-in-out dark:text-neutral-200 text-neutral-900"
                     onClick={()=>handleQuestion(postData)}>{postData.title}</div>
                     </Link>
-                    <div className={darkMode?"text-neutral-300":"text-neutral-800"}>{postData.content}</div>               
+                    <div className="dark:text-neutral-300 text-neutral-800">{postData.content}</div>               
                 </div>
                 <div>
                     {postData.post_image!==" "?
@@ -112,23 +110,23 @@ function UserProfilePost({postData}){
                     <div className="box-border flex px-3 flex-nowrap justify-between py-1">
                         <div className="flex items-center cursor-pointer">
                         {postData.author_id===profile.id?(
-                            <div className={`box-border flex mr-2 h-8 rounded-full border-r opacity-40 border-solid  ${darkMode?"bg-neutral-700 border-neutral-600":"bg-zinc-100 border-gray-200"}`}>
+                            <div className="box-border flex mr-2 h-8 rounded-full border-r opacity-40 border-solid  dark:bg-neutral-700 dark:border-neutral-600 bg-zinc-100 border-gray-200">
                                 <div className="box-border flex items-center px-2 h-8 " >
                                     <RxThickArrowUp className="text-2xl text-blue-700" />
                                     <span className="text-[13px] font-medium ml-1">Upvote. {likeCount}</span>
                                 </div>
-                                <div className={`h-8 border-r border-solid ${darkMode?"border-neutral-600":"border-zinc-200"}`}></div>
+                                <div className="h-8 border-r border-solid dark:border-neutral-600 border-zinc-200"></div>
                                 <div className="box-border flex items-center justify-center px-2 pb-1 h-8" >
                                 <RxThickArrowDown  className="text-2xl"/>
                                 </div>
                             </div>
                         ):(
-                            <div className={`box-border flex mr-2 h-8 rounded-full border-r border-solid  ${darkMode?"bg-neutral-700 border-neutral-600":"bg-zinc-100 border-gray-200"}`}>
+                            <div className="box-border flex mr-2 h-8 rounded-full border-r border-solid  dark:bg-neutral-700 dark:border-neutral-600 bg-zinc-100 border-gray-200">
                                 <div className="box-border flex items-center px-2 h-8 " id={clickedBtn==="upvote"?"upvoted":"noupvote"}onClick={()=>handleVoteClick(postData.id,profile.token)}>
                                 {voteArray.includes(postData.id)?(<BiSolidUpvote className="text-2xl text-blue-700" />):(<RxThickArrowUp className="text-2xl text-blue-700" />)} 
                                     <span className="text-[13px] font-medium ml-1">Upvote. {likeCount}</span>
                                 </div>
-                                <div className={`h-8 border-r border-solid ${darkMode?"border-neutral-600":"border-zinc-200"}`}></div>
+                                <div className="h-8 border-r border-solid dark:border-neutral-600 border-zinc-200"></div>
                                 <div className="box-border flex items-center justify-center px-2 pb-1 h-8" onClick={()=>handleDownVoteClick(postData.id,profile.token)}>
                                 {clickedBtn==="downvote"?(<BiSolidDownvote className="text-2xl text-orange-700"/>):(<RxThickArrowDown  className="text-2xl"/>)}
                                 </div>
@@ -148,7 +146,7 @@ function UserProfilePost({postData}){
                         <div className="box-border flex items-center h-8 min-w-8 px-1e cursor-pointer" onClick={handleMore}>
                             <BsThreeDots className="text-xl "/>
                             <div className={dotClick?"block absolute left-auti top-auto bottom-0 right-0 translate-x-20 -translate-y-11 ":"hidden"}>
-                                <div className={`p-2.5 rounded border border-solid shadow ${darkMode?"bg-neutral-800 text-gray-300  border-gray-600":"bg-white  border-gray-300"}`}>
+                                <div className="p-2.5 rounded border border-solid shadow dark:bg-neutral-800 dark:text-gray-300  dark:border-gray-600 bg-white  border-gray-300">
                                     <div className="flex gap-1" onClick={()=>handleCloseMore(postData.id)}>
                                     <RxThickArrowDown  className=" text-base"/>
                                     <div className=" whitespace-nowrap text-sm ">Downvote question</div>

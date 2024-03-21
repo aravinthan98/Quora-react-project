@@ -34,7 +34,7 @@ function MobileNavbarTop(){
         setOpenModal(!openModal);
        }
     return(
-        <div className={`lg:hidden block w-full fixed box-border top-0 left-0 p-0 right-0 m-0 h-12 border-b border-solid  z-30 ${darkMode?" bg-neutral-900 border-neutral-700":"bg-red-700 border-gray-200"}`}>
+        <div className="lg:hidden block w-full fixed box-border top-0 left-0 p-0 right-0 m-0 h-12 border-b border-solid  z-30 bg-red-700 border-gray-200 dark:bg-neutral-900 dark:border-neutral-700">
             
                 <div className="flex justify-between w-full h-full items-center">
                     <div className="box-border px-1.5 ml-2 grid place-items-center relative">
@@ -78,7 +78,7 @@ function MobileNavbarTop(){
                                             onChange={(e)=>setInputValue(e.target.value)}
                                             onKeyDown={handleKeyPress}  
                                             
-                                            className={`box-border w-full shadow-none bg-transparent h-7 text-[13px] outline-none border-none overflow-hidden text-ellipsis ${darkMode?"text-zinc-300":"text-black"} `}     
+                                            className="box-border w-full shadow-none bg-transparent h-7 text-[13px] outline-none border-none overflow-hidden text-ellipsis text-black dark:text-zinc-300"   
                                         />
                                     </div>        
                                 </div>

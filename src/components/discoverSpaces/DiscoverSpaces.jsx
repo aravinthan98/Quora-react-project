@@ -1,15 +1,12 @@
 import React,{useState,useEffect} from "react";
 import './DiscoverSpaces.scss'
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useCurrentContext } from "../../context/currentContext";
-import { useSelector } from "react-redux";
-
 function DiscoverSpaces(){
   
   const [posts, setPost] = useState([]);
   const{selectedChannel,setSelectedChannel}=useCurrentContext();
-  const{darkMode}=useSelector((state)=>state.mode)
   const bgArray=["https://qsf.cf2.quoracdn.net/-4-ans_frontend_assets.images.tribes.defaults.space_banner_gray.png-26-1f9c20337a735e4b.png",
   "https://qsf.cf2.quoracdn.net/-4-ans_frontend_assets.images.tribes.defaults.space_banner_yellow.png-26-0cad087b263ce130.png",
   "https://qsf.cf2.quoracdn.net/-4-ans_frontend_assets.images.tribes.defaults.space_banner_green.png-26-f0b46f18277322da.png",
@@ -61,18 +58,18 @@ function DiscoverSpaces(){
                     {posts?.map((item,index)=>(
                       <div key={item._id} className="">
                         <Link to='/channel_detail_page' state={`${item._id}`}>
-                          <div className={`space-card relative cursor-pointer border border-solid shadow ${darkMode?" bg-neutral-800 border-zinc-700":"bg-white border-gray-300"}`}  onClick={()=>handleSpaceNavigation(item)}>
+                          <div className="space-card relative cursor-pointer border border-solid shadow dark:bg-neutral-800 dark:border-zinc-700 bg-white border-gray-300"  onClick={()=>handleSpaceNavigation(item)}>
                             <div className="space-card-img">
                             <img src={item.image?item.image:bgArray[index%bgArray.length]} alt="space-imgae"/>
                             </div>
                             <div className="flex justify-center items-center absolute top-7 w-44">
-                              <div className={`box-border w-11 h-11 rounded-xl flex justify-center items-center  ${darkMode?"bg-neutral-800":"bg-white"}`}>
+                              <div className="box-border w-11 h-11 rounded-xl flex justify-center items-center dark:bg-neutral-800 bg-white">
                                 <img src={item.image?item.image:dpArray[index%dpArray.length]} alt="s-logo" className="w-10 h-10 rounded-xl"/>
                               </div>
                             </div>
                             <div className="space-card-details ">
                                 <h4>{item.name}</h4>
-                                <p className={`text-sm ${darkMode?"text-neutral-400":"text-neutral-900"}`}>{item.description}</p>
+                                <p className="text-sm dark:text-neutral-400 text-neutral-900">{item.description}</p>
 
                             </div>
                           </div>

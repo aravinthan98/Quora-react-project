@@ -6,7 +6,6 @@ function ProfilePost(){
     const{profile,selectedProfile,reRenderPost}=useCurrentContext()
     const[posts,setPosts]=useState([]);
     
-
 const getposts=()=>{
     var myHeaders = new Headers();
     myHeaders.append("projectID", "f104bi07c490");

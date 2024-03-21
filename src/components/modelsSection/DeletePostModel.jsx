@@ -5,7 +5,6 @@ import { DeletePost } from "../../utilities/DeletePost";
 
 function DeletePostModel({postId,onClickModel,value}){
     const{profile}=useCurrentContext();
-    const{darkMode}=useSelector((state)=>state.mode)
     const handleDeletePost=()=>{
         DeletePost(postId,profile.token)
         onClickModel();
@@ -16,7 +15,7 @@ function DeletePostModel({postId,onClickModel,value}){
        
     >
       <div className="w-full h-full flex justify-center items-center">  
-        <div className={` rounded-lg lg:w-auto w-full h-auto ${darkMode?"bg-neutral-800 text-zinc-300":"bg-white text-neutral-800"}`}>       
+        <div className="rounded-lg lg:w-auto w-full h-auto dark:bg-neutral-800 dark:text-zinc-300 bg-white text-neutral-800">       
           
             <div className="pt-0 px-3 pb-3">
               <h3 className="mx-4 mt-4 mb-1 p-0 font-bold text-lg">Delete Post</h3>
