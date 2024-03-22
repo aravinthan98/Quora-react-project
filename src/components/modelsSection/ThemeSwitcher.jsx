@@ -9,7 +9,6 @@ export default function ThemeSwitcher(){
 
         root.className=theme;
         body.className=theme
-        console.log(theme)
     },[theme])
     const toggleDarkMode=(e)=>{
         e.stopPropagation();

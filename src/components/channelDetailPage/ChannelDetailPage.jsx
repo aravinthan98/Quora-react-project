@@ -10,21 +10,22 @@ function ChannelDetailPage(){
   const[channelPosts,setChannelPost]=useState([]);
   const[channelTab,setChannelTab]=useState('channel-post');
   const{state}=useLocation();
-  const fetchChannelPost=(id)=>{
-    var myHeaders = new Headers();
-    myHeaders.append("projectID", "f104bi07c490");
-    myHeaders.append("Authorization", `Bearer ${profile.token}`);
-    
-    var requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-      redirect: 'follow'
-    };
-    
-    fetch(`https://academics.newtonschool.co/api/v1/quora/channel/${id}/posts?limit=10`, requestOptions)
-      .then(response => response.json())
-      .then((result) =>{
-        const newObjArr= result.data.slice(0,10).map((item)=>({
+  const fetchChannelPost=async(id)=>{
+    try{
+      var requestOptions = {
+        method: 'GET',
+        headers: {
+          "projectID": "f104bi07c490",
+          "Authorization": `Bearer ${profile.token}`
+        },
+        redirect: 'follow'
+      }
+      const response=await fetch(`https://academics.newtonschool.co/api/v1/quora/channel/${id}/posts?limit=10`, requestOptions)
+      if(!response.ok){
+        throw new Error('Network response was not ok');
+      }
+      const result=await response.json();   
+      const newObjArr= result.data.slice(0,10).map((item)=>({
           author_id:item.author,
           author_name:selectedChannel.channelName,
           author_image:selectedChannel.image,
@@ -37,32 +38,35 @@ function ChannelDetailPage(){
         }))
         setChannelPost(newObjArr);
     
-      } )
-      .catch(error => console.log('error', error));
+      } 
+      catch(error){
+        console.log('error', error)
+      };
       
   }
-  const fetchChannelDetail=(id)=>{
-    var myHeaders = new Headers();
-    myHeaders.append("projectID", "f104bi07c490");
-    myHeaders.append("Authorization", `Bearer ${profile.token}`);
-    
-    var requestOptions = {
-      method: 'GET',
-      headers: myHeaders,
-      redirect: 'follow'
-    };
-    
-    fetch(`https://academics.newtonschool.co/api/v1/quora/channel/${id}`, requestOptions)
-      .then(response => response.json())
-      .then((result) =>{
-        setChannelDetails(result.data);
-        fetchChannelPost(id); 
-        
-      } )
-      .catch(error => console.log('error', error));      
+  const fetchChannelDetail=async(id)=>{
+    try{
+      var requestOptions = {
+        method: 'GET',
+        headers: {
+          "projectID": "f104bi07c490",
+          "Authorization": `Bearer ${profile.token}`
+        },
+        redirect: 'follow'
+      };    
+      const response =await fetch(`https://academics.newtonschool.co/api/v1/quora/channel/${id}`, requestOptions)    
+      if(!response.ok){
+        throw new Error('Network response was not ok');
+      }
+      const result=await response.json()
+      setChannelDetails(result.data);
+      fetchChannelPost(id); 
+    }   
+    catch(error ){
+      console.log('error', error)
+    };      
   } 
-    useEffect(()=>{
-    
+    useEffect(()=>{   
       if(state){   
         fetchChannelDetail(state)  
       }                      
@@ -70,7 +74,7 @@ function ChannelDetailPage(){
 
     useEffect(()=>{
       if(renderChannel){
-      fetchChannelDetail(renderChannel)
+        fetchChannelDetail(renderChannel)
       }
     },[renderChannel])
     return(

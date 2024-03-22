@@ -6,125 +6,92 @@ import "./Login.scss";
 import React,{useState} from 'react';
 import { BiInfoCircle } from 'react-icons/bi';
 function SignUp({onModelClick,val}){
-    const{setLogin,profile,setProfile}=useCurrentContext();
-    const[userName,setUserName]=useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");   
-    const navigate=useNavigate();
-    const[userNameError,setUserNameError]=useState(null);
-    const[emailError,setEmailError]=useState(null);
-    const[pwdError,setPwdError]=useState(null);
-    const[signUpBtn,setSignUpBtn]=useState(true);
+  const navigate=useNavigate();
+  const{setLogin,profile,setProfile}=useCurrentContext();
+  const[userName,setUserName]=useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");    
+  const[userNameError,setUserNameError]=useState(null);
+  const[emailError,setEmailError]=useState(null);
+  const[pwdError,setPwdError]=useState(null);
+  const[signUpBtn,setSignUpBtn]=useState(true);
 
-    
-  const fetchSignup=()=>{
-    var myHeaders = new Headers();
-    myHeaders.append("projectId", "f104bi07c490");
-    myHeaders.append("Content-Type", "application/json");
-    
-    var raw = JSON.stringify({
-      "name": `${userName}`,
-      "email": `${email}`,
-      "password": `${password}`,
-      "appType": "quora"
-    });
-    
-    var requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: raw,
-      redirect: 'follow'
-    };
-    
-    fetch("https://academics.newtonschool.co/api/v1/user/signup?projectId=f104bi07c490&Content-Type=application/json", requestOptions)
-    .then((response) => response.json())
-    .then((result) =>{
-     
-      if(result.status=="success"){
-      
-          setLogin(true);
-       
-          setProfile({
-            ...profile,
-        userName: `${result.data.user.name}`,
-        image:"",
-        token:`${result.token}`,
-        id:`${result.data.user_id}`
-        })
-        var myObject = {
-            userName: `${result.data.user.name}`,
-            image:"",
-            token:`${result.token}`,
-            id:`${result.data.user._id}`
-        };
-
-          localStorage.setItem('userLogin', JSON.stringify(myObject));
-        
-          return navigate('/')
-        }
-        else{
-         
-          setEmailError(result.message);
-
-      }
-
-})
-.catch(error => console.log('error', error));
-} 
   function isValidEmail(mail) {
     return /\S+@\S+\.\S+/.test(mail);
   }
-
-  const handleSignUpBtn=(val1,val2,val3)=>{
-    if(val1&&val2&&val3){
-      setSignUpBtn(false)
-    }
-    else{
-      setSignUpBtn(true);
-    }
-  }
   const handleEmail=(e)=>{
-    setEmail(e.target.value);
-    if(!isValidEmail(e.target.value)){   
-      setEmailError("No account found for this email. Retry, or Sign up for Quora.")         
-    }
-    else{  
-      setEmailError(null);    
-    }
-    handleSignUpBtn(userName,e.target.value,password)
-   
+    const emailValue=e.target.value;
+    setEmail(emailValue);    
+    setEmailError(!isValidEmail(emailValue)?"No account found for this email. Retry, or Sign up for Quora.":null)         
+    handleSignUpBtn(userName,emailValue,password)  
   }
   const handlePwd=(e)=>{
-    setPassword(e.target.value);
-    if(e.target.value.length<8){
-      setPwdError('Password must be 8 characters')
-    } 
-    else{
-      setPwdError(null);
-    }
+    const passwordValue=e.target.value;
+    setPassword(passwordValue);
+    setPwdError(passwordValue.length<8?'Password must be 8 characters':null)
     handleSignUpBtn(userName,email,e.target.value) 
   }
   const handleUserName=(e)=>{
-    setUserName(e.target.value)
-    handleSignUpBtn(e.target.value,email,password)
+    const nameValue=e.target.value;
+    setUserName(nameValue)
+    setUserNameError(nameValue.trim().length < 3?'Username must be at least 3 characters.' : null)
+    handleSignUpBtn(nameValue,email,password)
   }
-const handleSignUpClick=()=>{
-  
-  if( email && password&&userName){
+  const handleSignUpBtn=(userName, email, password)=>{  
+    setSignUpBtn(!(userName&&email&&password&&isValidEmail(email)&&password.length>=8&&userName.trim().length>=3))  
+  }
+  const fetchSignup=async()=>{
+    var requestOptions = {
+      method: 'POST',
+      headers: {
+        "projectId": "f104bi07c490",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        "name": userName,
+        email,
+        password,
+        "appType": "quora"
+      }),
+      redirect: 'follow'
+    };
+    const response=await fetch("https://academics.newtonschool.co/api/v1/user/signup", requestOptions)
+    return await response.json();
+  } 
+
+const handleSignUpClick=async()=>{
+  try {
+    if (isValidEmail(email) && password.length >= 8) {   
+      const response=await fetchSignup(); 
+      if(response.status=="success"){
+        setLogin(true);
+        const{data, token}=response;
+        const userProfile={
+          userName: data.name,
+          image:"",
+          token,
+          id:data._id
+        }
+        localStorage.setItem('userLogin', JSON.stringify(userProfile));
+        setProfile(userProfile)
+        navigate('/')
+      }
+      else{
+        setEmailError(response.message)
+      }
+    }
+    else{  
       if(!isValidEmail(email)){   
         setEmailError("No account found for this email. Retry, or Sign up for Quora.")          
-     }
-     else if(password.length<8){
-      setPwdError('Password must be 8 characters');
-     }      
-     else{   
-        fetchSignup();        
-     }
+      }
+      else if(password.length<8){
+        setPwdError('Password must be 8 characters');
+      }      
+    }  
   }
-  else{   
-    setEmailError("No account found for this email. Retry, or Sign up for Quora.");
-    setPwdError('Password must be 8 characters');
-  }
+  catch(error){
+    console.error('Error during login:', error)
+  } 
   
 }
     return(
@@ -145,6 +112,12 @@ const handleSignUpClick=()=>{
                          value={userName}
                          onChange={(e) => handleUserName(e)}
                         />
+                        {userNameError&&
+                            <div className="flex w-5/6 gap-1">
+                              <div className="text-red-600 mt-1"><BiInfoCircle /></div>
+                              <div className="text-[13px] text-red-600">{userNameError}</div>
+                            </div>
+                          }
                     </div>
                     <div className="sign-auth">
                         <label htmlFor="email">Email</label>

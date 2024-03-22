@@ -16,88 +16,73 @@ const Login = () => {
   const[openModal,setOpenModal]=useState(false);
    const[loginBtn,setLoginBtn]=useState(true);
 
- 
-  const fetchLogin=()=>{
-    var myHeaders = new Headers();
-    myHeaders.append("projectId", "f104bi07c490");
-    myHeaders.append("Content-Type", "application/json");
-    
-    var raw = JSON.stringify({
-      "email": `${email}`,
-      "password": `${password}`,
-      "appType": "quora"
-    });
-    
+   function isValidEmail(mail) {
+    return /\S+@\S+\.\S+/.test(mail);
+  }
+  const handleLoginClick=async()=>{
+    try {
+      if (isValidEmail(email) && password.length >= 8) {   
+        const response=await fetchLogin(); 
+        if(response.status=="success"){
+          setLogin(true);
+          const{data, token}=response;
+          const userProfile={
+            userName: data.name,
+            image:"",
+            token,
+            id:data._id
+          }
+          localStorage.setItem('userLogin', JSON.stringify(userProfile));
+          setProfile(userProfile)
+          navigate('/')
+        }
+        else{
+            setPwdError(response.message);
+        } 
+      }
+      else{  
+        if(!isValidEmail(email)){   
+          setEmailError("No account found for this email. Retry, or Sign up for Quora.")          
+        }
+        else if(password.length<8){
+        setPwdError('Password must be 8 characters');
+        }      
+      }
+    }
+    catch(error){
+      console.error('Error during login:', error)
+    } 
+  }
+  const fetchLogin=async()=>{
     var requestOptions = {
       method: 'POST',
-      headers: myHeaders,
-      body: raw,
+      headers: {
+        "projectId": "f104bi07c490",
+        "Content-Type": "application/json"
+      },
+      body:JSON.stringify({
+        email,
+        password,
+        "appType": "quora"
+      }),
       redirect: 'follow'
     };
     
-    fetch("https://academics.newtonschool.co/api/v1/user/login", requestOptions)
-      .then((response) => response.json())
-      .then((result) =>{
-        if(result.status=="success"){
-            setLogin(true);
-           
-            setProfile({
-              ...profile,
-          userName: `${result.data.name}`,
-          image:"",
-          token:`${result.token}`,
-          id:`${result.data._id}`
-          })
-          var myObject = {
-              userName: `${result.data.name}`,
-              image:"",
-              token:`${result.token}`,
-              id:`${result.data._id}`
-          };
-  
-            localStorage.setItem('userLogin', JSON.stringify(myObject));
-            return navigate('/')
-        }
-        else{
-     
-            setPwdError(result.message);
-            // setError(true)
-        }
-      
-    })
-      .catch(error => console.log('error', error));
+    const response=await fetch("https://academics.newtonschool.co/api/v1/user/login", requestOptions)
+    return await response.json();
   }  
 
-  function isValidEmail(mail) {
-    return /\S+@\S+\.\S+/.test(mail);
-  }
-  
-
-const handleLoginClick=()=>{
-   
-  if (isValidEmail(email) && password.length >= 8) {   
-    fetchLogin();    
-  }
-  else{  
-    if(!isValidEmail(email)){   
-      setEmailError("No account found for this email. Retry, or Sign up for Quora.")          
-    }
-    else if(password.length<8){
-    setPwdError('Password must be 8 characters');
-    }      
-  } 
-}
 const handleEmail=(e)=>{
  const emailValue = e.target.value;
  setEmail(emailValue);
  setEmailError(!isValidEmail(emailValue) ? "No account found for this email. Retry, or Sign up for Quora." : null);
- setLoginBtn(emailValue&&password?false:true);
+ setLoginBtn(!(emailValue&&password&&isValidEmail(emailValue)&&password.length>=8));
 }
 const handlePwd=(e)=>{
   const passwordValue = e.target.value;
-    setPassword(passwordValue);
-    setPwdError(passwordValue.length < 8 ? "Password must be at least 8 characters." : null);
-    setLoginBtn(emailValue&&password?false:true);
+  setPassword(passwordValue);
+  setPwdError(passwordValue.length < 8 ? "Password must be at least 8 characters." : null);
+  setLoginBtn(!(email&&passwordValue&&isValidEmail(email)&&passwordValue.length>=8));
 }
 
 const handleClickModel=()=>{
