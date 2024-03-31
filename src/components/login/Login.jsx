@@ -67,9 +67,17 @@ const Login = () => {
       }),
       redirect: 'follow'
     };
+    try{
+    const response=await fetch("https://academics.newtonschool.co/api/v1/user/login", requestOptions) 
     
-    const response=await fetch("https://academics.newtonschool.co/api/v1/user/login", requestOptions)
-    return await response.json();
+      if (!response.ok) {
+        throw new Error('Failed to fetch data');
+      }
+      return await response.json();
+    }
+    catch(error){
+      throw error;
+    }
   }  
 
 const handleEmail=(e)=>{

@@ -12,7 +12,9 @@ const modeSlice = createSlice({
         setMode(state, value) { 
             state.darkMode = value.payload 
             localStorage.setItem('darkMode', JSON.stringify(state.darkMode)); 
-}}}) 
+        }
+    }
+}) 
   
 export const { setMode } = modeSlice.actions; 
 export default modeSlice.reducer;

@@ -55,8 +55,17 @@ function SignUp({onModelClick,val}){
       }),
       redirect: 'follow'
     };
-    const response=await fetch("https://academics.newtonschool.co/api/v1/user/signup", requestOptions)
-    return await response.json();
+    try{
+      const response=await fetch("https://academics.newtonschool.co/api/v1/user/signup", requestOptions)
+      if(!response.ok){
+        throw new Error('Failed to Signup');
+      }
+      return await response.json();
+    }
+    catch(error){
+      throw error;
+    }
+   
   } 
 
 const handleSignUpClick=async()=>{
@@ -67,10 +76,10 @@ const handleSignUpClick=async()=>{
         setLogin(true);
         const{data, token}=response;
         const userProfile={
-          userName: data.name,
+          userName: data.user.name,
           image:"",
           token,
-          id:data._id
+          id:data.user._id
         }
         localStorage.setItem('userLogin', JSON.stringify(userProfile));
         setProfile(userProfile)
